@@ -16,6 +16,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Sei la
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Install Dependencies
         run: yarn
 
