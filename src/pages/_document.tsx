@@ -2,7 +2,7 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 interface MyDocumentProps {
-  styleTags: Array<React.ReactElement<{}>>;
+  styleTags: Array<React.ReactElement>;
 }
 
 export default class MyDocument extends Document<MyDocumentProps> {
