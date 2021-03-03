@@ -20,13 +20,20 @@ export const Sidebar = styled.div`
   width: 20%;
   background-color: #ececec;
   position: fixed;
-  height: 50%;
-  overflow: auto;
+  height: 70%;
   font-family: cursive; 
   left: 0.5%;
   top: 7%;
   border-radius: 0.5rem;
   z-index: 1;
+  @media screen and (max-width: 1080px) {
+    width: 35%;
+    height: 60%;
+  }
+  @media screen and (max-width: 550px) {
+    width: 50%;
+    height: 50%;
+  }
 `;
 
 export const List = styled.div`
@@ -39,7 +46,6 @@ export const List = styled.div`
   overflow: auto;
   font-family: cursive;  
   right: 0;
-  
 `;
 
 export const Navbar = styled.div`
@@ -53,4 +59,9 @@ export const Navbar = styled.div`
   font-family: cursive;  
   top: 0;
   z-index: 1;
+  box-shadow: 0px 2px 6px 0px rgba(1,1,1,0.4);
+`;
+
+export const Title = styled.h1`
+  color: rgba(5,1,5, 0.7);
 `;

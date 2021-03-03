@@ -8,4 +8,5 @@ html,
 body,
 body > div:first-child {
   height: 100vh;
+  background-color: rgba(1, 1, 1, 0.05);
 }

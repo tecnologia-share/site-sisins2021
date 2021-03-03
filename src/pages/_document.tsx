@@ -24,6 +24,7 @@ export default class MyDocument extends Document<MyDocumentProps> {
         <Head>
           <title>My page</title>
           {this.props.styleTags}
+          <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         </Head>
         <body>
           <Main />

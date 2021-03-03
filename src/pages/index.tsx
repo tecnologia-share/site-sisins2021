@@ -1,7 +1,8 @@
+import { Title } from '../client/styles/styles';
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <Title> Home </Title>
     </div>
   );
 };
