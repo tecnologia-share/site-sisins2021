@@ -13,7 +13,7 @@ import { Participante } from './Participante';
 
 @Entity('inscricoes')
 class Inscricao {
-  @PrimaryColumn()
+     @PrimaryColumn()
   readonly id: string;
 
   @Column()
