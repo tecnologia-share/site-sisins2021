@@ -17,7 +17,7 @@ export class CreateCurso1615329064778 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'tipo',
+            name: 'categoria',
             type: 'varchar',
           },
           {
@@ -48,7 +48,7 @@ export class CreateCurso1615329064778 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKProcessosSeletivos',
+            name: 'FKProcessoSeletivo',
             referencedTableName: 'processos_seletivos',
             referencedColumnNames: ['id'],
             columnNames: ['processo_seletivo_id'],

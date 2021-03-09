@@ -32,7 +32,7 @@ export class CreateAvaliacao1615329076921 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKUsuariosShare',
+            name: 'FKUsuarioShare',
             referencedTableName: 'usuarios_share',
             referencedColumnNames: ['id'],
             columnNames: ['usuario_share_id'],
@@ -40,7 +40,7 @@ export class CreateAvaliacao1615329076921 implements MigrationInterface {
             onUpdate: 'CASCADE',
           },
           {
-            name: 'FKInscricoes',
+            name: 'FKInscricao',
             referencedTableName: 'inscricoes',
             referencedColumnNames: ['id'],
             columnNames: ['inscricao_id'],

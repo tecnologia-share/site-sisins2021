@@ -40,7 +40,7 @@ export class CreateInscricao1615329070691 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKParticipantes',
+            name: 'FKParticipante',
             referencedTableName: 'participantes',
             referencedColumnNames: ['id'],
             columnNames: ['participante_id'],
@@ -48,7 +48,7 @@ export class CreateInscricao1615329070691 implements MigrationInterface {
             onUpdate: 'CASCADE',
           },
           {
-            name: 'FKCursos',
+            name: 'FKCurso',
             referencedTableName: 'cursos',
             referencedColumnNames: ['id'],
             columnNames: ['curso_id'],

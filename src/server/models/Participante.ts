@@ -28,6 +28,9 @@ class Participante {
   pais: string;
 
   @Column()
+  estado: string;
+
+  @Column()
   cidade: string;
 
   @CreateDateColumn()

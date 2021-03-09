@@ -41,6 +41,10 @@ export class CreateParticipante1615329051641 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'estado',
+            type: 'varchar',
+          },
+          {
             name: 'cidade',
             type: 'varchar',
           },
