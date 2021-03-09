@@ -22,6 +22,9 @@ class Participante {
   nascimento: Date;
 
   @Column()
+  verified: string;
+
+  @Column()
   pais: string;
 
   @Column()

@@ -18,6 +18,9 @@ class UsuarioShare {
   @Column()
   nome: string;
 
+  @Column()
+  verified: string;
+
   @CreateDateColumn()
   created_at: Date;
 
