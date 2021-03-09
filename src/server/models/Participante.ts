@@ -27,7 +27,7 @@ class Participante {
     @Column()
     cidade: string;
 
-    @Column()
+    @CreateDateColumn()
     created_at: Date;
 
     constructor() {
