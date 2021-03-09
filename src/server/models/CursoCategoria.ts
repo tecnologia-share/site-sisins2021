@@ -1,31 +1,13 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity('participantes')
-class Participante {
+@Entity('cursos_categorias')
+class CursoCategoria {
   @PrimaryColumn()
   readonly id: string;
 
   @Column()
   nome: string;
-
-  @Column()
-  senha: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  telefone: string;
-
-  @Column()
-  nascimento: Date;
-
-  @Column()
-  pais: string;
-
-  @Column()
-  cidade: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -37,4 +19,4 @@ class Participante {
   }
 }
 
-export { Participante };
+export { CursoCategoria };

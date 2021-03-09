@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity('participantes')
-class Participante {
+@Entity('questoes')
+class Questao {
   @PrimaryColumn()
   readonly id: string;
 
@@ -10,22 +10,34 @@ class Participante {
   nome: string;
 
   @Column()
-  senha: string;
+  pergunta: string;
 
   @Column()
-  email: string;
+  imagem: string;
 
   @Column()
-  telefone: string;
+  horario: string;
 
   @Column()
-  nascimento: Date;
+  is_objetiva: boolean;
 
   @Column()
-  pais: string;
+  alternativa1: string;
 
   @Column()
-  cidade: string;
+  alternativa2: string;
+
+  @Column()
+  alternativa3: string;
+
+  @Column()
+  alternativa4: string;
+
+  @Column()
+  alternativa5: string;
+
+  @Column()
+  gabarito: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -37,4 +49,4 @@ class Participante {
   }
 }
 
-export { Participante };
+export { Questao };

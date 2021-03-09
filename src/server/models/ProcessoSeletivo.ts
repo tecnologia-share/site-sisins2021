@@ -3,26 +3,26 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('processos_seletivos')
 class ProcessoSeletivo {
-    @PrimaryColumn()
-    readonly id: string;
+  @PrimaryColumn()
+  readonly id: string;
 
-    @Column()
-    data_inicio: Date;
+  @Column()
+  data_inicio: Date;
 
-    @Column()
-    data_final: Date;
+  @Column()
+  data_final: Date;
 
-    @Column()
-    nome: string;
+  @Column()
+  nome: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
     }
+  }
 }
 
 export { ProcessoSeletivo };
