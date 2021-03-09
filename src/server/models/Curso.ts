@@ -1,5 +1,14 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
+
+import { ProcessoSeletivo } from './ProcessoSeletivo';
 
 @Entity('cursos')
 class Curso {
@@ -9,24 +18,24 @@ class Curso {
   @Column()
   processo_seletivo_id: string;
 
-  //   @ManyToOne(() => ProcessoSeletivo)
-  //   @JoinColumn({ name: 'processo_seletivo_id' })
-  //   processo_seletivo: ProcessoSeletivo;
+  @ManyToOne(() => ProcessoSeletivo)
+  @JoinColumn({ name: 'processo_seletivo_id' })
+  processoSeletivo: ProcessoSeletivo;
 
   @Column()
-  tipo: string; // se o curso é de idiomas, tecnologia, etc..
+  tipo: string;
 
   @Column()
   nome: string;
 
   @Column()
-  prof: string;
+  professor: string;
 
   @Column()
   descricao: string;
 
   @Column()
-  hasProva: boolean;
+  has_prova: boolean;
 
   @Column()
   horario: string;

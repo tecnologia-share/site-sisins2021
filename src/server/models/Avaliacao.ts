@@ -9,6 +9,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 import { Inscricao } from './Inscricao';
+import { UsuarioShare } from './UsuarioShare';
 
 @Entity('avaliacoes')
 class Avaliacao {
@@ -18,9 +19,10 @@ class Avaliacao {
   @Column()
   usuario_share_id: string;
 
-  //   @ManyToOne(() => UsuarioShare)
-  //   @JoinColumn({ name: 'usuario_share_id' })
-  //   usuario_share: UsuarioShare;
+  @ManyToOne(() => UsuarioShare)
+  @JoinColumn({ name: 'usuario_share_id' })
+  usuarioShare: UsuarioShare;
+
   @Column()
   inscricao_id: string;
 

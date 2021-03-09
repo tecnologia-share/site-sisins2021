@@ -24,7 +24,7 @@ jobs:
         run: yarn test
 
       - name: Prettier
-        run: yarn prettier
+        run: yarn prettier:check
 
       - name: Lint
         run: yarn lint

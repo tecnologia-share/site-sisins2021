@@ -5,12 +5,12 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
-  Unique,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { Curso } from './Curso';
 
-@Unique(['motivo'])
+import { Curso } from './Curso';
+import { Participante } from './Participante';
+
 @Entity('inscricoes')
 class Inscricao {
   @PrimaryColumn()
@@ -19,9 +19,10 @@ class Inscricao {
   @Column()
   participante_id: string;
 
-  //   @ManyToOne(() => Participante)
-  //   @JoinColumn({ name: 'participante_id' })
-  //   participante: Participante;
+  @ManyToOne(() => Participante)
+  @JoinColumn({ name: 'participante_id' })
+  participante: Participante;
+
   @Column()
   curso_id: string;
 
@@ -29,7 +30,7 @@ class Inscricao {
   @JoinColumn({ name: 'curso_id' })
   curso: Curso;
 
-  @Column({ name: 'motivo' })
+  @Column()
   motivo: string;
 
   @Column()
