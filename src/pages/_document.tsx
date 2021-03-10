@@ -38,7 +38,6 @@ export default class MyDocument extends Document<MyDocumentProps> {
           <meta name="application-name" content="Share Frontpage" />
           <meta name="keywords" content="SEO" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-          <title>Associacao Share</title>
           <link rel="preconnect" href="https://fonts.gstatic.com"></link>
           <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Redressed&family=Roboto:wght@100&display=swap"

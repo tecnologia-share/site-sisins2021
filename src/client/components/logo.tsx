@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { StyledLogo } from '../Logo/logo-styled';
+import { StyledLogo } from '../styles/Navbar/logo-styled';
 
 const Logo = () => {
   return (

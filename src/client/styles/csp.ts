@@ -15,3 +15,4 @@ Csp += `X-Frame-Options "SAMEORIGIN"`;
 // require-trusted-types-for 'script';" TODO
 
 export const Referrer = 'strict-origin';
+//https://oslavdev.medium.com/protect-your-next-js-app-with-security-headers-7f70f4a95d63
