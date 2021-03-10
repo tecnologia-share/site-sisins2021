@@ -1,7 +1,7 @@
-import { ShareLogo } from '../Logo/logo-style';
+import { StyledLogo } from '../Logo/logo-style';
 
 const Logo = () => {
-  return <Logo src="../../../img/Navbarbrand.png" />;
+  return <StyledLogo />;
 };
 
 export default Logo;

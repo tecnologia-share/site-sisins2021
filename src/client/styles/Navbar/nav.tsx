@@ -1,12 +1,12 @@
-import { Nav } from '../Navbar/nav-style';
+import { StyledNav } from '../Navbar/nav-style';
 import Logo from '../Navbar/Nav-items/Logo/logo';
-const Navbar = () => {
+const Nav = () => {
   return (
-    <Nav>
+    <StyledNav>
       <Logo />
       Teste
-    </Nav>
+    </StyledNav>
   );
 };
 
-export default Navbar;
+export default Nav;

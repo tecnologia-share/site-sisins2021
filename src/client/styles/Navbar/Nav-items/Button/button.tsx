@@ -1,7 +1,5 @@
-const Comp = () => {
-  return (
-    
-  );
+const Button = () => {
+  return <StyledButton />;
 };
 
-export default Comp;
+export default Button;

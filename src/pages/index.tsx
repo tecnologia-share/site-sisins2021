@@ -1,8 +1,8 @@
-import Navbar from '../client/styles/Navbar/nav';
+import Nav from '../client/styles/Navbar/nav';
 const Home = () => {
   return (
     <div className="wrapper">
-      <Navbar />
+      <Nav />
     </div>
   );
 };
