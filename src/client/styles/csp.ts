@@ -1,16 +1,16 @@
 let prod = process.env.NODE_ENV == 'production';
 
 export let Csp = ``;
-csp += `base-uri 'self';`;
-csp += `form-action 'self';`;
-csp += `default-src 'self';`;
-csp += `script-src 'self' ${prod ? '' : "'unsafe-eval'"};`; // NextJS requires 'unsafe-eval' in dev (faster source maps)
-csp += `style-src 'self' https://fonts.googleapis.com 'unsafe-inline' data:;`; // NextJS requires 'unsafe-inline'
-csp += `img-src 'self' data: blob:;`;
-csp += `font-src 'self' https://fonts.gstatic.com;`; // TODO
-csp += `frame-src *;`; // TODO
-csp += `media-src *;`; // TODO
-csp += `X-Frame-Options "SAMEORIGIN"`;
+Csp += `base-uri 'self';`;
+Csp += `form-action 'self';`;
+Csp += `default-src 'self';`;
+Csp += `script-src 'self' ${prod ? '' : "'unsafe-eval'"};`; // NextJS requires 'unsafe-eval' in dev (faster source maps)
+Csp += `style-src 'self' https://fonts.googleapis.com 'unsafe-inline' data:;`; // NextJS requires 'unsafe-inline'
+Csp += `img-src 'self' data: blob:;`;
+Csp += `font-src 'self' https://fonts.gstatic.com;`; // TODO
+Csp += `frame-src *;`; // TODO
+Csp += `media-src *;`; // TODO
+Csp += `X-Frame-Options "SAMEORIGIN"`;
 
 // require-trusted-types-for 'script';" TODO
 
