@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { csp, referrer } from '../client/styles/csp';
+import { Csp, Referrer } from '../client/styles/csp';
 
 interface MyDocumentProps {
   styleTags: Array<React.ReactElement>;
@@ -24,8 +24,8 @@ export default class MyDocument extends Document<MyDocumentProps> {
       <html>
         <Head>
           <meta http-equiv="Content-Type" content="text/html" charSet="utf-8" />
-          <meta httpEquiv="Content-Security-Policy" content={csp} />
-          <meta name="referrer" content={referrer} />
+          <meta httpEquiv="Content-Security-Policy" content={Csp} />
+          <meta name="referrer" content={Referrer} />
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
