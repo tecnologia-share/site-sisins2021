@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
 export const StyledLogo = styled.div`
-  padding: 1.5rem;
+  padding: 0.3rem;
 `;

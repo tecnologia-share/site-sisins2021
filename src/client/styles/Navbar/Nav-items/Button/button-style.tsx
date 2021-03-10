@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.a`
+export const StyledButton = styled.li`
+  font-family: 'Roboto', sans-serif;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  width: 100%;
+  height: auto;
 `;

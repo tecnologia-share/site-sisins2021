@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledMenuHamb = styled.div`
+export const StyledMenuHamb = styled.section`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
   letter-spacing: 5px;
