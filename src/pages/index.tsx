@@ -1,7 +1,8 @@
+import Navbar from '../client/styles/Navbar/nav';
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="wrapper">
+      <Navbar />
     </div>
   );
 };

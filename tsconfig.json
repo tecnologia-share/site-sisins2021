@@ -16,6 +16,6 @@
     "experimentalDecorators": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/client/styles/csp.js"],
   "exclude": ["node_modules"]
 }
