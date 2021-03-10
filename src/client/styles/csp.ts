@@ -1,4 +1,4 @@
-let prod = process.env.NODE_ENV == 'production';
+const prod = process.env.NODE_ENV == 'production';
 
 export let Csp = ``;
 Csp += `base-uri 'self';`;
@@ -14,4 +14,4 @@ Csp += `X-Frame-Options "SAMEORIGIN"`;
 
 // require-trusted-types-for 'script';" TODO
 
-export let Referrer = 'strict-origin';
+export const Referrer = 'strict-origin';

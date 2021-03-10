@@ -23,7 +23,7 @@ export default class MyDocument extends Document<MyDocumentProps> {
     return (
       <html>
         <Head>
-          <meta http-equiv="Content-Type" content="text/html" charSet="utf-8" />
+          <meta httpEquiv="Content-Type" content="text/html" charSet="utf-8" />
           <meta httpEquiv="Content-Security-Policy" content={Csp} />
           <meta name="referrer" content={Referrer} />
           <meta
@@ -37,7 +37,7 @@ export default class MyDocument extends Document<MyDocumentProps> {
           <meta name="description" content="Associacao Share Website" />
           <meta name="application-name" content="Share Frontpage" />
           <meta name="keywords" content="SEO" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
           <title>Associacao Share</title>
           <link rel="preconnect" href="https://fonts.gstatic.com"></link>
           <link
