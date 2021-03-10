@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+/* import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -11,4 +11,4 @@ export const Container = styled.div`
 export const Title = styled.h1`
   font-size: 2rem;
   color: green;
-`;
+`; */

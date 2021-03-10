@@ -1,7 +1,7 @@
-const Comp = () => {
+/*const Comp = () => {
   return (
     
   );
 };
 
-export default Comp;
+export default Comp; */
