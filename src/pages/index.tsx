@@ -1,4 +1,4 @@
-import Nav from '../client/styles/Navbar/nav';
+import { Nav } from '../client/components/Nav/index';
 const Home = () => {
   return <Nav />;
 };

@@ -8,3 +8,8 @@ export const StyledButton = styled.li`
   width: 100%;
   height: auto;
 `;
+
+export const BtnWrap = styled.a`
+  text-decoration: none;
+  letter-spacing: 2px;
+`;
