@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import StyledBtn from '../Nav/styles';
+import { StyledBtn } from '../Nav/styles';
 import PropTypes from 'prop-types';
-import { StyledLogo } from '../styles/Navbar/';
-import { StyledNav } from '../styles/Navbar/nav-style';
+import { StyledLogo } from '../Nav/styles';
+import { StyledNav } from '../Nav/styles';
 
 export const Nav = () => {
   return (
