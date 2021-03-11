@@ -7,7 +7,7 @@ class CursoCategoria {
   readonly id: string;
 
   @Column()
-  nome: string;
+  categoria: string;
 
   @CreateDateColumn()
   created_at: Date;

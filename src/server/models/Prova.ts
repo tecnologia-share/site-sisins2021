@@ -23,7 +23,7 @@ class Prova {
   inscricao: Inscricao;
 
   @Column()
-  qtd_pontos: string;
+  qtd_pontos: number;
 
   @Column()
   resposta: string;
