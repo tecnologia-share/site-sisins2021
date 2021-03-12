@@ -1,5 +1,5 @@
 import { Container, Title } from '../../client/components/styles';
-
+//
 const Participantes = () => {
   return (
     <Container>
