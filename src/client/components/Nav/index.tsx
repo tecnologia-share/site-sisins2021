@@ -22,8 +22,8 @@ export const Logo = () => {
           alt="Logo da Share"
           src="/Navbarbrand.png"
           layout="intrinsic"
-          width={40}
-          height={40}
+          width={30}
+          height={30}
         />
       </a>
     </StyledLogo>

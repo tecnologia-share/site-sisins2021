@@ -15,21 +15,13 @@ a:hover {
 }
 .lista {
   display: grid;
-  column-gap: 2rem;
-  padding-left: 1.5rem;
+  column-gap: 1rem;
+  padding-left: 1.2rem;
   justify-content: center;
   align-items: center;
   grid-template: 'home faq inscricoes inscricoes' 1fr;
 }
-.home {
-  grid-column: 1/2;
-}
-.faq {
-  grid-column: 2/3;
-}
-.inscricoes {
-  grid-column: 3/5;
-}
+
 /* FONTS 
 font-family: 'Poppins', sans-serif;
 font-family: 'Redressed', cursive;
