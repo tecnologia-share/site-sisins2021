@@ -23,7 +23,7 @@ class Curso {
   processoSeletivo: ProcessoSeletivo;
 
   @Column()
-  tipo: string;
+  categoria: string;
 
   @Column()
   nome: string;
