@@ -1,17 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { StyledBtn } from '../Nav/styles';
 import PropTypes from 'prop-types';
-import { StyledLogo } from '../Nav/styles';
-import { StyledNav } from '../Nav/styles';
+import { StyledLogo, StyledNav, StyledBtn, StyledButton } from '../Nav/styles';
 
 export const Nav = () => {
   return (
     <div>
       <StyledNav>
-        <MenuHamb />
-        <NavMenu />
         <Logo />
+        <NavMenu />
       </StyledNav>
     </div>
   );
@@ -25,8 +22,8 @@ export const Logo = () => {
           alt="Logo da Share"
           src="/Navbarbrand.png"
           layout="intrinsic"
-          width={50}
-          height={50}
+          width={40}
+          height={40}
         />
       </a>
     </StyledLogo>
@@ -35,22 +32,20 @@ export const Logo = () => {
 
 const NavMenu = () => {
   return (
-    <ul>
-      <Button href="/" name="Home" />
-      <Button href="/FAQ" name="FAQ" />
-      <Button href="/inscricoes" name="Inscrições" />
-      <Button href="/news" name="Notícias" />
+    <ul className="lista">
+      <Btn href="/" name="Home" className="home" />
+      <Btn href="/" name="FAQ" className="faq" />
+      <Btn href="/" name="Inscrições" className="inscricoes" />
     </ul>
   );
 };
 
 const MenuHamb = () => {
   return (
-    <ul>
-      <Button href="/" name="Home" />
-      <Button href="/FAQ" name="FAQ" />
-      <Button href="/inscricoes" name="Inscrições" />
-      <Button href="/news" name="Notícias" />
+    <ul className="listaHamb">
+      <Btn href="/" name="Home" className="home" />
+      <Btn href="/" name="FAQ" className="faq" />
+      <Btn href="/" name="Inscrições" className="inscricoes" />
     </ul>
   );
 };
@@ -58,10 +53,18 @@ const MenuHamb = () => {
 function Button({ href, name }) {
   return (
     <Link href={href} passHref>
-      <StyledBtn>{name}</StyledBtn>
+      <StyledBtn className={name}>{name}</StyledBtn>
     </Link>
   );
 }
+
+const Btn = ({ href, name, className }) => {
+  return (
+    <StyledButton>
+      <Button href={href} name={name} />
+    </StyledButton>
+  );
+};
 
 Button.propTypes = {
   href: PropTypes.node.isRequired,

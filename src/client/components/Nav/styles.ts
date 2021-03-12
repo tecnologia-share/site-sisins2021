@@ -1,22 +1,19 @@
 import styled from 'styled-components';
 
-export const StyledNav = styled.nav`
+export const StyledNav = styled.nav.attrs((props) => ({
+  className: (props.className = 'navbar'),
+}))`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   min-height: 1rem;
   font-size: 1rem;
-  background: rgb(117, 180, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(117, 180, 255, 1) 0%,
-    rgba(230, 96, 124, 1) 50%,
-    rgba(157, 255, 65, 1) 100%
-  );
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  width: 100%;
 `;
 
 export const StyledNavMenu = styled.section`
-  display: flex;
   justify-content: space-around;
   align-items: center;
   height: 100%;
@@ -24,8 +21,6 @@ export const StyledNavMenu = styled.section`
 `;
 
 export const StyledMenuHamb = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -37,20 +32,23 @@ export const StyledLogo = styled.div`
 `;
 
 export const StyledButton = styled.li`
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: auto;
+  list-style-type: none;
 `;
 
 export const StyledBtn = styled.a`
   text-decoration: none;
   letter-spacing: 2px;
+  color: #333;
+  font-family: Lato;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  font-size: 1.2rem;
 `;
 
-export const Btn = styled.a`
+export const Btn = styled.div`
   text-decoration: none;
   letter-spacing: 2px;
 `;

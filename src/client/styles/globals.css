@@ -9,9 +9,29 @@ body,
 body > div:first-child {
   height: 100vh;
 }
-
+a:hover {
+  color: rgba(0, 0, 0, 0.4);
+  transition: linear 2s;
+}
+.lista {
+  display: grid;
+  column-gap: 2rem;
+  padding-left: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  grid-template: 'home faq inscricoes inscricoes' 1fr;
+}
+.home {
+  grid-column: 1/2;
+}
+.faq {
+  grid-column: 2/3;
+}
+.inscricoes {
+  grid-column: 3/5;
+}
 /* FONTS 
 font-family: 'Poppins', sans-serif;
 font-family: 'Redressed', cursive;
 font-family: 'Roboto', sans-serif;
-*/
+*/ ;
