@@ -1,8 +1,10 @@
+import { Container, Title } from '../styles/home/styles';
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Container>
+      <Title>Home</Title>
+    </Container>
   );
 };
 
