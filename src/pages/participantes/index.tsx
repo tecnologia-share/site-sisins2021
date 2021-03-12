@@ -1,4 +1,4 @@
-import { Container, Title } from '../../client/styles/participantes/styles';
+import { Container, Title } from '../../styles/participantes/styles';
 
 const Participantes = () => {
   return (
