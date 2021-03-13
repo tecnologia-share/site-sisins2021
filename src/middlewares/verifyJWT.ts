@@ -1,24 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { AppError } from '../errors/AppError';
+
+interface tokenPayload {
+  id: string;
+}
 
 export const verifyJWT = () => {
-  return (request: Request, response: Response, next: NextFunction) => {
+  return (request: Request, response: Response, _next: NextFunction) => {
+    if (
+      request.path === '/api/authenticate' ||
+      request.path === '/api/register'
+    ) {
+      return _next();
+    }
+
     const token = request.headers['x-access-token'] as string;
-    if (!token)
-      return response
-        .status(401)
-        .json({ auth: false, message: 'No token provided.' });
 
-    jwt.verify(token, 'secret', function (error, decoded) {
-      if (error)
-        return response
-          .status(500)
-          .json({ auth: false, message: 'Failed to authenticate token.' });
+    if (!token) throw new AppError('Token inválido.', 401);
 
-      // se tudo estiver ok, salva no request para uso posterior
-      // request.userId = decoded?.id;
-      next();
+    jwt.verify(token, process.env.JWT_SECRET as string, (error, decoded) => {
+      if (error) throw new AppError('Token inválido.', 401);
+
+      if (decoded) {
+        request.userId = (decoded as tokenPayload).id;
+      }
+
+      return _next();
     });
   };
 };
