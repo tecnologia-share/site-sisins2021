@@ -33,8 +33,11 @@ class AuthController {
       return _next(new AppError('Invalid email or password.', 401));
     }
 
-    const senhaEstaCorreta = await bcrypt.compare(password, participante.senha);
-    if (!senhaEstaCorreta) {
+    const passwordIsCorrect = await bcrypt.compare(
+      password,
+      participante.senha
+    );
+    if (!passwordIsCorrect) {
       return _next(new AppError('Invalid email or password.', 401));
     }
 
