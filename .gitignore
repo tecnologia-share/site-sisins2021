@@ -1,5 +1,8 @@
 node_modules/
 .vercel
+dist/
+
+src/database/test/database.test.sqlite
 
 .env
 .env.development
