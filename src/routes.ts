@@ -9,6 +9,12 @@ const participantsController = new ParticipantsController();
 
 routes.post('/api/authenticate', authController.authenticate);
 
+routes.post('/api/register/', participantsController.create);
+routes.get(
+  '/api/register/verify-email/:token',
+  participantsController.verifyEmail
+);
+
 routes.patch('/api/participants', participantsController.update);
 routes.patch(
   '/api/participants/update-email',
