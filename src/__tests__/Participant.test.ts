@@ -17,7 +17,6 @@ const populateDatabase = async (connection: Connection) => {
     nome: 'Test',
     pais: 'Test',
     telefone: '1234',
-    verified: false,
   });
   await participantRepository.save(participant);
 };
