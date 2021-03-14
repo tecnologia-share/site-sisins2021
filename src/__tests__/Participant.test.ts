@@ -3,9 +3,12 @@ import app from '../app';
 import { Connection, createConnection } from 'typeorm';
 import { Participante } from '../models/Participante';
 
+let token = '';
+let connection: Connection;
+
 const populateDatabase = async (connection: Connection) => {
-  const participanteRepository = connection.getRepository(Participante);
-  const participante = participanteRepository.create({
+  const participantRepository = connection.getRepository(Participante);
+  const participant = participantRepository.create({
     email: 'this_email_exists@example.com',
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     cidade: 'Test',
@@ -14,54 +17,196 @@ const populateDatabase = async (connection: Connection) => {
     nome: 'Test',
     pais: 'Test',
     telefone: '1234',
+    verified: false,
   });
-  await participanteRepository.save(participante);
+  await participantRepository.save(participant);
 };
 
-describe('Participant update email tests', () => {
-  //   beforeAll(async () => {
-  //     const connection = await createConnection();
-  //     await connection.dropDatabase();
-  //     await connection.runMigrations();
-  //     await populateDatabase(connection);
-  //   });
-  //   it('Should return a token if the email and password sent are correct', async () => {
-  //     const response = await request(app)
-  //       .post('/api/participants/update-email')
-  //       .set({ 'x-access-token': 'token' })
-  //       .send({
-  //         email: 'this_email_exists@example.com',
-  //         password: 'correct_password',
-  //       });
-  //     expect(response.status).toBe(200);
-  //     expect(response.body).toHaveProperty('token');
-  //   });
-  //   it('Should return 401 UNAUTHORIZED if the email does not exist', async () => {
-  //     const response = await request(app).post('/api/authenticate').send({
-  //       email: 'user@example.com',
-  //       password: 'password',
-  //     });
-  //     expect(response.status).toBe(401);
-  //   });
-  //   it('Should return 401 UNAUTHORIZED if the email exists, but password is incorrect', async () => {
-  //     const response = await request(app).post('/api/authenticate').send({
-  //       email: 'this_email_exists@example.com',
-  //       password: 'incorrect_password',
-  //     });
-  //     expect(response.status).toBe(401);
-  //   });
-  //   it('Should return 400 BAD REQUEST if no email or password is given', async () => {
-  //     const responseWithoutEmail = await request(app)
-  //       .post('/api/authenticate')
-  //       .send({
-  //         password: 'password',
-  //       });
-  //     const responseWithoutPassword = await request(app)
-  //       .post('/api/authenticate')
-  //       .send({
-  //         email: 'user@example.com',
-  //       });
-  //     expect(responseWithoutEmail.status).toBe(400);
-  //     expect(responseWithoutPassword.status).toBe(400);
-  //   });
+const getToken = async () => {
+  const response = await request(app).post('/api/authenticate').send({
+    email: 'this_email_exists@example.com',
+    password: 'correct_password',
+  });
+
+  token = response.body.token;
+};
+
+describe('Participant update email', () => {
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
+
+    await populateDatabase(connection);
+    await getToken();
+  });
+
+  it('Should update the email successfully if the correct password and valid token are sent', async () => {
+    const response = await request(app)
+      .patch('/api/participants/update-email')
+      .set({ 'x-access-token': token })
+      .send({
+        email: 'another_email@example.com',
+        password: 'correct_password',
+      });
+
+    expect(response.status).toBe(200);
+  });
+
+  it('Should return 400 BAD REQUEST if the password or email is not sent', async () => {
+    const responseWithoutPassword = await request(app)
+      .patch('/api/participants/update-email')
+      .set({ 'x-access-token': token })
+      .send({
+        email: 'another_email@example.com',
+      });
+    const responseWithoutEmail = await request(app)
+      .patch('/api/participants/update-email')
+      .set({ 'x-access-token': token })
+      .send({
+        password: 'correct_password',
+      });
+
+    expect(responseWithoutPassword.status).toBe(400);
+    expect(responseWithoutEmail.status).toBe(400);
+  });
+
+  it('Should return 401 UNAUTHORIZED if the password or token sent is invalid', async () => {
+    const responseWithInvalidPassword = await request(app)
+      .patch('/api/participants/update-email')
+      .set({ 'x-access-token': token })
+      .send({
+        email: 'another_email@example.com',
+        password: 'incorrect_password',
+      });
+    const responseWithInvalidToken = await request(app)
+      .patch('/api/participants/update-email')
+      .set({ 'x-access-token': 'invalid_token' })
+      .send({
+        email: 'another_email@example.com',
+        password: 'correct_password',
+      });
+
+    expect(responseWithInvalidPassword.status).toBe(401);
+    expect(responseWithInvalidToken.status).toBe(401);
+  });
+});
+
+describe('Participant update password', () => {
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
+
+    await populateDatabase(connection);
+    await getToken();
+  });
+
+  it('Should return 400 BAD REQUEST if the currentPassword or newPassword is not sent', async () => {
+    const responseWithoutCurrentPassword = await request(app)
+      .patch('/api/participants/update-password')
+      .set({ 'x-access-token': token })
+      .send({
+        newPassword: 'new_password',
+      });
+    const responseWithoutNewPassword = await request(app)
+      .patch('/api/participants/update-password')
+      .set({ 'x-access-token': token })
+      .send({
+        currentPassword: 'correct_password',
+      });
+
+    expect(responseWithoutCurrentPassword.status).toBe(400);
+    expect(responseWithoutNewPassword.status).toBe(400);
+  });
+
+  it('Should return 401 UNAUTHORIZED if the password or token sent is invalid', async () => {
+    const responseWithInvalidPassword = await request(app)
+      .patch('/api/participants/update-password')
+      .set({ 'x-access-token': token })
+      .send({
+        currentPassword: 'incorrect_password',
+        newPassword: 'new_password',
+      });
+    const responseWithInvalidToken = await request(app)
+      .patch('/api/participants/update-password')
+      .set({ 'x-access-token': 'invalid_token' })
+      .send({
+        currentPassword: 'correct_password',
+        newPassword: 'new_password',
+      });
+
+    expect(responseWithInvalidPassword.status).toBe(401);
+    expect(responseWithInvalidToken.status).toBe(401);
+  });
+
+  it('Should update the password successfully if the correct password and valid token are sent', async () => {
+    const response = await request(app)
+      .patch('/api/participants/update-password')
+      .set({ 'x-access-token': token })
+      .send({
+        currentPassword: 'correct_password',
+        newPassword: 'new_password',
+      });
+
+    expect(response.status).toBe(200);
+  });
+});
+
+describe('Participant update personal data', () => {
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
+
+    await populateDatabase(connection);
+    await getToken();
+  });
+
+  it('Should successfully update personal data if an valid token are sent', async () => {
+    const responseWithAllUpdates = await request(app)
+      .patch('/api/participants')
+      .set({ 'x-access-token': token })
+      .send({
+        nome: 'new nome',
+        telefone: '1234',
+        nascimento: new Date(2021, 3, 14),
+        pais: 'new pais',
+        estado: 'new estado',
+        cidade: 'new cidade',
+      });
+
+    const responseWithFewUpdates = await request(app)
+      .patch('/api/participants')
+      .set({ 'x-access-token': token })
+      .send({
+        nome: 'new nome 2',
+        cidade: 'new cidade 2',
+      });
+
+    expect(responseWithAllUpdates.status).toBe(200);
+    expect(responseWithFewUpdates.status).toBe(200);
+  });
+
+  it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
+    const response = await request(app)
+      .patch('/api/participants')
+      .set({ 'x-access-token': 'invalid_token' })
+      .send({
+        nome: 'new nome',
+        telefone: '1234',
+        nascimento: new Date(2021, 3, 14),
+        pais: 'new pais',
+        estado: 'new estado',
+        cidade: 'new cidade',
+      });
+
+    expect(response.status).toBe(401);
+  });
 });

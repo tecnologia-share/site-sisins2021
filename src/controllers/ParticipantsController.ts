@@ -6,6 +6,30 @@ import { Participante } from '../models/Participante';
 import bcrypt from 'bcrypt';
 
 class ParticipantsController {
+  async update(request: Request, response: Response, _next: NextFunction) {
+    const { cidade, estado, nascimento, nome, pais, telefone } = request.body;
+    const { userId } = request;
+
+    const participantesRepository = getRepository(Participante);
+
+    const participante = await participantesRepository.findOne(userId);
+
+    if (!participante) {
+      return _next(new Error('Participant not found.'));
+    }
+
+    if (cidade) participante.cidade = cidade;
+    if (estado) participante.estado = estado;
+    if (nascimento) participante.nascimento = nascimento;
+    if (nome) participante.nome = nome;
+    if (pais) participante.pais = pais;
+    if (telefone) participante.telefone = telefone;
+
+    await participantesRepository.save(participante);
+
+    return response.status(200).json({ message: 'Participant updated.' });
+  }
+
   async updateEmail(request: Request, response: Response, _next: NextFunction) {
     const { password, email } = request.body;
     const { userId } = request;
@@ -77,30 +101,6 @@ class ParticipantsController {
     await participantesRepository.save(participante);
 
     return response.status(200).json({ message: 'Password updated.' });
-  }
-
-  async update(request: Request, response: Response, _next: NextFunction) {
-    const { cidade, estado, nascimento, nome, pais, telefone } = request.body;
-    const { userId } = request;
-
-    const participantesRepository = getRepository(Participante);
-
-    const participante = await participantesRepository.findOne(userId);
-
-    if (!participante) {
-      return _next(new Error('Participant not found.'));
-    }
-
-    if (cidade) participante.cidade = cidade;
-    if (estado) participante.estado = estado;
-    if (nascimento) participante.nascimento = nascimento;
-    if (nome) participante.nome = nome;
-    if (pais) participante.pais = pais;
-    if (telefone) participante.telefone = telefone;
-
-    await participantesRepository.save(participante);
-
-    return response.status(200).json({ message: 'Participant updated.' });
   }
 }
 

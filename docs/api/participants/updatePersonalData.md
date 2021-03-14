@@ -46,18 +46,6 @@ Atualiza os dados pessoais do participante.
 
 - **Error Response:**
 
-  - **Code:** 400 BAD REQUEST
-
-    **Content:** `{ "message": "Email and password are required." }`
-
-  OR
-
-  - **Code:** 401 UNAUTHORIZED
-
-    **Content:** `{ "message": "Invalid password." }`
-
-  OR
-
   - **Code:** 401 UNAUTHORIZED
 
     **Content:** `{ "message": "Token inválido." }`

@@ -4,6 +4,8 @@ dist/
 
 src/database/test/database.test.sqlite
 
+coverage/
+
 .env
 .env.development
 .env.production
