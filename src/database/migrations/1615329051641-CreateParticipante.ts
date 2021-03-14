@@ -33,10 +33,6 @@ export class CreateParticipante1615329051641 implements MigrationInterface {
             type: 'timestamp',
           },
           {
-            name: 'verified',
-            type: 'boolean',
-          },
-          {
             name: 'pais',
             type: 'varchar',
           },
