@@ -35,9 +35,6 @@ class Curso {
   descricao: string;
 
   @Column()
-  has_prova: boolean;
-
-  @Column()
   horario: string;
 
   @CreateDateColumn()

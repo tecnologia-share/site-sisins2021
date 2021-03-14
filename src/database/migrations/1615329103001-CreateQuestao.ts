@@ -13,6 +13,10 @@ export class CreateQuestao1615329103001 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
+            name: 'prova_id',
+            type: 'varchar',
+          },
+          {
             name: 'nome',
             type: 'varchar',
           },
@@ -60,6 +64,16 @@ export class CreateQuestao1615329103001 implements MigrationInterface {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'FKProva',
+            referencedTableName: 'provas',
+            referencedColumnNames: ['id'],
+            columnNames: ['prova_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
           },
         ],
       })
