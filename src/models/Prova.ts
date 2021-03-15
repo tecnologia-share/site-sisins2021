@@ -7,8 +7,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-
-import { Inscricao } from './Inscricao';
+import { Curso } from './Curso';
 
 @Entity('provas')
 class Prova {
@@ -16,17 +15,14 @@ class Prova {
   readonly id: string;
 
   @Column()
-  inscricao_id: string;
+  curso_id: string;
 
-  @ManyToOne(() => Inscricao)
-  @JoinColumn({ name: 'inscricao_id' })
-  inscricao: Inscricao;
+  @ManyToOne(() => Curso)
+  @JoinColumn({ name: 'curso_id' })
+  curso: Curso;
 
   @Column()
   qtd_pontos: number;
-
-  @Column()
-  resposta: string;
 
   @CreateDateColumn()
   created_at: Date;

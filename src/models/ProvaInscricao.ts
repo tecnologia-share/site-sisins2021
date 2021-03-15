@@ -7,12 +7,21 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+
+import { Inscricao } from './Inscricao';
 import { Prova } from './Prova';
 
-@Entity('questoes')
-class Questao {
+@Entity('provas_inscricoes')
+class ProvaInscricao {
   @PrimaryColumn()
   readonly id: string;
+
+  @Column()
+  inscricao_id: string;
+
+  @ManyToOne(() => Inscricao)
+  @JoinColumn({ name: 'inscricao_id' })
+  inscricao: Inscricao;
 
   @Column()
   prova_id: string;
@@ -20,39 +29,6 @@ class Questao {
   @ManyToOne(() => Prova)
   @JoinColumn({ name: 'prova_id' })
   prova: Prova;
-
-  @Column()
-  nome: string;
-
-  @Column()
-  pergunta: string;
-
-  @Column()
-  imagem: string;
-
-  @Column()
-  horario: string;
-
-  @Column()
-  is_objetiva: boolean;
-
-  @Column()
-  alternativa1: string;
-
-  @Column()
-  alternativa2: string;
-
-  @Column()
-  alternativa3: string;
-
-  @Column()
-  alternativa4: string;
-
-  @Column()
-  alternativa5: string;
-
-  @Column()
-  gabarito: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -64,4 +40,4 @@ class Questao {
   }
 }
 
-export { Questao };
+export { ProvaInscricao };

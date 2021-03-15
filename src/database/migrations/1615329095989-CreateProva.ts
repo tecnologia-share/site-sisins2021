@@ -13,16 +13,12 @@ export class CreateProva1615329095989 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'inscricao_id',
+            name: 'curso_id',
             type: 'varchar',
           },
           {
             name: 'qtd_pontos',
             type: 'int',
-          },
-          {
-            name: 'resposta',
-            type: 'varchar',
           },
           {
             name: 'created_at',
@@ -32,10 +28,10 @@ export class CreateProva1615329095989 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKInscricao',
-            referencedTableName: 'inscricoes',
+            name: 'FKCurso',
+            referencedTableName: 'cursos',
             referencedColumnNames: ['id'],
-            columnNames: ['inscricao_id'],
+            columnNames: ['curso_id'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
