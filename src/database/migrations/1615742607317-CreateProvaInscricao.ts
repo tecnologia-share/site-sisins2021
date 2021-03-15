@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateCurso1615329064778 implements MigrationInterface {
+export class CreateProvaInscricao1615742607317 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'cursos',
+        name: 'provas_inscricoes',
         columns: [
           {
             name: 'id',
@@ -13,27 +13,11 @@ export class CreateCurso1615329064778 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'processo_seletivo_id',
+            name: 'inscricao_id',
             type: 'varchar',
           },
           {
-            name: 'categoria',
-            type: 'varchar',
-          },
-          {
-            name: 'nome',
-            type: 'varchar',
-          },
-          {
-            name: 'professor',
-            type: 'varchar',
-          },
-          {
-            name: 'descricao',
-            type: 'varchar',
-          },
-          {
-            name: 'horario',
+            name: 'prova_id',
             type: 'varchar',
           },
           {
@@ -44,10 +28,18 @@ export class CreateCurso1615329064778 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKProcessoSeletivo',
-            referencedTableName: 'processos_seletivos',
+            name: 'FKInscricao',
+            referencedTableName: 'inscricoes',
             referencedColumnNames: ['id'],
-            columnNames: ['processo_seletivo_id'],
+            columnNames: ['inscricao_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+          {
+            name: 'FKProva',
+            referencedTableName: 'provas',
+            referencedColumnNames: ['id'],
+            columnNames: ['prova_id'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
@@ -57,6 +49,6 @@ export class CreateCurso1615329064778 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('cursos');
+    await queryRunner.dropTable('provas_inscricoes');
   }
 }
