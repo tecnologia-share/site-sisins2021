@@ -14,7 +14,6 @@ export const StyledNav = styled.nav.attrs((props) => ({
 `;
 
 export const StyledNavMenu = styled.section`
-  justify-content: space-around;
   align-items: center;
   height: 100%;
   letter-spacing: 5px;
@@ -29,6 +28,8 @@ export const StyledMenuHamb = styled.div`
 
 export const StyledLogo = styled.div`
   padding: 0.3rem;
+  margin-left: 0.3rem;
+  margin-top: 0.2rem;
 `;
 
 export const StyledButton = styled.li`
@@ -45,7 +46,7 @@ export const StyledBtn = styled.a`
   align-items: center;
   width: 100%;
   height: auto;
-  font-size: 1.2rem;
+  font-size: 1rem;
 `;
 
 export const Btn = styled.div`

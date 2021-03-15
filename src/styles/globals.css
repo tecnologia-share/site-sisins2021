@@ -11,7 +11,7 @@ body > div:first-child {
 }
 a:hover {
   color: rgba(0, 0, 0, 0.4);
-  transition: linear 2s;
+  transition: linear 1s;
 }
 .lista {
   display: grid;
@@ -21,7 +21,23 @@ a:hover {
   align-items: center;
   grid-template: 'home faq inscricoes inscricoes' 1fr;
 }
+a:active {
+  text-decoration: underline solid #3482fb 2px;
+  text-underline-offset: 0.4rem;
+  transition: linear 0.1ms;
+}
+svg {
+  color: rgba(0, 0, 0, 0.8);
+  transition: linear 1s;
+  padding-top: 0.2rem;
+}
+svg:hover {
+  color: rgba(50, 150, 150, 0.7);
+}
 
+.login {
+  padding-top: 0.3rem;
+}
 /* FONTS 
 font-family: 'Poppins', sans-serif;
 font-family: 'Redressed', cursive;
