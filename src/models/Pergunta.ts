@@ -1,10 +1,23 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { PerguntaParticipante } from './PerguntaParticipante';
 
 @Entity('perguntas')
 class Pergunta {
   @PrimaryColumn()
   readonly id: string;
+
+  @OneToMany(
+    () => PerguntaParticipante,
+    (perguntaParticipante) => perguntaParticipante.pergunta
+  )
+  perguntasParticipantes: PerguntaParticipante[];
 
   @Column()
   pergunta: string;

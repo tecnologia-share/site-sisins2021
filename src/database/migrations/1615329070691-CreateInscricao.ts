@@ -31,6 +31,7 @@ export class CreateInscricao1615329070691 implements MigrationInterface {
           {
             name: 'desistencia',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'created_at',

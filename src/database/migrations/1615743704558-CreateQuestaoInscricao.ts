@@ -22,7 +22,11 @@ export class CreateQuestaoInscricao1615743704558 implements MigrationInterface {
           },
           {
             name: 'resposta',
-            type: 'varchar',
+            type: 'int',
+          },
+          {
+            name: 'pontos',
+            type: 'int',
           },
           {
             name: 'created_at',

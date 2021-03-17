@@ -19,14 +19,14 @@ class Avaliacao {
   @Column()
   usuario_share_id: string;
 
-  @ManyToOne(() => UsuarioShare)
+  @ManyToOne(() => UsuarioShare, (usuarioShare) => usuarioShare.avaliacoes)
   @JoinColumn({ name: 'usuario_share_id' })
   usuarioShare: UsuarioShare;
 
   @Column()
   inscricao_id: string;
 
-  @ManyToOne(() => Inscricao)
+  @ManyToOne(() => Inscricao, (inscricao) => inscricao.avaliacoes)
   @JoinColumn({ name: 'inscricao_id' })
   inscricao: Inscricao;
 

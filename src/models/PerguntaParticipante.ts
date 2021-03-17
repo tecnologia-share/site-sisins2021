@@ -12,14 +12,17 @@ class PerguntaParticipante {
   @Column()
   participante_id: string;
 
-  @ManyToOne(() => Participante)
+  @ManyToOne(
+    () => Participante,
+    (participante) => participante.perguntasParticipantes
+  )
   @JoinColumn({ name: 'participante_id' })
   participante: Participante;
 
   @Column()
   pergunta_id: string;
 
-  @ManyToOne(() => Pergunta)
+  @ManyToOne(() => Pergunta, (pergunta) => pergunta.perguntasParticipantes)
   @JoinColumn({ name: 'pergunta_id' })
   pergunta: Pergunta;
 

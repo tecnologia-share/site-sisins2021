@@ -4,12 +4,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { Inscricao } from './Inscricao';
 import { Prova } from './Prova';
+import { QuestaoInscricao } from './QuestaoInscricao';
 
 @Entity('provas_inscricoes')
 class ProvaInscricao {
@@ -19,14 +21,20 @@ class ProvaInscricao {
   @Column()
   inscricao_id: string;
 
-  @ManyToOne(() => Inscricao)
+  @ManyToOne(() => Inscricao, (inscricao) => inscricao.provasInscricoes)
   @JoinColumn({ name: 'inscricao_id' })
   inscricao: Inscricao;
+
+  @OneToMany(
+    () => QuestaoInscricao,
+    (questaoInscricao) => questaoInscricao.provaInscricao
+  )
+  questoesInscricoes: QuestaoInscricao[];
 
   @Column()
   prova_id: string;
 
-  @ManyToOne(() => Prova)
+  @ManyToOne(() => Prova, (prova) => prova.provasInscricoes)
   @JoinColumn({ name: 'prova_id' })
   prova: Prova;
 

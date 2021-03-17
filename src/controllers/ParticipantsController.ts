@@ -11,9 +11,7 @@ class ParticipantsController {
     const { userId } = request;
 
     const participantesRepository = getRepository(Participante);
-
     const participante = await participantesRepository.findOne(userId);
-
     if (!participante) {
       return _next(new Error('Participant not found.'));
     }
@@ -39,14 +37,14 @@ class ParticipantsController {
       password: yup.string().required(),
     });
 
-    schema.validate(request.body, { abortEarly: false }).catch(() => {
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
       return _next(new AppError('Email and password are required.'));
-    });
+    }
 
     const participantesRepository = getRepository(Participante);
-
     const participante = await participantesRepository.findOne(userId);
-
     if (!participante) {
       return _next(new Error('Participant not found.'));
     }
@@ -75,16 +73,16 @@ class ParticipantsController {
       newPassword: yup.string().required(),
     });
 
-    schema.validate(request.body, { abortEarly: false }).catch(() => {
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
       return _next(
         new AppError('currentPassword and newPassword are required.')
       );
-    });
+    }
 
     const participantesRepository = getRepository(Participante);
-
     const participante = await participantesRepository.findOne(userId);
-
     if (!participante) {
       return _next(new Error('Participant not found.'));
     }

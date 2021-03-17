@@ -19,9 +19,11 @@ class AuthController {
       password: yup.string().required(),
     });
 
-    schema.validate(request.body, { abortEarly: false }).catch(() => {
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
       return _next(new AppError('Email and password are required.'));
-    });
+    }
 
     const participantesRepository = getRepository(Participante);
 

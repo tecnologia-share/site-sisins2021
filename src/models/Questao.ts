@@ -4,10 +4,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Prova } from './Prova';
+import { QuestaoInscricao } from './QuestaoInscricao';
 
 @Entity('questoes')
 class Questao {
@@ -17,7 +19,13 @@ class Questao {
   @Column()
   prova_id: string;
 
-  @ManyToOne(() => Prova)
+  @OneToMany(
+    () => QuestaoInscricao,
+    (questaoInscricao) => questaoInscricao.questao
+  )
+  questoesInscricoes: QuestaoInscricao[];
+
+  @ManyToOne(() => Prova, (prova) => prova.questoes)
   @JoinColumn({ name: 'prova_id' })
   prova: Prova;
 
@@ -29,12 +37,6 @@ class Questao {
 
   @Column()
   imagem: string;
-
-  @Column()
-  horario: string;
-
-  @Column()
-  is_objetiva: boolean;
 
   @Column()
   alternativa1: string;
@@ -52,7 +54,7 @@ class Questao {
   alternativa5: string;
 
   @Column()
-  gabarito: string;
+  gabarito: number;
 
   @CreateDateColumn()
   created_at: Date;

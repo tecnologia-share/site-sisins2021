@@ -19,19 +19,25 @@ class QuestaoInscricao {
   @Column()
   prova_inscricao_id: string;
 
-  @ManyToOne(() => ProvaInscricao)
+  @ManyToOne(
+    () => ProvaInscricao,
+    (provaInscricao) => provaInscricao.questoesInscricoes
+  )
   @JoinColumn({ name: 'prova_inscricao_id' })
   provaInscricao: ProvaInscricao;
 
   @Column()
   questao_id: string;
 
-  @ManyToOne(() => Questao)
+  @ManyToOne(() => Questao, (questao) => questao.questoesInscricoes)
   @JoinColumn({ name: 'questao_id' })
   questao: Questao;
 
   @Column()
-  resposta: string;
+  resposta: number;
+
+  @Column()
+  pontos: number;
 
   @CreateDateColumn()
   created_at: Date;
