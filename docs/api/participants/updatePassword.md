@@ -52,4 +52,4 @@ Atualiza a senha do participante.
 
   - **Code:** 401 UNAUTHORIZED
 
-    **Content:** `{ "message": "Token inválido." }`
+    **Content:** `{ "message": "Invalid token." }`

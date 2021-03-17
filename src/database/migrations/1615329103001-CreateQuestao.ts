@@ -29,14 +29,6 @@ export class CreateQuestao1615329103001 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'horario',
-            type: 'varchar',
-          },
-          {
-            name: 'is_objetiva',
-            type: 'boolean',
-          },
-          {
             name: 'alternativa1',
             type: 'varchar',
           },
@@ -58,7 +50,7 @@ export class CreateQuestao1615329103001 implements MigrationInterface {
           },
           {
             name: 'gabarito',
-            type: 'varchar',
+            type: 'int',
           },
           {
             name: 'created_at',

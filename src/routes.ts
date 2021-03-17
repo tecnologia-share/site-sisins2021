@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import AuthController from './controllers/AuthController';
 import ParticipantsController from './controllers/ParticipantsController';
+import SubscriptionsController from './controllers/SubscriptionsController';
 
 const routes = Router();
 
 const authController = new AuthController();
 const participantsController = new ParticipantsController();
+const subscriptionsController = new SubscriptionsController();
 
 routes.post('/api/authenticate', authController.authenticate);
 
@@ -18,5 +20,7 @@ routes.patch(
   '/api/participants/update-password',
   participantsController.updatePassword
 );
+
+routes.post('/api/subscriptions', subscriptionsController.subscribe);
 
 export default routes;

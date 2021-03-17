@@ -17,10 +17,6 @@ export class CreateProva1615329095989 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'qtd_pontos',
-            type: 'int',
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

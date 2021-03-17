@@ -1,10 +1,20 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Curso } from './Curso';
 
 @Entity('processos_seletivos')
 class ProcessoSeletivo {
   @PrimaryColumn()
   readonly id: string;
+
+  @OneToMany(() => Curso, (curso) => curso.processoSeletivo)
+  cursos: Curso[];
 
   @Column()
   data_inicio: Date;

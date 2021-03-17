@@ -1,10 +1,20 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Avaliacao } from './Avaliacao';
 
 @Entity('usuarios_share')
 class UsuarioShare {
   @PrimaryColumn()
   readonly id: string;
+
+  @OneToMany(() => Avaliacao, (avaliacao) => avaliacao.usuarioShare)
+  avaliacoes: Avaliacao[];
 
   @Column()
   email: string;
