@@ -28,6 +28,10 @@ class selectionProcessController {
       return _next(new AppError('Invalid Date.'));
     }
 
+    if (new Date(startDate) >= new Date(endDate)) {
+      return _next(new AppError('endDate must be greater than startDate.'));
+    }
+
     const usersRepository = getRepository(UsuarioShare);
     const user = await usersRepository.findOne(userId);
 
@@ -52,9 +56,16 @@ class selectionProcessController {
     });
     await selectionProcessRepository.save(selectionProcess);
 
-    return response
-      .status(201)
-      .json({ message: 'Selection process successfully created.' });
+    return response.status(201).json({
+      message: 'Selection process successfully created.',
+      selectionProcess: {
+        id: selectionProcess.id,
+        startDate: selectionProcess.data_inicio,
+        endDate: selectionProcess.data_final,
+        name: selectionProcess.nome,
+        created_at: selectionProcess.created_at,
+      },
+    });
   }
 }
 
