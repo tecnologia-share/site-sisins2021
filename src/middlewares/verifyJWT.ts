@@ -12,7 +12,8 @@ export const verifyJWT = () => {
   return (request: Request, response: Response, _next: NextFunction) => {
     if (
       request.path === '/api/authenticate' ||
-      request.path === '/api/register'
+      request.path === '/api/register' ||
+      request.path === '/api/authenticate-share'
     ) {
       return _next();
     }
