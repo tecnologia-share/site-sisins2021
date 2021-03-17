@@ -5,6 +5,7 @@ import { AppError } from '../errors/AppError';
 import { Participante } from '../models/Participante';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { UsuarioShare } from '../models/UsuarioShare';
 
 class AuthController {
   async authenticate(
@@ -46,6 +47,50 @@ class AuthController {
     const token = jwt.sign(
       {
         id: participante.id,
+      },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '24h' }
+    );
+
+    return response.status(200).json({ token });
+  }
+
+  async authenticateShare(
+    request: Request,
+    response: Response,
+    _next: NextFunction
+  ) {
+    const { email, password } = request.body;
+
+    const schema = yup.object().shape({
+      email: yup.string().required(),
+      password: yup.string().required(),
+    });
+
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      return _next(new AppError('Email and password are required.'));
+    }
+
+    const usersRepository = getRepository(UsuarioShare);
+
+    const user = await usersRepository.findOne({
+      email,
+    });
+
+    if (!user) {
+      return _next(new AppError('Invalid email or password.', 401));
+    }
+
+    const passwordIsCorrect = await bcrypt.compare(password, user.senha);
+    if (!passwordIsCorrect) {
+      return _next(new AppError('Invalid email or password.', 401));
+    }
+
+    const token = jwt.sign(
+      {
+        id: user.id,
       },
       process.env.JWT_SECRET as string,
       { expiresIn: '24h' }

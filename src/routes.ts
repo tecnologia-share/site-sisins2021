@@ -10,6 +10,7 @@ const participantsController = new ParticipantsController();
 const subscriptionsController = new SubscriptionsController();
 
 routes.post('/api/authenticate', authController.authenticate);
+routes.post('/api/authenticate-share', authController.authenticateShare);
 
 routes.patch('/api/participants', participantsController.update);
 routes.patch(

@@ -5,7 +5,6 @@ import { AppError } from '../errors/AppError';
 
 interface tokenPayload {
   id: string;
-  role: string;
 }
 
 export const verifyJWT = () => {
@@ -26,7 +25,6 @@ export const verifyJWT = () => {
 
       if (decoded) {
         request.userId = (decoded as tokenPayload).id;
-        request.userRole = (decoded as tokenPayload).role;
       }
 
       return _next();
