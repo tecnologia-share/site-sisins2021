@@ -22,5 +22,6 @@ routes.patch(
 );
 
 routes.post('/api/subscriptions', subscriptionsController.subscribe);
+routes.delete('/api/subscriptions', subscriptionsController.unsubscribe);
 
 export default routes;

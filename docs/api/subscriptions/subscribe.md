@@ -78,4 +78,4 @@ Inscreve o participante em um curso.
 
   - **Code:** 401 UNAUTHORIZED
 
-    **Content:** `{ "message": "Token inválido." }`
+    **Content:** `{ "message": "Invalid token." }`
