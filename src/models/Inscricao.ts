@@ -19,23 +19,35 @@ class Inscricao {
   @PrimaryColumn()
   readonly id: string;
 
-  @OneToMany(() => Avaliacao, (avaliacao) => avaliacao.usuarioShare)
+  @OneToMany(() => Avaliacao, (avaliacao) => avaliacao.usuarioShare, {
+    cascade: true,
+  })
   avaliacoes: Avaliacao[];
 
-  @OneToMany(() => ProvaInscricao, (provaInscricao) => provaInscricao.inscricao)
+  @OneToMany(
+    () => ProvaInscricao,
+    (provaInscricao) => provaInscricao.inscricao,
+    {
+      cascade: true,
+    }
+  )
   provasInscricoes: ProvaInscricao[];
 
   @Column()
   participante_id: string;
 
-  @ManyToOne(() => Participante, (participante) => participante.inscricoes)
+  @ManyToOne(() => Participante, (participante) => participante.inscricoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'participante_id' })
   participante: Participante;
 
   @Column()
   curso_id: string;
 
-  @ManyToOne(() => Curso, (curso) => curso.inscricoes)
+  @ManyToOne(() => Curso, (curso) => curso.inscricoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'curso_id' })
   curso: Curso;
 

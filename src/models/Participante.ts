@@ -14,12 +14,17 @@ class Participante {
   @PrimaryColumn()
   readonly id: string;
 
-  @OneToMany(() => Inscricao, (inscricao) => inscricao.participante)
+  @OneToMany(() => Inscricao, (inscricao) => inscricao.participante, {
+    cascade: true,
+  })
   inscricoes: Inscricao[];
 
   @OneToMany(
     () => PerguntaParticipante,
-    (perguntaParticipante) => perguntaParticipante.participante
+    (perguntaParticipante) => perguntaParticipante.participante,
+    {
+      cascade: true,
+    }
   )
   perguntasParticipantes: PerguntaParticipante[];
 

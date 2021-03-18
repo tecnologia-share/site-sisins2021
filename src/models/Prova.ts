@@ -17,16 +17,22 @@ class Prova {
   @PrimaryColumn()
   readonly id: string;
 
-  @OneToMany(() => ProvaInscricao, (provaInscricao) => provaInscricao.prova)
+  @OneToMany(() => ProvaInscricao, (provaInscricao) => provaInscricao.prova, {
+    cascade: true,
+  })
   provasInscricoes: ProvaInscricao[];
 
-  @OneToMany(() => Questao, (questao) => questao.prova)
+  @OneToMany(() => Questao, (questao) => questao.prova, {
+    cascade: true,
+  })
   questoes: Questao[];
 
   @Column()
   curso_id: string;
 
-  @ManyToOne(() => Curso, (curso) => curso.provas)
+  @ManyToOne(() => Curso, (curso) => curso.provas, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'curso_id' })
   curso: Curso;
 

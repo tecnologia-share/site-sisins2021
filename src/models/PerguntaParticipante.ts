@@ -14,7 +14,8 @@ class PerguntaParticipante {
 
   @ManyToOne(
     () => Participante,
-    (participante) => participante.perguntasParticipantes
+    (participante) => participante.perguntasParticipantes,
+    { orphanedRowAction: 'delete' }
   )
   @JoinColumn({ name: 'participante_id' })
   participante: Participante;
@@ -22,7 +23,9 @@ class PerguntaParticipante {
   @Column()
   pergunta_id: string;
 
-  @ManyToOne(() => Pergunta, (pergunta) => pergunta.perguntasParticipantes)
+  @ManyToOne(() => Pergunta, (pergunta) => pergunta.perguntasParticipantes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'pergunta_id' })
   pergunta: Pergunta;
 

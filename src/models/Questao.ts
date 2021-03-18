@@ -21,11 +21,16 @@ class Questao {
 
   @OneToMany(
     () => QuestaoInscricao,
-    (questaoInscricao) => questaoInscricao.questao
+    (questaoInscricao) => questaoInscricao.questao,
+    {
+      cascade: true,
+    }
   )
   questoesInscricoes: QuestaoInscricao[];
 
-  @ManyToOne(() => Prova, (prova) => prova.questoes)
+  @ManyToOne(() => Prova, (prova) => prova.questoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'prova_id' })
   prova: Prova;
 
