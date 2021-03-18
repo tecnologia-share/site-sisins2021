@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import AuthController from './controllers/AuthController';
 import ParticipantsController from './controllers/ParticipantsController';
+import SelectionProcessController from './controllers/selectionProcessController';
 import SubscriptionsController from './controllers/SubscriptionsController';
 
 const routes = Router();
@@ -8,8 +9,10 @@ const routes = Router();
 const authController = new AuthController();
 const participantsController = new ParticipantsController();
 const subscriptionsController = new SubscriptionsController();
+const selectionProcessController = new SelectionProcessController();
 
 routes.post('/api/authenticate', authController.authenticate);
+routes.post('/api/authenticate-share', authController.authenticateShare);
 
 routes.patch('/api/participants', participantsController.update);
 routes.patch(
@@ -22,5 +25,7 @@ routes.patch(
 );
 
 routes.post('/api/subscriptions', subscriptionsController.subscribe);
+
+routes.post('/api/selection-process', selectionProcessController.create);
 
 export default routes;
