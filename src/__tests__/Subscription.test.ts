@@ -143,7 +143,7 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ 'x-access-token': token })
       .send({
-        courseId: courseId,
+        courseId,
         reason: 'My Reason',
       });
 
@@ -179,14 +179,14 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ 'x-access-token': token })
       .send({
-        courseId: courseId,
+        courseId,
       });
 
     const responseWithExamAnswersMalformed = await request(app)
       .post('/api/subscriptions')
       .set({ 'x-access-token': token })
       .send({
-        courseId: courseId,
+        courseId,
         reason: 'My Reason',
         examAnswers: [
           {
@@ -276,7 +276,7 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ 'x-access-token': token })
       .send({
-        courseId: courseId,
+        courseId,
         reason: 'My Reason',
         examAnswers: [
           {
@@ -297,7 +297,7 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ 'x-access-token': 'invalid_token' })
       .send({
-        courseId: courseId,
+        courseId,
         reason: 'My Reason',
         examAnswers: [
           {

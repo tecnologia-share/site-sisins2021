@@ -157,6 +157,67 @@ class SubscriptionsController {
       },
     });
   }
+
+  async unsubscribe(request: Request, response: Response, _next: NextFunction) {
+    const { courseId } = request.body;
+    const { userId } = request;
+
+    const schema = yup.object().shape({
+      courseId: yup.string().required(),
+    });
+
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      return _next(new AppError('courseId is required.'));
+    }
+
+    const participantsRepository = getRepository(Participante);
+    const participant = await participantsRepository.findOne(userId, {
+      select: ['id'],
+    });
+    if (!participant) {
+      return _next(new Error('Participant not found.'));
+    }
+
+    const subscriptionsRepository = getRepository(Inscricao);
+    const subscription = await subscriptionsRepository.findOne(
+      { curso_id: courseId, participante_id: userId },
+      {
+        select: ['id'],
+      }
+    );
+
+    if (!subscription) {
+      return _next(new AppError('Participant is not enrolled in this course.'));
+    }
+
+    const coursesRepository = getRepository(Curso);
+    const course = await coursesRepository.findOne(courseId, {
+      select: ['id'],
+      relations: ['processoSeletivo'],
+    });
+
+    if (!course) {
+      return _next(new Error('Course not found.'));
+    }
+
+    const currentDate = new Date();
+    const openForSubscriptions =
+      course.processoSeletivo.data_inicio <= currentDate &&
+      course.processoSeletivo.data_final >= currentDate;
+    if (!openForSubscriptions) {
+      return _next(
+        new AppError('This course is not open for unsubscriptions.')
+      );
+    }
+
+    await subscriptionsRepository.remove(subscription);
+
+    return response.status(200).json({
+      message: 'Successful unsubscription.',
+    });
+  }
 }
 
 export default SubscriptionsController;

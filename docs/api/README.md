@@ -6,5 +6,6 @@
 | PATCH  | [/api/participants/update-email](./participants/updateEmail.md)        | Atualiza o email do participante.                       |
 | PATCH  | [/api/participants/update-password](./participants/updatePassword.md)  | Atualiza a senha do participante.                       |
 | POST   | [/api/subscriptions](./subscriptions/subscribe.md)                     | Inscreve o participante em um curso.                    |
+| DELETE | [/api/subscriptions](./subscriptions/unsubscribe.md)                   | Desinscreve o participante de um curso.                 |
 | POST   | [/api/selection-process](./selectionProcess/createSelectionProcess.md) | Cria um processo seletivo.                              |
 | PATCH  | [/api/selection-process](./selectionProcess/updateSelectionProcess.md) | Atualiza as informações de um processo seletivo.        |
