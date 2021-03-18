@@ -106,6 +106,7 @@ const populateDatabase = async (connection: Connection) => {
     alternativa5: 'Alternative 5',
     gabarito: 2,
     pergunta: 'Question Title',
+    pontos: 10,
     prova_id: exam.id,
   });
   await questionsRepository.save(question);

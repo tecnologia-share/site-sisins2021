@@ -41,11 +41,11 @@ Inscreve o participante em um curso.
       "message": "Successful subscription.",
       "selectionProcess": {
         "id": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
-        "participante_id": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
-        "curso_id": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
-        "motivo": "Participant Reason Text",
+        "participantId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+        "courseId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+        "reason": "Participant Reason Text",
         "status": "NOT_EVALUATED",
-        "desistencia": undefined,
+        "droppedOut": undefined,
         "created_at": "2021-03-17T21:20:20.143Z"
       }
     }

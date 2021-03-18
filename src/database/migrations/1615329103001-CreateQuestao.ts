@@ -49,6 +49,10 @@ export class CreateQuestao1615329103001 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'pontos',
+            type: 'int',
+          },
+          {
             name: 'gabarito',
             type: 'int',
           },

@@ -54,6 +54,9 @@ class Questao {
   alternativa5: string;
 
   @Column()
+  pontos: number;
+
+  @Column()
   gabarito: number;
 
   @CreateDateColumn()
