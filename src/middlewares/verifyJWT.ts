@@ -5,14 +5,14 @@ import { AppError } from '../errors/AppError';
 
 interface tokenPayload {
   id: string;
-  role: string;
 }
 
 export const verifyJWT = () => {
   return (request: Request, response: Response, _next: NextFunction) => {
     if (
       request.path === '/api/authenticate' ||
-      request.path === '/api/register'
+      request.path === '/api/register' ||
+      request.path === '/api/authenticate-share'
     ) {
       return _next();
     }
@@ -26,7 +26,6 @@ export const verifyJWT = () => {
 
       if (decoded) {
         request.userId = (decoded as tokenPayload).id;
-        request.userRole = (decoded as tokenPayload).role;
       }
 
       return _next();

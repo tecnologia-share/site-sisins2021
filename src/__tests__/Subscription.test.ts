@@ -149,6 +149,7 @@ describe('Subscriptions tests', () => {
 
     expect(response.status).toBe(201);
     expect(response.body.message).toBe('Successful subscription.');
+    expect(response.body).toHaveProperty('subscription');
   });
 
   it('Should not be possible to enroll for a course that is not open for subscriptions.', async () => {
@@ -252,6 +253,7 @@ describe('Subscriptions tests', () => {
 
     expect(response.status).toBe(201);
     expect(response.body.message).toBe('Successful subscription.');
+    expect(response.body).toHaveProperty('subscription');
   });
 
   it('Should not be possible to enroll in more than two courses.', async () => {

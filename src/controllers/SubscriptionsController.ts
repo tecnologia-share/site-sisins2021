@@ -146,6 +146,15 @@ class SubscriptionsController {
 
     return response.status(201).json({
       message: 'Successful subscription.',
+      subscription: {
+        id: subscription.id,
+        participante_id: subscription.participante_id,
+        curso_id: subscription.curso_id,
+        motivo: subscription.motivo,
+        status: subscription.status,
+        desistencia: subscription.desistencia,
+        created_at: subscription.created_at,
+      },
     });
   }
 
