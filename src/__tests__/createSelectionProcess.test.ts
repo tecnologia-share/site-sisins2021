@@ -60,7 +60,7 @@ describe('Create Selection Process tests', () => {
     await getToken();
   });
 
-  it('Deve ser possível cadastrar um processo seletivo.', async () => {
+  it('Should be possible to create a selection process.', async () => {
     const response = await request(app)
       .post('/api/selection-process')
       .set({ 'x-access-token': adminToken })
@@ -77,7 +77,7 @@ describe('Create Selection Process tests', () => {
     expect(response.body).toHaveProperty('selectionProcess');
   });
 
-  it('Não deve ser possível cadastrar um processo seletivo se o usuário não for admin.', async () => {
+  it('Should not be possible to create a selection process if the user is not an admin.', async () => {
     const response = await request(app)
       .post('/api/selection-process')
       .set({ 'x-access-token': nonAdminToken })
@@ -93,7 +93,7 @@ describe('Create Selection Process tests', () => {
     );
   });
 
-  it('Deve retornar 400 BAD REQUEST se estiver faltando alguma informação na requisição.', async () => {
+  it('Should return 400 BAD REQUEST if any information is missing from the request.', async () => {
     const responseWithoutName = await request(app)
       .post('/api/selection-process')
       .set({ 'x-access-token': adminToken })
@@ -130,7 +130,7 @@ describe('Create Selection Process tests', () => {
     );
   });
 
-  it('Deve retornar 400 BAD REQUEST se uma das datas estiver em formato errado.', async () => {
+  it('Should return 400 BAD REQUEST if one of the dates is in the wrong format.', async () => {
     const responseStartDateError = await request(app)
       .post('/api/selection-process')
       .set({ 'x-access-token': adminToken })
@@ -168,5 +168,18 @@ describe('Create Selection Process tests', () => {
     expect(response.body.message).toBe(
       'endDate must be greater than startDate.'
     );
+  });
+
+  it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
+    const response = await request(app)
+      .post('/api/selection-process')
+      .set({ 'x-access-token': 'invalid_token' })
+      .send({
+        name: 'Selection Process Name',
+        startDate: futureDate.toJSON(),
+        endDate: pastDate.toJSON(),
+      });
+
+    expect(response.status).toBe(401);
   });
 });

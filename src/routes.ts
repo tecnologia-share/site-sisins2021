@@ -27,5 +27,6 @@ routes.patch(
 routes.post('/api/subscriptions', subscriptionsController.subscribe);
 
 routes.post('/api/selection-process', selectionProcessController.create);
+routes.patch('/api/selection-process', selectionProcessController.update);
 
 export default routes;
