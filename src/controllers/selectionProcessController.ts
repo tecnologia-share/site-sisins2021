@@ -67,6 +67,85 @@ class selectionProcessController {
       },
     });
   }
+
+  async update(request: Request, response: Response, _next: NextFunction) {
+    const { id, name, startDate, endDate } = request.body;
+    const { userId } = request;
+
+    const usersRepository = getRepository(UsuarioShare);
+    const user = await usersRepository.findOne(userId);
+
+    if (!user) {
+      return _next(new Error('User not found.'));
+    }
+
+    if (user.role !== UserRoles.admin) {
+      return _next(
+        new AppError(
+          'Only the administrator can update a selection process.',
+          401
+        )
+      );
+    }
+
+    const selectionProcessRepository = getRepository(ProcessoSeletivo);
+    const selectionProcess = await selectionProcessRepository.findOne(id);
+
+    if (!selectionProcess) {
+      return _next(new AppError('Selection Process not found.', 404));
+    }
+
+    if (name) {
+      selectionProcess.nome = name;
+    }
+
+    const updateOnlyStartDate = startDate && !endDate;
+    const updateOnlyEndDate = !startDate && endDate;
+    const updateAllDates = startDate && endDate;
+
+    if (updateOnlyStartDate) {
+      if (!ValidDate(startDate)) {
+        return _next(new AppError('Invalid Date.', 400));
+      }
+      if (new Date(startDate) >= new Date(selectionProcess.data_final)) {
+        return _next(new AppError('endDate must be greater than startDate.'));
+      }
+
+      selectionProcess.data_final = startDate;
+    } else if (updateOnlyEndDate) {
+      if (!ValidDate(endDate)) {
+        return _next(new AppError('Invalid Date.', 400));
+      }
+      if (new Date(selectionProcess.data_inicio) >= new Date(endDate)) {
+        return _next(new AppError('endDate must be greater than startDate.'));
+      }
+
+      selectionProcess.data_inicio = endDate;
+    } else if (updateAllDates) {
+      if (!ValidDate(startDate) || !ValidDate(endDate)) {
+        return _next(new AppError('Invalid Date.', 400));
+      }
+      if (new Date(startDate) >= new Date(endDate)) {
+        return _next(new AppError('endDate must be greater than startDate.'));
+      }
+
+      selectionProcess.data_inicio = startDate;
+      selectionProcess.data_final = endDate;
+    }
+
+    await selectionProcessRepository.save(selectionProcess);
+
+    return response.status(200).json({
+      message: 'Selection process successfully updated.',
+      selectionProcess: {
+        id: selectionProcess.id,
+        startDate: selectionProcess.data_inicio,
+        endDate: selectionProcess.data_final,
+        name: selectionProcess.nome,
+        created_at: selectionProcess.created_at,
+      },
+    });
+  }
 }
 
 export default selectionProcessController;
