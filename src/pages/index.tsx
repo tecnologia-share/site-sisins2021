@@ -1,10 +1,9 @@
-import { Nav } from '../components/Nav/index';
-import ResponsiveCards from '../components/Responsive Cards/index';
+import HomePage from '../pages/home/index';
+
 const Home = () => {
   return (
     <>
-      <Nav />
-      <ResponsiveCards />
+      <HomePage />
     </>
   );
 };

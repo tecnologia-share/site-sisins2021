@@ -8,6 +8,7 @@ html,
 body,
 body > div:first-child {
   height: 100vh;
+  background-color: #F8F8F8;
 }
 a:hover {
   color: rgba(0, 0, 0, 0.4);
