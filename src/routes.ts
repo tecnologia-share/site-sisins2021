@@ -29,5 +29,6 @@ routes.delete('/api/subscriptions', subscriptionsController.unsubscribe);
 
 routes.post('/api/selection-process', selectionProcessController.create);
 routes.patch('/api/selection-process', selectionProcessController.update);
+routes.delete('/api/selection-process', selectionProcessController.delete);
 
 export default routes;

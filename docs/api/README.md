@@ -9,3 +9,4 @@
 | DELETE | [/api/subscriptions](./subscriptions/unsubscribe.md)                   | Desinscreve o participante de um curso.                 |
 | POST   | [/api/selection-process](./selectionProcess/createSelectionProcess.md) | Cria um processo seletivo.                              |
 | PATCH  | [/api/selection-process](./selectionProcess/updateSelectionProcess.md) | Atualiza as informações de um processo seletivo.        |
+| DELETE | [/api/selection-process](./selectionProcess/deleteSelectionProcess.md) | Exclui um processo seletivo.                            |
