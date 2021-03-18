@@ -25,10 +25,6 @@ export class CreateQuestaoInscricao1615743704558 implements MigrationInterface {
             type: 'int',
           },
           {
-            name: 'pontos',
-            type: 'int',
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
