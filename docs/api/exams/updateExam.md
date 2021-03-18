@@ -24,6 +24,8 @@ Atualiza informações de uma prova.
 
   ```js
     id: string,
+    examTitle?: string,
+    examText?: string,
     questions: Array<{
       id?: string,
       title: string,

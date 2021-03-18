@@ -17,6 +17,12 @@ class Prova {
   @PrimaryColumn()
   readonly id: string;
 
+  @Column()
+  title: string;
+
+  @Column()
+  text: string;
+
   @OneToMany(() => ProvaInscricao, (provaInscricao) => provaInscricao.prova, {
     cascade: true,
   })

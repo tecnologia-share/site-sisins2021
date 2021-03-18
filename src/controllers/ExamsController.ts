@@ -26,11 +26,13 @@ interface Question {
 
 class ExamsController {
   async create(request: Request, response: Response, _next: NextFunction) {
-    const { courseId, questions } = request.body;
+    const { courseId, questions, examTitle, examText } = request.body;
     const { userId } = request;
 
     const schema = yup.object().shape({
       courseId: yup.string().required(),
+      examTitle: yup.string().optional(),
+      examText: yup.string().optional(),
       questions: yup
         .array()
         .of(
@@ -85,6 +87,8 @@ class ExamsController {
     const examsRepository = getRepository(Prova);
     const exam = examsRepository.create({
       curso_id: courseId,
+      title: examTitle,
+      text: examText,
       questoes: [],
     });
 
@@ -120,11 +124,13 @@ class ExamsController {
   }
 
   async update(request: Request, response: Response, _next: NextFunction) {
-    const { id, questions } = request.body;
+    const { id, questions, examTitle, examText } = request.body;
     const { userId } = request;
 
     const schema = yup.object().shape({
       id: yup.string().required(),
+      examTitle: yup.string().optional(),
+      examText: yup.string().optional(),
       questions: yup
         .array()
         .of(
@@ -170,6 +176,9 @@ class ExamsController {
     if (!exam) {
       return _next(new AppError('Exam not found.', 404));
     }
+
+    if (examTitle) exam.title = examTitle;
+    if (examText) exam.text = examText;
 
     const questionsRepository = getRepository(Questao);
 

@@ -24,6 +24,8 @@ Cria uma prova.
 
   ```js
     courseId: string,
+    examTitle?: string,
+    examText?: string,
     questions: Array<{
       title: string,
       question: string,
