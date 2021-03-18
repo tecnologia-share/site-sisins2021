@@ -36,9 +36,6 @@ class QuestaoInscricao {
   @Column()
   resposta: number;
 
-  @Column()
-  pontos: number;
-
   @CreateDateColumn()
   created_at: Date;
 

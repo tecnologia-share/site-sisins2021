@@ -82,7 +82,7 @@ class SubscriptionsController {
       course.processoSeletivo.data_inicio <= currentDate &&
       course.processoSeletivo.data_final >= currentDate;
     if (!openForSubscriptions) {
-      return _next(new AppError('This course is not open for subscriptions.'));
+      throw new AppError('This course is not open for subscriptions.');
     }
 
     const subscriptionsRepository = getRepository(Inscricao);
@@ -129,7 +129,6 @@ class SubscriptionsController {
           prova_inscricao_id: participantExam?.id,
           questao_id: question.id,
           resposta: answer.response,
-          pontos: 10,
         });
 
         participantExam?.questoesInscricoes.push(participantQuestion);
@@ -148,11 +147,11 @@ class SubscriptionsController {
       message: 'Successful subscription.',
       subscription: {
         id: subscription.id,
-        participante_id: subscription.participante_id,
-        curso_id: subscription.curso_id,
-        motivo: subscription.motivo,
+        participantId: subscription.participante_id,
+        courseId: subscription.curso_id,
+        reason: subscription.motivo,
         status: subscription.status,
-        desistencia: subscription.desistencia,
+        droppedOut: subscription.desistencia,
         created_at: subscription.created_at,
       },
     });
