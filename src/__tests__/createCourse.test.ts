@@ -1,11 +1,6 @@
 import request from 'supertest';
 import app from '../app';
 import { Connection, createConnection } from 'typeorm';
-import { Participante } from '../models/Participante';
-import { Curso } from '../models/Curso';
-import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
-import { Prova } from '../models/Prova';
-import { Questao } from '../models/Questao';
 import { UsuarioShare } from '../models/UsuarioShare';
 import { UserRoles } from '../typings/UserRoles';
 
@@ -81,7 +76,7 @@ describe('Create Selection Process tests', () => {
     await createSelectionProcess();
   });
 
-  it('Deve ser possível criar um curso.', async () => {
+  it('Should be possible to create a course.', async () => {
     const response = await request(app)
       .post('/api/courses')
       .set({ 'x-access-token': adminToken })
@@ -99,7 +94,7 @@ describe('Create Selection Process tests', () => {
     expect(response.body).toHaveProperty('course');
   });
 
-  it('Somente o admin pode criar um curso.', async () => {
+  test('Only the admin can create a course.', async () => {
     const response = await request(app)
       .post('/api/courses')
       .set({ 'x-access-token': nonAdminToken })
@@ -118,7 +113,7 @@ describe('Create Selection Process tests', () => {
     );
   });
 
-  it('Precisa de uma inscrição para criar um curso.', async () => {
+  test('A selection process is required to create a course.', async () => {
     const response = await request(app)
       .post('/api/courses')
       .set({ 'x-access-token': adminToken })
@@ -135,7 +130,7 @@ describe('Create Selection Process tests', () => {
     expect(response.body.message).toBe('Selection process not found.');
   });
 
-  it('Deve retornar erro se estiver faltando alguma propriedade no corpo da requisição.', async () => {
+  it('Should return an error if any property is missing from the request body.', async () => {
     const responseWithoutName = await request(app)
       .post('/api/courses')
       .set({ 'x-access-token': adminToken })

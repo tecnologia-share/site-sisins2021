@@ -90,71 +90,50 @@ describe('Create Selection Process tests', () => {
     await createCourse();
   });
 
-  it('Should be possible to edit a course.', async () => {
+  it('Should be possible to delete a course.', async () => {
     const response = await request(app)
-      .patch('/api/courses')
+      .delete('/api/courses')
       .set({ 'x-access-token': adminToken })
       .send({
         id: courseId,
-        name: 'Another Name',
-        category: 'Another Category',
-        description: 'Another Description',
-        time: 'Another Time',
-        professor: 'Another Professor',
       });
 
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe('Course successfully updated.');
-    expect(response.body).toHaveProperty('course');
+    expect(response.body.message).toBe('Course successfully deleted.');
   });
 
-  it('Should be possible to edit a course only if that course exists.', async () => {
+  test('Only the admin can delete a course.', async () => {
     const response = await request(app)
-      .patch('/api/courses')
+      .delete('/api/courses')
+      .set({ 'x-access-token': nonAdminToken })
+      .send({
+        id: courseId,
+      });
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe(
+      'Only the administrator can delete a course.'
+    );
+  });
+
+  it('Should be possible to delete a course only if it exists.', async () => {
+    const response = await request(app)
+      .delete('/api/courses')
       .set({ 'x-access-token': adminToken })
       .send({
-        id: 'Non-existent id',
-        name: 'Another Name',
-        category: 'Another Category',
-        description: 'Another Description',
-        time: 'Another Time',
-        professor: 'Another Professor',
+        id: courseId,
       });
 
     expect(response.status).toBe(404);
     expect(response.body.message).toBe('Course not found.');
   });
 
-  test('Only the admin can edit a course.', async () => {
-    const response = await request(app)
-      .patch('/api/courses')
-      .set({ 'x-access-token': nonAdminToken })
-      .send({
-        id: courseId,
-        name: 'Name',
-        category: 'Category',
-        description: 'Description',
-        time: 'Time',
-        professor: 'Professor',
-      });
-
-    expect(response.status).toBe(401);
-    expect(response.body.message).toBe(
-      'Only the administrator can update a course.'
-    );
-  });
-
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
-      .patch('/api/courses')
+      .delete('/api/courses')
       .set({ 'x-access-token': 'invalid_token' })
       .send({
         id: courseId,
-        name: 'Another Name',
-        category: 'Another Category',
-        description: 'Another Description',
-        time: 'Another Time',
-        professor: 'Another Professor',
       });
 
     expect(response.status).toBe(401);

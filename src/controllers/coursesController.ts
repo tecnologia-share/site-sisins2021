@@ -128,6 +128,37 @@ class CoursesController {
       },
     });
   }
+
+  async delete(request: Request, response: Response, _next: NextFunction) {
+    const { id } = request.body;
+    const { userId } = request;
+
+    const usersRepository = getRepository(UsuarioShare);
+    const user = await usersRepository.findOne(userId);
+
+    if (!user) {
+      return _next(new Error('User not found.'));
+    }
+
+    if (user.role !== UserRoles.admin) {
+      return _next(
+        new AppError('Only the administrator can delete a course.', 401)
+      );
+    }
+
+    const coursesRepository = getRepository(Curso);
+    const course = await coursesRepository.findOne(id);
+
+    if (!course) {
+      return _next(new AppError('Course not found.', 404));
+    }
+
+    await coursesRepository.remove(course);
+
+    return response.status(200).json({
+      message: 'Course successfully deleted.',
+    });
+  }
 }
 
 export default CoursesController;
