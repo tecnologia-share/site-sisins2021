@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 interface MyDocumentProps {
@@ -20,7 +20,7 @@ export default class MyDocument extends Document<MyDocumentProps> {
 
   render() {
     return (
-      <html>
+      <Html>
         <Head>
           <meta httpEquiv="Content-Type" content="text/html" charSet="utf-8" />
           <meta
@@ -47,7 +47,7 @@ export default class MyDocument extends Document<MyDocumentProps> {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

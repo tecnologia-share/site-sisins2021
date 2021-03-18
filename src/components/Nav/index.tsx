@@ -8,7 +8,7 @@ import {
   StyledButton,
   Login,
 } from '../Nav/styles';
-
+//import { ReactComponent as Ball } from '../../assets/icons/ball.svg'
 export const Nav = () => {
   return (
     <div>

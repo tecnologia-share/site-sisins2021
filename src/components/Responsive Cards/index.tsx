@@ -60,6 +60,7 @@ export default function ResponsiveCards() {
 // botao de select, se não houver primário, assignar como primario, se houver primario, assignar como secundário, se houver primário e secundário, alertar para remover uma seleção.
 //botao de 'close' para o primario e secundário onde remove a seleção para a escolha de outra opção.
 //confirmar como esconder o texto do cardbody quando for muito extenso para não ultrapassar 2 linhas no preview.
+//Aplicar Props ao Cards styled component. ===== retirar o cards e definir uma card apenas
 
 export const Card = (props: { header; text; href; id; width; height }) => {
   return (

@@ -6,8 +6,7 @@ export const Cards = styled.div`
   display: grid;
   place-items: center center;
   grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
-  padding-left: 3rem;
-  padding-top: 1rem;
+  padding: 1rem;
   grid-gap: 1rem;
 `;
 
@@ -27,7 +26,6 @@ export const CardHeader = styled.h4`
   line-height: 1rem;
   color: #000000;
   grid-area: title;
-  padding-top: 0.3rem;
   padding-bottom: 0.1rem;
 `;
 
@@ -39,7 +37,6 @@ export const CardBody = styled.p`
   line-height: 1rem;
   color: #707070;
   grid-area: text;
-  padding-top: 0.2rem;
   padding-bottom: 0.3rem;
 `;
 
@@ -52,7 +49,6 @@ export const Button = styled.a`
   line-height: 1rem;
   grid-area: btn;
   padding-bottom: 0.2rem;
-  padding-top: 0.2rem;
 `;
 
 export const CardContainer = styled.div`
@@ -74,6 +70,5 @@ export const CloseBtn = styled.span`
   grid-area: closebtn;
   float: right;
   display: inline-block;
-  background: #ccc;
   background: #ffffff;
 `;
