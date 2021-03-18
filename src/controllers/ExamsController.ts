@@ -21,6 +21,7 @@ interface Question {
   alternative4: string;
   alternative5: string;
   correctAlternative: number;
+  points: number;
 }
 
 class ExamsController {
@@ -43,6 +44,7 @@ class ExamsController {
             alternative4: yup.string().required(),
             alternative5: yup.string().required(),
             correctAlternative: yup.number().max(5).min(1).required(),
+            points: yup.number().required(),
           })
         )
         .required(),
@@ -68,10 +70,16 @@ class ExamsController {
     }
 
     const coursesRepository = getRepository(Curso);
-    const course = await coursesRepository.findOne(courseId);
+    const course = await coursesRepository.findOne(courseId, {
+      relations: ['provas'],
+    });
 
     if (!course) {
-      new AppError('Course not found.', 404);
+      return _next(new AppError('Course not found.', 404));
+    }
+
+    if (course.provas.length > 0) {
+      return _next(new AppError('This course already has an exam.'));
     }
 
     const examsRepository = getRepository(Prova);
@@ -93,6 +101,7 @@ class ExamsController {
         alternativa4: question.alternative4,
         alternativa5: question.alternative5,
         gabarito: question.correctAlternative,
+        pontos: question.points,
       });
 
       exam.questoes.push(newExamQuestion);
@@ -130,6 +139,7 @@ class ExamsController {
             alternative4: yup.string().required(),
             alternative5: yup.string().required(),
             correctAlternative: yup.number().max(5).min(1).required(),
+            points: yup.number().required(),
           })
         )
         .required(),
@@ -188,6 +198,7 @@ class ExamsController {
           alternativa3: question.alternative3,
           alternativa4: question.alternative4,
           alternativa5: question.alternative5,
+          pontos: question.points,
         });
 
         newQuestions.push(newQuestion);
