@@ -33,6 +33,7 @@ routes.delete('/api/subscriptions', subscriptionsController.unsubscribe);
 
 routes.post('/api/selection-process', selectionProcessController.create);
 routes.patch('/api/selection-process', selectionProcessController.update);
+routes.delete('/api/selection-process', selectionProcessController.delete);
 
 routes.post('/api/courses', coursesController.create);
 routes.patch('/api/courses', coursesController.update);
@@ -40,5 +41,6 @@ routes.delete('/api/courses', coursesController.delete);
 
 routes.post('/api/exams', examsController.create);
 routes.patch('/api/exams', examsController.update);
+routes.delete('/api/exams', examsController.delete);
 
 export default routes;
