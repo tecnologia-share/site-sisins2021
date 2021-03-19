@@ -6,7 +6,7 @@ import {
   StyledBtn,
   StyledButton,
   Login,
-} from '../Nav/styles';
+} from './styles';
 
 export const Nav = () => {
   return (

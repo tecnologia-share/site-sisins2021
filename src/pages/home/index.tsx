@@ -22,7 +22,7 @@ import {
   Linkedin,
   Footer,
   Credits,
-} from '../../pages/home/styles';
+} from '../../styles/home/styles';
 import Image from 'next/image';
 
 export default function HomePage() {
