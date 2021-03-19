@@ -52,7 +52,7 @@ const NavMenu = () => {
 function Button({ href, name, className }) {
   return (
     <Link href={href} passHref>
-      <StyledBtn className={name}>{name}</StyledBtn>
+      <StyledBtn className={className}>{name}</StyledBtn>
     </Link>
   );
 }
