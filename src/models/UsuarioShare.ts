@@ -13,7 +13,9 @@ class UsuarioShare {
   @PrimaryColumn()
   readonly id: string;
 
-  @OneToMany(() => Avaliacao, (avaliacao) => avaliacao.usuarioShare)
+  @OneToMany(() => Avaliacao, (avaliacao) => avaliacao.usuarioShare, {
+    cascade: true,
+  })
   avaliacoes: Avaliacao[];
 
   @Column()

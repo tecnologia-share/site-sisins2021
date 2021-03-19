@@ -18,10 +18,14 @@ class Curso {
   @PrimaryColumn()
   readonly id: string;
 
-  @OneToMany(() => Inscricao, (inscricao) => inscricao.curso)
+  @OneToMany(() => Inscricao, (inscricao) => inscricao.curso, {
+    cascade: true,
+  })
   inscricoes: Inscricao[];
 
-  @OneToMany(() => Prova, (prova) => prova.curso)
+  @OneToMany(() => Prova, (prova) => prova.curso, {
+    cascade: true,
+  })
   provas: Prova[];
 
   @Column()
@@ -29,7 +33,8 @@ class Curso {
 
   @ManyToOne(
     () => ProcessoSeletivo,
-    (processoSeletivo) => processoSeletivo.cursos
+    (processoSeletivo) => processoSeletivo.cursos,
+    { orphanedRowAction: 'delete' }
   )
   @JoinColumn({ name: 'processo_seletivo_id' })
   processoSeletivo: ProcessoSeletivo;

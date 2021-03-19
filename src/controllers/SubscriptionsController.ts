@@ -29,7 +29,7 @@ class SubscriptionsController {
         .of(
           yup.object().shape({
             questionId: yup.string().required(),
-            response: yup.number().required(),
+            response: yup.number().max(5).min(1).required(),
           })
         )
         .optional(),
