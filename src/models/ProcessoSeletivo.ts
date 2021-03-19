@@ -13,7 +13,9 @@ class ProcessoSeletivo {
   @PrimaryColumn()
   readonly id: string;
 
-  @OneToMany(() => Curso, (curso) => curso.processoSeletivo)
+  @OneToMany(() => Curso, (curso) => curso.processoSeletivo, {
+    cascade: true,
+  })
   cursos: Curso[];
 
   @Column()

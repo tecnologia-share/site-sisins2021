@@ -50,7 +50,8 @@ Cria um curso.
         "description": "Description",
         "time": "Time",
         "professor": "Professor",
-        "selectionProcessId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72"
+        "selectionProcessId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+        "created_at": "2021-03-17T21:20:20.143Z"
       }
     }
     ```

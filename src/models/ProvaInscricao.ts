@@ -21,20 +21,27 @@ class ProvaInscricao {
   @Column()
   inscricao_id: string;
 
-  @ManyToOne(() => Inscricao, (inscricao) => inscricao.provasInscricoes)
+  @ManyToOne(() => Inscricao, (inscricao) => inscricao.provasInscricoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'inscricao_id' })
   inscricao: Inscricao;
 
   @OneToMany(
     () => QuestaoInscricao,
-    (questaoInscricao) => questaoInscricao.provaInscricao
+    (questaoInscricao) => questaoInscricao.provaInscricao,
+    {
+      cascade: true,
+    }
   )
   questoesInscricoes: QuestaoInscricao[];
 
   @Column()
   prova_id: string;
 
-  @ManyToOne(() => Prova, (prova) => prova.provasInscricoes)
+  @ManyToOne(() => Prova, (prova) => prova.provasInscricoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'prova_id' })
   prova: Prova;
 
