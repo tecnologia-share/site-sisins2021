@@ -34,8 +34,8 @@ export const StyledButton = styled.li`
 
 export const StyledBtn = styled.a`
   text-decoration: none;
-  letter-spacing: 2px;
-  color: #333;
+  letter-spacing: 1px;
+  color: #000000;
   font-family: Lato;
   font-weight: bold;
   justify-content: center;
