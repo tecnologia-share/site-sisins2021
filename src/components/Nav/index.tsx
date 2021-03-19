@@ -49,12 +49,17 @@ const NavMenu = () => {
   );
 };
 
-const Button = ({ href, name, className }) => {
+function Button({ href, name, className }) {
   return (
     <Link href={href} passHref>
       <StyledBtn className={className}>{name}</StyledBtn>
     </Link>
   );
+}
+Button.propTypes = {
+  href: 'string',
+  name: 'string',
+  className: 'string',
 };
 
 const Btn = ({ href, name, className }) => {
@@ -64,10 +69,10 @@ const Btn = ({ href, name, className }) => {
     </StyledButton>
   );
 };
-
-Button.propTypes = {
-  href: PropTypes.node.isRequired,
-  name: PropTypes.node.isRequired,
+Btn.propTypes = {
+  href: 'string',
+  name: 'string',
+  className: 'string',
 };
 
 export const UserIcon = () => {
@@ -105,3 +110,6 @@ function LoginBtn({ href }) {
     </Link>
   );
 }
+LoginBtn.propTypes = {
+  href: 'string',
+};
