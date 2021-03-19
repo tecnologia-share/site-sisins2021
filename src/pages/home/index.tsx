@@ -100,29 +100,29 @@ export default function HomePage() {
         </Artigo3>
         <Artigo4>
           <Texto4>
-            'Conectar o desejo de ensinar com a vontade de aprender'
+            &apos;Conectar o desejo de ensinar com a vontade de aprender&apos;
           </Texto4>
           <Subtexto4>
-            'Fazer o curso de oratória na share, para mim, foi incrível! Além de
-            ter a oportunidade de conhecer pessoas de outros cursos e pessoas de
-            fora da UFSCar, as aulas me proporcionaram um aprendizado muito rico
-            sobre técnicas de apresentação, como se portar durante um discurso e
-            como ser claro e coerente ao passar uma mensagem verbal. Indico a
-            Share para todos aqueles que tem vontade de aprender de uma forma
-            inovadora!'
+            &apos;Fazer o curso de oratória na share, para mim, foi incrível!
+            Além de ter a oportunidade de conhecer pessoas de outros cursos e
+            pessoas de fora da UFSCar, as aulas me proporcionaram um aprendizado
+            muito rico sobre técnicas de apresentação, como se portar durante um
+            discurso e como ser claro e coerente ao passar uma mensagem verbal.
+            Indico a Share para todos aqueles que tem vontade de aprender de uma
+            forma inovadora!&apos;
             <br />
             <br />
             <b>- Vitória Benevenuto, foi aluna do curso de Oratória</b>
             <br />
             <br />
             <br />
-            'Eu fiz o curso de espanhol pós intermediário e foi muito bom,
+            &apos;Eu fiz o curso de espanhol pós intermediário e foi muito bom,
             gostei muito da relação aluno-professor que eu tive com a minha
             professora (tanto que agora ela é minha aluna de alemão), Já sabia
             muito do idioma, mas eu não tinha nenhuma prova ou certificado e
             isso me ajudou muito: quase fui contratada como professora de
             espanhol esse ano, mas por não atender meu horário de
-            disponibilidade mesmo que eu não consegui'
+            disponibilidade mesmo que eu não consegui&apos;
             <br />
             <br />
             <b>
