@@ -98,7 +98,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -125,7 +124,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -152,7 +150,6 @@ describe('Create Exam tests', () => {
       .send({
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -178,7 +175,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -211,7 +207,6 @@ describe('Create Exam tests', () => {
         courseId: 'Non-existent id',
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -237,7 +232,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -263,7 +257,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -283,7 +276,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -311,7 +303,6 @@ describe('Create Exam tests', () => {
         courseId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',

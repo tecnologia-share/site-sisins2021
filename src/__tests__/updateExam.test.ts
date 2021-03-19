@@ -86,7 +86,6 @@ const createCourse = async () => {
       courseId,
       questions: [
         {
-          title: 'Question 1',
           question: 'Correct Alternative is the 2.',
           image: 'Image Path',
           alternative1: 'Alternative 1',
@@ -131,7 +130,6 @@ describe('Update Exam tests', () => {
         questions: [
           {
             id: questionId,
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -151,7 +149,6 @@ describe('Update Exam tests', () => {
         id: examId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -186,7 +183,6 @@ describe('Update Exam tests', () => {
         questions: [
           {
             id: questionId,
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -215,7 +211,6 @@ describe('Update Exam tests', () => {
         questions: [
           {
             id: 'Non-existent-id',
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -240,7 +235,6 @@ describe('Update Exam tests', () => {
       .send({
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -266,7 +260,6 @@ describe('Update Exam tests', () => {
         id: examId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -299,7 +292,6 @@ describe('Update Exam tests', () => {
         id: 'Non-existent id',
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -325,7 +317,6 @@ describe('Update Exam tests', () => {
         id: examId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -345,7 +336,6 @@ describe('Update Exam tests', () => {
         id: examId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -373,7 +363,6 @@ describe('Update Exam tests', () => {
         id: examId,
         questions: [
           {
-            title: 'Question 1',
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',

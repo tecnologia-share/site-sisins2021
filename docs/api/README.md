@@ -10,6 +10,7 @@
 | POST   | [/api/selection-process](./selectionProcess/createSelectionProcess.md) | Cria um processo seletivo.                              |
 | PATCH  | [/api/selection-process](./selectionProcess/updateSelectionProcess.md) | Atualiza as informações de um processo seletivo.        |
 | DELETE | [/api/selection-process](./selectionProcess/deleteSelectionProcess.md) | Exclui um processo seletivo.                            |
+| GET    | [/api/courses/{id}/exam](./courses/getExam.md)                         | Retorna a prova do curso.                               |
 | POST   | [/api/courses](./courses/createCourse.md)                              | Cria um curso.                                          |
 | PATCH  | [/api/courses](./courses/updateCourse.md)                              | Atualiza informações de um curso.                       |
 | DELETE | [/api/courses](./courses/deleteCourse.md)                              | Exclui um curso.                                        |

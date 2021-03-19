@@ -35,7 +35,6 @@ class ExamsController {
         .array()
         .of(
           yup.object().shape({
-            title: yup.string().required(),
             question: yup.string().required(),
             image: yup.string().required(),
             alternative1: yup.string().required(),
@@ -94,7 +93,6 @@ class ExamsController {
 
     (questions as Question[]).forEach((question) => {
       const newExamQuestion = questionsRepository.create({
-        nome: question.title,
         pergunta: question.question,
         imagem: question.image,
         alternativa1: question.alternative1,
@@ -134,7 +132,6 @@ class ExamsController {
         .of(
           yup.object().shape({
             id: yup.string().optional(),
-            title: yup.string().required(),
             question: yup.string().required(),
             image: yup.string().required(),
             alternative1: yup.string().required(),
@@ -196,7 +193,6 @@ class ExamsController {
         newQuestions.push(questionToUpdate);
       } else {
         const newQuestion = questionsRepository.create({
-          nome: question.title,
           pergunta: question.question,
           imagem: question.image,
           gabarito: question.correctAlternative,

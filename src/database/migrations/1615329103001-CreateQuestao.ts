@@ -17,10 +17,6 @@ export class CreateQuestao1615329103001 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'nome',
-            type: 'varchar',
-          },
-          {
             name: 'pergunta',
             type: 'varchar',
           },
