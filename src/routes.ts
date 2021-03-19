@@ -40,5 +40,6 @@ routes.delete('/api/courses', coursesController.delete);
 
 routes.post('/api/exams', examsController.create);
 routes.patch('/api/exams', examsController.update);
+routes.delete('/api/exams', examsController.delete);
 
 export default routes;

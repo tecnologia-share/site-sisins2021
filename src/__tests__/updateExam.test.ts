@@ -122,7 +122,7 @@ describe('Update Exam tests', () => {
     await createCourse();
   });
 
-  it('Should be possible to update a exam.', async () => {
+  it('Should be possible to update an exam.', async () => {
     const responseWithQuestionId = await request(app)
       .patch('/api/exams')
       .set({ 'x-access-token': adminToken })
@@ -177,7 +177,7 @@ describe('Update Exam tests', () => {
     expect(responseWithoutQuestionId.body).toHaveProperty('exam');
   });
 
-  it('Should not be possible to update a exam if the user is not an admin.', async () => {
+  it('Should not be possible to update an exam if the user is not an admin.', async () => {
     const response = await request(app)
       .patch('/api/exams')
       .set({ 'x-access-token': nonAdminToken })
@@ -291,7 +291,7 @@ describe('Update Exam tests', () => {
     );
   });
 
-  it('Should not be possible to update a exam if the exam does not exists.', async () => {
+  it('Should not be possible to update an exam if the exam does not exists.', async () => {
     const response = await request(app)
       .patch('/api/exams')
       .set({ 'x-access-token': adminToken })
@@ -317,7 +317,7 @@ describe('Update Exam tests', () => {
     expect(response.body.message).toBe('Exam not found.');
   });
 
-  it('Should not be possible to update a exam if the correct alternative not exists.', async () => {
+  it('Should not be possible to update an exam if the correct alternative not exists.', async () => {
     const response1 = await request(app)
       .patch('/api/exams')
       .set({ 'x-access-token': adminToken })

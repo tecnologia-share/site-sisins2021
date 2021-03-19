@@ -3,8 +3,6 @@ import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../errors/AppError';
 import { UserRoles } from '../typings/UserRoles';
-import { ValidDate } from '../utils/ValidDate';
-import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
 import { UsuarioShare } from '../models/UsuarioShare';
 import { Prova } from '../models/Prova';
 import { Curso } from '../models/Curso';
@@ -216,6 +214,47 @@ class ExamsController {
         courseId: exam.curso_id,
         created_at: exam.created_at,
       },
+    });
+  }
+
+  async delete(request: Request, response: Response, _next: NextFunction) {
+    const { id } = request.body;
+    const { userId } = request;
+
+    const schema = yup.object().shape({
+      id: yup.string().required(),
+    });
+
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      return _next(new AppError('Something wrong with the request.'));
+    }
+
+    const usersRepository = getRepository(UsuarioShare);
+    const user = await usersRepository.findOne(userId);
+
+    if (!user) {
+      return _next(new Error('User not found.'));
+    }
+
+    if (user.role !== UserRoles.admin) {
+      return _next(
+        new AppError('Only the administrator can delete an exam.', 401)
+      );
+    }
+
+    const examsRepository = getRepository(Prova);
+    const exam = await examsRepository.findOne(id, { select: ['id'] });
+
+    if (!exam) {
+      return _next(new AppError('Exam not found.', 404));
+    }
+
+    await examsRepository.remove(exam);
+
+    return response.status(200).json({
+      message: 'Exam successfully deleted.',
     });
   }
 }

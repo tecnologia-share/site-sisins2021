@@ -90,7 +90,7 @@ describe('Create Exam tests', () => {
     await createCourse();
   });
 
-  it('Should be possible to create a exam.', async () => {
+  it('Should be possible to create an exam.', async () => {
     const response = await request(app)
       .post('/api/exams')
       .set({ 'x-access-token': adminToken })
@@ -203,7 +203,7 @@ describe('Create Exam tests', () => {
     );
   });
 
-  it('Should not be possible to create a exam if the course does not exists.', async () => {
+  it('Should not be possible to create an exam if the course does not exists.', async () => {
     const response = await request(app)
       .post('/api/exams')
       .set({ 'x-access-token': adminToken })
@@ -229,7 +229,7 @@ describe('Create Exam tests', () => {
     expect(response.body.message).toBe('Course not found.');
   });
 
-  it('Should not be possible to create a exam if the course already has an exam.', async () => {
+  it('Should not be possible to create an exam if the course already has an exam.', async () => {
     const response = await request(app)
       .post('/api/exams')
       .set({ 'x-access-token': adminToken })
@@ -255,7 +255,7 @@ describe('Create Exam tests', () => {
     expect(response.body.message).toBe('This course already has an exam.');
   });
 
-  it('Should not be possible to create a exam if the correct alternative not exists.', async () => {
+  it('Should not be possible to create an exam if the correct alternative not exists.', async () => {
     const response1 = await request(app)
       .post('/api/exams')
       .set({ 'x-access-token': adminToken })
