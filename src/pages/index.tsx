@@ -1,11 +1,7 @@
-import { Container, Title } from '../styles/home/styles';
+import HomePage from '../pages/home/index';
 
 const Home = () => {
-  return (
-    <Container>
-      <Title>Home</Title>
-    </Container>
-  );
+  return <HomePage />;
 };
 
 export default Home;
