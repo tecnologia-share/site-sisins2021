@@ -12,3 +12,4 @@
 | POST   | [/api/courses](./courses/createCourse.md)                              | Cria um curso.                                          |
 | PATCH  | [/api/courses](./courses/updateCourse.md)                              | Atualiza informações de um curso.                       |
 | DELETE | [/api/courses](./courses/deleteCourse.md)                              | Exclui um curso.                                        |
+| GET    | [/api/courses](./courses/showCourses.md)                               | Lista os cursos.                                        |

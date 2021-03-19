@@ -35,5 +35,6 @@ routes.patch('/api/selection-process', selectionProcessController.update);
 routes.post('/api/courses', coursesController.create);
 routes.patch('/api/courses', coursesController.update);
 routes.delete('/api/courses', coursesController.delete);
+routes.get('/api/courses', coursesController.show);
 
 export default routes;
