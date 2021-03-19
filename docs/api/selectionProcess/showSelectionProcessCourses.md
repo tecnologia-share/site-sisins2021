@@ -10,13 +10,7 @@ Lista os cursos do processo seletivo.
 
 - **Method:**
 
-  `DELETE`
-
-</br>
-
-- **Headers**
-
-  `x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJIZXkiOiJ0aGlzIGlzIGFuIGV4YW1wbGUgdG9rZW4gOkQifQ.LZ9wWBMzgpV80AtEjjN5KW45WbFcZRZ4pFjHCX7Kr_g`
+  `GET`
 
 </br>
 
@@ -30,30 +24,41 @@ Lista os cursos do processo seletivo.
 
   - **Code:** 200 OK
 
-    **Content:** `{ "message": "Selection process successfully deleted." }`
+    **Content:**
+
+    ```json
+    {
+      "courses": [
+        {
+          "id": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+          "name": "Course Name 1",
+          "category": "Category",
+          "description": "Description",
+          "time": "Time",
+          "professor": "Professor",
+          "hasExam": true,
+          "selectionProcessId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+          "created_at": "2021-03-17T21:20:20.143Z"
+        },
+        {
+          "id": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+          "name": "Course Name 2",
+          "category": "Category",
+          "description": "Description",
+          "time": "Time",
+          "professor": "Professor",
+          "hasExam": true,
+          "selectionProcessId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+          "created_at": "2021-03-17T21:20:20.143Z"
+        }
+      ]
+    }
+    ```
 
 </br>
 
 - **Error Response:**
 
-  - **Code:** 400 BAD REQUEST
-
-    **Content:** `{ "message": "It is necessary to exclude courses associated with this selection process in order to exclude it." }`
-
-  OR
-
   - **Code:** 404 NOT FOUND
 
     **Content:** `{ "message": "Selection Process not found." }`
-
-  OR
-
-  - **Code:** 401 UNAUTHORIZED
-
-    **Content:** `{ "message": "Only the administrator can delete a selection process." }`
-
-  OR
-
-  - **Code:** 401 UNAUTHORIZED
-
-    **Content:** `{ "message": "Invalid token." }`

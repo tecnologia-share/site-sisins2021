@@ -13,7 +13,9 @@ export const verifyJWT = () => {
       request.path === '/api/authenticate' ||
       request.path === '/api/register' ||
       request.path === '/api/authenticate-share' ||
-      (request.path === '/api/courses' && request.method === 'GET')
+      (request.path === '/api/courses' && request.method === 'GET') ||
+      (request.path.startsWith('/api/selection-process/') &&
+        request.method === 'GET')
     ) {
       return _next();
     }

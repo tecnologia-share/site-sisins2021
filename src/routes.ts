@@ -31,6 +31,10 @@ routes.patch(
 routes.post('/api/subscriptions', subscriptionsController.subscribe);
 routes.delete('/api/subscriptions', subscriptionsController.unsubscribe);
 
+routes.get(
+  '/api/selection-process/:id/courses',
+  coursesController.showSelectionProcessCourses
+);
 routes.post('/api/selection-process', selectionProcessController.create);
 routes.patch('/api/selection-process', selectionProcessController.update);
 routes.delete('/api/selection-process', selectionProcessController.delete);

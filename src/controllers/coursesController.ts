@@ -85,6 +85,39 @@ class CoursesController {
     });
   }
 
+  async showSelectionProcessCourses(
+    request: Request,
+    response: Response,
+    _next: NextFunction
+  ) {
+    const { id } = request.params;
+
+    const selectionProcessRepository = getRepository(ProcessoSeletivo);
+    const selectionProcess = await selectionProcessRepository.findOne(id, {
+      relations: ['cursos', 'cursos.provas'],
+    });
+
+    if (!selectionProcess) {
+      return _next(new AppError('Selection Process not found.', 404));
+    }
+
+    return response.status(200).json({
+      courses: selectionProcess.cursos.map((course) => {
+        return {
+          id: course.id,
+          name: course.nome,
+          category: course.categoria,
+          description: course.descricao,
+          time: course.horario,
+          professor: course.professor,
+          hasExam: course.provas.length > 0,
+          selectionProcessId: course.processo_seletivo_id,
+          created_at: course.created_at,
+        };
+      }),
+    });
+  }
+
   async show(request: Request, response: Response, _next: NextFunction) {
     const { state } = request.query;
 
