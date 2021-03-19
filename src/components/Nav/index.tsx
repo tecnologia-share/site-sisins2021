@@ -49,13 +49,13 @@ const NavMenu = () => {
   );
 };
 
-function Button({ href, name, className }) {
+const Button = ({ href, name, className }) => {
   return (
     <Link href={href} passHref>
       <StyledBtn className={className}>{name}</StyledBtn>
     </Link>
   );
-}
+};
 
 const Btn = ({ href, name, className }) => {
   return (
