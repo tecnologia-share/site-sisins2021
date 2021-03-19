@@ -71,7 +71,7 @@ Button.propTypes = {
 };
 
 export const UserIcon = () => {
-  return <Image src="/user.png" alt="usericon" width={25} height={25} />;
+  return <Image src="/user1.png" alt="usericon" width={95} height={25} />;
 };
 
 export const LoginIcon = () => {
