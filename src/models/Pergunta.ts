@@ -15,7 +15,10 @@ class Pergunta {
 
   @OneToMany(
     () => PerguntaParticipante,
-    (perguntaParticipante) => perguntaParticipante.pergunta
+    (perguntaParticipante) => perguntaParticipante.pergunta,
+    {
+      cascade: true,
+    }
   )
   perguntasParticipantes: PerguntaParticipante[];
 

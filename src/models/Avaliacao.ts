@@ -19,14 +19,18 @@ class Avaliacao {
   @Column()
   usuario_share_id: string;
 
-  @ManyToOne(() => UsuarioShare, (usuarioShare) => usuarioShare.avaliacoes)
+  @ManyToOne(() => UsuarioShare, (usuarioShare) => usuarioShare.avaliacoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'usuario_share_id' })
   usuarioShare: UsuarioShare;
 
   @Column()
   inscricao_id: string;
 
-  @ManyToOne(() => Inscricao, (inscricao) => inscricao.avaliacoes)
+  @ManyToOne(() => Inscricao, (inscricao) => inscricao.avaliacoes, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'inscricao_id' })
   inscricao: Inscricao;
 

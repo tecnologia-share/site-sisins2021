@@ -80,6 +80,7 @@ class CoursesController {
         time: course.horario,
         professor: course.professor,
         selectionProcessId: course.processo_seletivo_id,
+        created_at: course.created_at,
       },
     });
   }
@@ -189,6 +190,7 @@ class CoursesController {
         name: course.nome,
         professor: course.professor,
         selectionProcessId: course.processo_seletivo_id,
+        created_at: course.created_at,
       },
     });
   }

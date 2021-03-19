@@ -146,6 +146,50 @@ class selectionProcessController {
       },
     });
   }
+
+  async delete(request: Request, response: Response, _next: NextFunction) {
+    const { id } = request.body;
+    const { userId } = request;
+
+    const usersRepository = getRepository(UsuarioShare);
+    const user = await usersRepository.findOne(userId);
+
+    if (!user) {
+      return _next(new Error('User not found.'));
+    }
+
+    if (user.role !== UserRoles.admin) {
+      return _next(
+        new AppError(
+          'Only the administrator can delete a selection process.',
+          401
+        )
+      );
+    }
+
+    const selectionProcessRepository = getRepository(ProcessoSeletivo);
+    const selectionProcess = await selectionProcessRepository.findOne(id, {
+      relations: ['cursos'],
+    });
+
+    if (!selectionProcess) {
+      return _next(new AppError('Selection Process not found.', 404));
+    }
+
+    if (selectionProcess.cursos.length > 0) {
+      return _next(
+        new AppError(
+          'It is necessary to exclude courses associated with this selection process in order to exclude it.'
+        )
+      );
+    }
+
+    await selectionProcessRepository.remove(selectionProcess);
+
+    return response.status(200).json({
+      message: 'Selection process successfully deleted.',
+    });
+  }
 }
 
 export default selectionProcessController;

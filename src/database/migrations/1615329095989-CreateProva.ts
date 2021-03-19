@@ -13,6 +13,16 @@ export class CreateProva1615329095989 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
+            name: 'title',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'text',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'curso_id',
             type: 'varchar',
           },
