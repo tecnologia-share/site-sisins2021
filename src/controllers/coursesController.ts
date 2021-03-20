@@ -85,6 +85,47 @@ class CoursesController {
     });
   }
 
+  async showExam(request: Request, response: Response, _next: NextFunction) {
+    const { id } = request.params;
+
+    const coursesRepository = getRepository(Curso);
+    const course = await coursesRepository.findOne(id, {
+      relations: ['provas', 'provas.questoes'],
+    });
+
+    if (!course) {
+      return _next(new AppError('Course not found.', 404));
+    }
+
+    if (course.provas.length === 0) {
+      return _next(new AppError('This course has no exam.', 404));
+    }
+
+    return response.status(200).json({
+      exam: {
+        id: course.provas[0].id,
+        title: course.provas[0].title,
+        text: course.provas[0].text,
+        created_at: course.provas[0].created_at,
+        questions: course.provas[0].questoes.map((question) => {
+          return {
+            id: question.id,
+            question: question.pergunta,
+            alternative1: question.alternativa1,
+            alternative2: question.alternativa2,
+            alternative3: question.alternativa3,
+            alternative4: question.alternativa4,
+            alternative5: question.alternativa5,
+            correctAlternative: question.gabarito,
+            image: question.imagem,
+            points: question.pontos,
+            created_at: question.created_at,
+          };
+        }),
+      },
+    });
+  }
+
   async showSelectionProcessCourses(
     request: Request,
     response: Response,

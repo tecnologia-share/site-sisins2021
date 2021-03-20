@@ -98,7 +98,6 @@ const populateDatabase = async (connection: Connection) => {
   const questionsRepository = connection.getRepository(Questao);
   const question = questionsRepository.create({
     imagem: '',
-    nome: 'Question 1',
     alternativa1: 'Alternative 1',
     alternativa2: 'Alternative 2',
     alternativa3: 'Alternative 3',

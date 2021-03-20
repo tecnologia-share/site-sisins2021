@@ -35,9 +35,6 @@ class Questao {
   prova: Prova;
 
   @Column()
-  nome: string;
-
-  @Column()
   pergunta: string;
 
   @Column()

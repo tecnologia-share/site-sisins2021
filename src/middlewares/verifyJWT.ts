@@ -9,17 +9,6 @@ interface tokenPayload {
 
 export const verifyJWT = () => {
   return (request: Request, response: Response, _next: NextFunction) => {
-    if (
-      request.path === '/api/authenticate' ||
-      request.path === '/api/register' ||
-      request.path === '/api/authenticate-share' ||
-      (request.path === '/api/courses' && request.method === 'GET') ||
-      (request.path.startsWith('/api/selection-process/') &&
-        request.method === 'GET')
-    ) {
-      return _next();
-    }
-
     const token = request.headers['x-access-token'] as string;
 
     if (!token) throw new AppError('Invalid token.', 401);
