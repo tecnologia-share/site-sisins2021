@@ -42,6 +42,11 @@ routes.delete(
   subscriptionsController.unsubscribe
 );
 
+routes.get(
+  '/api/selection-process/:id/courses',
+  coursesController.showSelectionProcessCourses
+);
+
 routes.post(
   '/api/selection-process',
   verifyJWT(),
@@ -58,6 +63,7 @@ routes.delete(
   selectionProcessController.delete
 );
 
+routes.get('/api/courses', coursesController.show);
 routes.post('/api/courses', verifyJWT(), coursesController.create);
 routes.patch('/api/courses', verifyJWT(), coursesController.update);
 routes.delete('/api/courses', verifyJWT(), coursesController.delete);

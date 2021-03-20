@@ -5,6 +5,7 @@ import { AppError } from '../errors/AppError';
 import { Curso } from '../models/Curso';
 import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
 import { UsuarioShare } from '../models/UsuarioShare';
+import { CourseStates } from '../typings/CourseStates';
 import { UserRoles } from '../typings/UserRoles';
 
 class CoursesController {
@@ -122,6 +123,102 @@ class CoursesController {
           };
         }),
       },
+    });
+  }
+
+  async showSelectionProcessCourses(
+    request: Request,
+    response: Response,
+    _next: NextFunction
+  ) {
+    const { id } = request.params;
+
+    const selectionProcessRepository = getRepository(ProcessoSeletivo);
+    const selectionProcess = await selectionProcessRepository.findOne(id, {
+      relations: ['cursos', 'cursos.provas'],
+    });
+
+    if (!selectionProcess) {
+      return _next(new AppError('Selection Process not found.', 404));
+    }
+
+    return response.status(200).json({
+      courses: selectionProcess.cursos.map((course) => {
+        return {
+          id: course.id,
+          name: course.nome,
+          category: course.categoria,
+          description: course.descricao,
+          time: course.horario,
+          professor: course.professor,
+          hasExam: course.provas.length > 0,
+          selectionProcessId: course.processo_seletivo_id,
+          created_at: course.created_at,
+        };
+      }),
+    });
+  }
+
+  async show(request: Request, response: Response, _next: NextFunction) {
+    const { state } = request.query;
+
+    let courses: Curso[];
+    const coursesRepository = getRepository(Curso);
+
+    if (state) {
+      if (!Object.keys(CourseStates).includes(state as string)) {
+        return _next(new AppError('Invalid state.'));
+      }
+
+      const currentDate = new Date();
+
+      switch (state) {
+        case CourseStates.active:
+          courses = await coursesRepository
+            .createQueryBuilder('cursos')
+            .leftJoinAndSelect('cursos.provas', 'provas')
+            .innerJoin('cursos.processoSeletivo', 'processos_seletivos')
+            .where(
+              'processos_seletivos.data_inicio <= :currentDate AND data_final >= :currentDate',
+              {
+                currentDate: currentDate.toJSON(),
+              }
+            )
+            .getMany();
+          break;
+        default:
+          courses = await coursesRepository
+            .createQueryBuilder('cursos')
+            .leftJoinAndSelect('cursos.provas', 'provas')
+            .innerJoin('cursos.processoSeletivo', 'processos_seletivos')
+            .where(
+              'processos_seletivos.data_inicio > :currentDate OR data_final < :currentDate',
+              {
+                currentDate: currentDate.toJSON(),
+              }
+            )
+            .getMany();
+      }
+    } else {
+      courses = await coursesRepository.find({
+        relations: ['provas'],
+      });
+    }
+
+    return response.status(200).json({
+      courses: courses.map((course) => {
+        return {
+          id: course.id,
+          name: course.nome,
+          category: course.categoria,
+          description: course.descricao,
+          time: course.horario,
+          professor: course.professor,
+          hasExam: course.provas.length > 0,
+          selectionProcessId: course.processo_seletivo_id,
+          created_at: course.created_at,
+        };
+      }),
     });
   }
 
