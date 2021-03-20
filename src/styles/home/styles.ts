@@ -4,6 +4,12 @@ export const Container = styled.div`
   width: 100vw;
   height: auto;
   background: #ffffff;
+  display: grid;
+  grid-template-areas:
+    'art1 art1'
+    'art2 art2'
+    'art3 art3'
+    'art4 art4';
 `;
 
 export const Texto1 = styled.span`
@@ -94,52 +100,40 @@ export const Subtexto4 = styled.div`
   line-height: 1.5rem;
 `;
 export const Artigo1 = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 12rem);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   overflow: hidden;
-  grid-template-areas:
-    'img texto texto'
-    'img subtexto subtexto'
-    'img btn .';
   background: #ffffff;
+  grid-area: art1;
 `;
 export const Artigo2 = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 13rem);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   overflow: hidden;
-  grid-template-areas:
-    'texto texto . img '
-    'subtexto subtexto . img'
-    'btn . . img';
   background: #ffffff;
+  grid-area: art2;
 `;
 export const Artigo3 = styled.div`
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 16rem);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   overflow: hidden;
-  grid-template-areas:
-    'img img texto texto texto'
-    'img img subtexto subtexto subtexto';
   background: #ffffff;
+  grid-area: art3;
 `;
 export const Artigo4 = styled.div`
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 15rem);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   overflow: hidden;
-  grid-template-areas:
-    'texto texto texto img img'
-    'subtexto subtexto subtexto img img';
   background: #ffffff;
+  grid-area: art4;
 `;
 export const Img = styled.div`
   grid-area: img;
@@ -269,4 +263,14 @@ export const Linkedin = styled.a.attrs((props) => ({
   margin-left: 1rem;
   justify-content: center;
   align-items: center;
+`;
+
+export const Row = styled.div`
+  flex-direction: row;
+  display: flex;
+`;
+
+export const Column = styled.div`
+  flex-direction: column;
+  display: flex;
 `;
