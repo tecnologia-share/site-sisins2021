@@ -24,6 +24,7 @@ class SendMailService {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async execute(to: string, subject: string, variables: any, path: string) {
     const templateFileContent = fs.readFileSync(path).toString('utf-8');
 
