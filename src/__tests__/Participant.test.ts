@@ -2,9 +2,35 @@ import request from 'supertest';
 import app from '../app';
 import { Connection, createConnection } from 'typeorm';
 import { Participante } from '../models/Participante';
+import { Pergunta } from '../models/Pergunta';
+import { AsksTypes } from '../typings/AsksTypes';
+// import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 
 let token = '';
 let connection: Connection;
+let ask1Id: string;
+let ask2Id: string;
+let ask3Id: string;
+let ask4Id: string;
+let askNotExist: string;
+let participantNotExist_id: string;
+let token_emailConfirmed: string;
+let token_emailUnconfirmed: string;
+let token_idNotExist: string;
+let participantUnconfirmedEmail_id: string;
+
+// const sendMailMock = jest.fn();
+
+// jest.mock('nodemailer');
+// // eslint-disable-next-line @typescript-eslint/no-var-requires
+// // const nodemailer = require('nodemailer'); //doesn't work with import. idk why
+// nodemailer.createTransport.mockReturnValue({ sendMail: sendMailMock });
+
+// beforeEach(() => {
+//   sendMailMock.mockClear();
+//   nodemailer.createTransport.mockClear();
+// });
 
 const populateDatabase = async (connection: Connection) => {
   const participantRepository = connection.getRepository(Participante);
@@ -19,6 +45,72 @@ const populateDatabase = async (connection: Connection) => {
     telefone: '1234',
   });
   await participantRepository.save(participant);
+
+  const participant_unconfirmed_email = participantRepository.create({
+    email: 'inactive',
+    senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
+    cidade: 'Test',
+    estado: 'Test',
+    nascimento: new Date(1999, 2, 27),
+    nome: 'Test',
+    pais: 'Test',
+    telefone: '1234',
+  });
+  await participantRepository.save(participant_unconfirmed_email);
+
+  /** @TODO criar rota para o super admin criar peguntas */
+  const asksRepository = connection.getRepository(Pergunta);
+  const asks1 = asksRepository.create({
+    pergunta: 'Aks one',
+    tipo: AsksTypes.alternative,
+    alternativa1: 'Alternative 1',
+    alternativa2: 'Alternative 2',
+    alternativa3: 'Alternative 3',
+    alternativa4: 'Alternative 4',
+    alternativa5: 'Alternative 5',
+  });
+  await asksRepository.save(asks1);
+
+  const asks2 = asksRepository.create({
+    pergunta: 'Aks two',
+    tipo: AsksTypes.alternative,
+    alternativa1: 'Alternative 1',
+    alternativa2: 'Alternative 2',
+    alternativa3: 'Alternative 3',
+    alternativa4: 'Alternative 4',
+    alternativa5: 'Alternative 5',
+  });
+  await asksRepository.save(asks2);
+
+  const asks3 = asksRepository.create({
+    pergunta: 'Ask tree',
+    tipo: AsksTypes.alternative,
+    alternativa1: 'Alternative 1',
+    alternativa2: 'Alternative 2',
+    alternativa3: 'Alternative 3',
+    alternativa4: 'Alternative 4',
+    alternativa5: 'Alternative 5',
+  });
+  await asksRepository.save(asks3);
+
+  const asks4 = asksRepository.create({
+    pergunta: 'Ask four',
+    tipo: AsksTypes.alternative,
+    alternativa1: 'Alternative 1',
+    alternativa2: 'Alternative 2',
+    alternativa3: 'Alternative 3',
+    alternativa4: 'Alternative 4',
+    alternativa5: 'Alternative 5',
+  });
+  await asksRepository.save(asks4);
+
+  ask1Id = asks1.id;
+  ask2Id = asks2.id;
+  ask3Id = asks3.id;
+  ask4Id = asks4.id;
+  askNotExist = 'id_does_not_exist';
+  participantNotExist_id = 'id_does_not_exist';
+  participantUnconfirmedEmail_id = participant_unconfirmed_email.id;
 };
 
 const getToken = async () => {
@@ -29,6 +121,206 @@ const getToken = async () => {
 
   token = response.body.token;
 };
+
+const getToken_emailConfirmed = async () => {
+  token_emailConfirmed = jwt.sign(
+    {
+      email: 'this_email_exists@example.com',
+      id: participantUnconfirmedEmail_id,
+    },
+    process.env.JWT_SECRET as string,
+    { expiresIn: '5h' }
+  );
+};
+const getToken_emailUnconfirmed = async () => {
+  token_emailUnconfirmed = jwt.sign(
+    {
+      email: 'email_unconfirmed@example.com',
+      id: participantUnconfirmedEmail_id,
+    },
+    process.env.JWT_SECRET as string,
+    { expiresIn: '5h' }
+  );
+};
+const getToken_idNotExist = async () => {
+  token_idNotExist = jwt.sign(
+    {
+      email: 'emailNotExist@example.com',
+      id: participantNotExist_id,
+    },
+    process.env.JWT_SECRET as string,
+    { expiresIn: '5h' }
+  );
+};
+
+describe('Create a new Participant and to send email', () => {
+  jest.setTimeout(10000);
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
+
+    await populateDatabase(connection);
+  });
+
+  it('The creation of the new personal account should be successful, if to send asks that exist.', async () => {
+    const response = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'newemail@example.com',
+        password: 'new senha',
+        phone: '1234',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: ask1Id,
+            response: 1,
+          },
+          {
+            asksId: ask2Id,
+            response: 1,
+          },
+          {
+            asksId: ask3Id,
+            response: 1,
+          },
+          {
+            asksId: ask4Id,
+            response: 1,
+          },
+        ],
+      });
+
+    expect(response.status).toBe(201);
+    // expect(sendMailMock).toHaveBeenCalled(); //doesn't work, but it may be necessary for test email
+  });
+
+  it('Should not be possible to create an account if email already exist', async () => {
+    const responseEmailAlreadyExit = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'this_email_exists@example.com',
+        password: 'new senha',
+        phone: '1234',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: ask1Id,
+            response: 1,
+          },
+          {
+            asksId: ask2Id,
+            response: 1,
+          },
+          {
+            asksId: ask3Id,
+            response: 1,
+          },
+          {
+            asksId: ask4Id,
+            response: 1,
+          },
+        ],
+      });
+
+    expect(responseEmailAlreadyExit.status).toBe(400);
+    // expect(sendMailMock).toHaveBeenCalled(); //doesn't work, but it may be necessary for test email
+  });
+
+  it('Should not be possible to create an account with asks that dont exist', async () => {
+    const responseWithAsksNotExist = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'newemail2@example.com',
+        password: 'new senha',
+        phone: '1234',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          // participante_id:  iisso vai ta no controller
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+        ],
+      });
+
+    expect(responseWithAsksNotExist.status).toBe(400);
+    // expect(sendMailMock).toHaveBeenCalled(); //doesn't work, but it may be necessary for test email
+  });
+});
+
+describe('Verify email and finishes creating the participant', () => {
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
+
+    await populateDatabase(connection);
+    await getToken_emailConfirmed();
+    await getToken_emailUnconfirmed();
+    await getToken_idNotExist();
+  });
+
+  it('Should verify the email successfully if sent the token correctly', async () => {
+    const response = await request(app).get(
+      `/api/register/verify-email/${token_emailUnconfirmed}`
+    );
+
+    expect(response.status).toBe(302);
+  });
+
+  it('Should return 400 BAD REQUEST if sent a email that has already been confirmed', async () => {
+    const responseEmailAlreadyConfirmed = await request(app).get(
+      `/api/register/verify-email/${token_emailConfirmed}`
+    );
+
+    expect(responseEmailAlreadyConfirmed.status).toBe(400);
+  });
+
+  it('Should return 400 BAD REQUEST if a participant does not exist', async () => {
+    const responseParticipantNotExist = await request(app).get(
+      `/api/register/verify-email/${token_idNotExist}`
+    );
+
+    expect(responseParticipantNotExist.status).toBe(400);
+  });
+
+  it('Should return 401 UNAUTHORIZED if sent the token incorrect', async () => {
+    const responseTokenIncorrect = await request(app).get(
+      `/api/register/verify-email/token_incorrect`
+    );
+
+    expect(responseTokenIncorrect.status).toBe(401);
+  });
+});
 
 describe('Participant update email', () => {
   beforeAll(async () => {

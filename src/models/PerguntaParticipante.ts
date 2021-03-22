@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { Participante } from './Participante';
@@ -14,8 +21,7 @@ class PerguntaParticipante {
 
   @ManyToOne(
     () => Participante,
-    (participante) => participante.perguntasParticipantes,
-    { orphanedRowAction: 'delete' }
+    (participante) => participante.perguntasParticipantes
   )
   @JoinColumn({ name: 'participante_id' })
   participante: Participante;
@@ -31,6 +37,9 @@ class PerguntaParticipante {
 
   @Column()
   resposta: string;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   constructor() {
     if (!this.id) {
