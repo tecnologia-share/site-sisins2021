@@ -8,7 +8,7 @@ export const Container = styled.div`
   height: 3rem;
   width: 100%;
   background: ${({ theme }) => theme.colors.white};
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0.5rem ${({ theme }) => theme.colors.blacks[0]};
   z-index: 10;
 `;
 
@@ -69,6 +69,8 @@ export const NavButton = styled.a<NavButtonProps>`
     position: absolute;
     display: ${({ active }) => (active ? 'block' : 'none')};
     content: '';
+    left: 50%;
+    transform: translateX(-50%);
     width: 60px;
     height: 2px;
     top: 100%;
@@ -97,6 +99,10 @@ export const UserIcon = styled(SVG)`
   cursor: pointer;
   width: 1.5rem;
   height: 1.5rem;
+
+  path {
+    fill: ${({ theme }) => theme.colors.black};
+  }
 `;
 
 export const UserIconContainer = styled.div`
