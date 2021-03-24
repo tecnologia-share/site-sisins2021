@@ -6,7 +6,3 @@ export const Container = styled.div`
   align-items: center;
   height: 100%;
 `;
-
-export const Title = styled.h1`
-  font-size: 2rem;
-`;

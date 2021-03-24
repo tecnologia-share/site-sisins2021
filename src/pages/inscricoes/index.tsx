@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 
-import { Container, Title } from '../../styles/inscricoes/styles';
+import { Container } from '../../styles/inscricoes/styles';
 import ModalCourseRequirement from '../../components/ModalCourseRequirement';
+import EmptyCourses from '../../components/EmptyCourses';
 
 const Inscricoes = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,7 +17,7 @@ const Inscricoes = () => {
 
   return (
     <Container>
-      <Title onClick={openModal}>Inscrições</Title>
+      <EmptyCourses onClick={openModal} />
 
       <ModalCourseRequirement
         courseTitle="Inglês Avançado"
