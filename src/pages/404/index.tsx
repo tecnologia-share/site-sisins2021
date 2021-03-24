@@ -9,6 +9,7 @@ const NotFound = () => {
       <Title>Página não encontrada :(</Title>
       <LottieWrapper>
         <Lottie
+          isClickToPauseDisabled
           options={{
             loop: true,
             autoplay: true,

@@ -10,20 +10,13 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   text-align: center;
-`;
-
-export const Title = styled.h1`
-  font-size: 1.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  text-align: center;
-  margin-bottom: 4rem;
 
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-    margin-bottom: 6rem;
+    font-size: 1.5rem;
   }
 `;
 
@@ -33,12 +26,11 @@ export const LottieWrapper = styled.div`
 
   > * {
     width: 100% !important;
+    max-width: 30rem !important;
     height: auto !important;
-    margin-bottom: 4rem !important;
 
     @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-      width: 46rem !important;
-      margin-bottom: 6rem !important;
+      width: 30rem !important;
     }
   }
 `;

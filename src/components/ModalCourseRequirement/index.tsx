@@ -39,6 +39,7 @@ const ModalCourseRequirement: React.FC<ModalCourseRequirementProps> = ({
   }, []);
 
   const acceptConditions = useCallback(() => {
+    setChecked(false);
     onAccept();
   }, [onAccept]);
 
