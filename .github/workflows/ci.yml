@@ -1,7 +1,6 @@
 name: CI
 
 on:
-  push:
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -17,9 +16,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2.1.0
-          
+
       - name: Install Dependencies
         run: yarn
 
       - name: Jest
         run: yarn test
+
+      - name: Prettier
+        run: yarn prettier:check
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
