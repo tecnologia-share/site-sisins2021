@@ -1,9 +1,21 @@
-import { Container, Title } from '../../styles/404/styles';
+import { Container, Title, Text, LottieWrapper } from '../../styles/404/styles';
+import Lottie from 'react-lottie';
+import Error404Glitch from '../../assets/lotties/404-error-glitch.json';
 
 const NotFound = () => {
   return (
     <Container>
-      <Title>404 - Página não encontrada :c</Title>
+      <Text>OPS...</Text>
+      <Title>Página não encontrada :(</Title>
+      <LottieWrapper>
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: Error404Glitch,
+          }}
+        />
+      </LottieWrapper>
     </Container>
   );
 };
