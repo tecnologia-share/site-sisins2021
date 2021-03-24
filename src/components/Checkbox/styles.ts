@@ -4,7 +4,7 @@ import SVG from 'react-inlinesvg';
 export const Container = styled.label`
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -13,8 +13,8 @@ interface IconProps {
 }
 
 export const Icon = styled(SVG)<IconProps>`
-  height: 1.5rem;
-  width: 1.5rem;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
 
   path {
     fill: ${({ checked, theme }) =>
