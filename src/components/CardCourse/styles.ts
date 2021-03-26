@@ -40,7 +40,7 @@ interface ActiveMarkProps {
 }
 
 export const ActiveMark = styled.div<ActiveMarkProps>`
-  height: 100%;
+  min-height: 100%;
   min-width: 0.5rem;
   background: ${({ option, theme }) =>
     option === 'first' ? theme.colors.blue : theme.colors.green};
@@ -91,6 +91,7 @@ export const Description = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  width: 100%;
 
   min-height: 38px;
   margin-bottom: 0.5rem;
@@ -110,6 +111,7 @@ export const Info = styled.p`
 
 interface CheckIconProps {
   checked?: boolean;
+  selectedOption?: 'first' | 'secondary';
 }
 
 export const CheckIcon = styled(SVG)<CheckIconProps>`
@@ -121,8 +123,17 @@ export const CheckIcon = styled(SVG)<CheckIconProps>`
   width: 1.5rem;
 
   path {
-    fill: ${({ checked, theme }) =>
-      checked ? theme.colors.blues[1] : theme.colors.grays[5]};
+    fill: ${({ checked, selectedOption, theme }) => {
+      if (checked) {
+        if (selectedOption === 'first') {
+          return theme.colors.blues[1];
+        } else {
+          return theme.colors.green;
+        }
+      } else {
+        return theme.colors.grays[5];
+      }
+    }};
   }
 
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {

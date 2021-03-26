@@ -30,7 +30,6 @@ const ModalCourseRequirement: React.FC<ModalCourseRequirementProps> = ({
 
   const handleCloseModal = useCallback(() => {
     setChecked(false);
-
     onClose();
   }, [onClose]);
 

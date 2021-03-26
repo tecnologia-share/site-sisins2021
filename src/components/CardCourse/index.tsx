@@ -44,6 +44,7 @@ const CardCourse: React.FC<CardCourseProps> = ({
         </Info>
 
         <CheckIcon
+          selectedOption={selectedOption}
           checked={checked}
           src={checked ? 'icons/Checkbox_checked.svg' : 'icons/Checkbox.svg'}
         />

@@ -18,7 +18,6 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: ${({ theme }) => theme.sizes.maxContent};
   margin: 0 auto;
   padding: 0 2rem;
 
