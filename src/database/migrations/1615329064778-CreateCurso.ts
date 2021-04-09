@@ -37,6 +37,15 @@ export class CreateCurso1615329064778 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'tempo_duracao',
+            type: 'varchar',
+          },
+          {
+            name: 'curso_continuacao_id',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

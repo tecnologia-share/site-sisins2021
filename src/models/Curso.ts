@@ -54,6 +54,12 @@ class Curso {
   @Column()
   horario: string;
 
+  @Column()
+  tempo_duracao: string;
+
+  @Column()
+  curso_continuacao_id: string;
+
   @CreateDateColumn()
   created_at: Date;
 

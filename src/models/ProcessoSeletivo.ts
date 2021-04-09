@@ -27,6 +27,12 @@ class ProcessoSeletivo {
   @Column()
   nome: string;
 
+  @Column()
+  link_edital: string;
+
+  @Column()
+  link_manual: string;
+
   @CreateDateColumn()
   created_at: Date;
 
