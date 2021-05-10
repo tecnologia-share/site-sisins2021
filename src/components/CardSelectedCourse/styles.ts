@@ -25,7 +25,7 @@ export const Container = styled.div<ContainerProps>`
     }
   }};
   border-radius: 0.3125rem;
-  max-width: 100%;
+  width: 100%;
   min-height: 82px;
   overflow: hidden;
 
@@ -40,7 +40,7 @@ interface ActiveMarkProps {
 }
 
 export const ActiveMark = styled.div<ActiveMarkProps>`
-  height: 100%;
+  min-height: 100%;
   min-width: 0.5rem;
   background: ${({ option, theme }) =>
     option === 'first' ? theme.colors.blue : theme.colors.green};
@@ -88,12 +88,10 @@ export const Title = styled.h2`
 export const EmptyText = styled.p`
   height: 100%;
   width: 100%;
-  display: flex;
   font-size: 0.625rem;
-  justify-content: center;
-  align-items: center;
   padding: 1rem;
   text-align: center;
+  align-self: center;
 
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
     font-size: 1rem;
@@ -109,6 +107,7 @@ export const Description = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  width: 100%;
 
   margin-bottom: 0.5rem;
 
