@@ -145,9 +145,7 @@ const getToken_idNotExist = async () => {
 describe('Create a new Participant and to send email', () => {
   jest.setTimeout(10000);
   beforeAll(async (done) => {
-    server = app.listen(0, async (err: any) => {
-      if (err) return done(err);
-
+    server = app.listen(0, async () => {
       agent = request.agent(server);
       if (!connection) {
         connection = await createConnection();
@@ -325,9 +323,7 @@ describe('Create a new Participant and to send email', () => {
 
 describe('Verify email and finishes creating the participant', () => {
   beforeAll(async (done) => {
-    server = app.listen(0, async (err: any) => {
-      if (err) return done(err);
-
+    server = app.listen(0, async () => {
       agent = request.agent(server);
       if (!connection) {
         connection = await createConnection();
@@ -382,9 +378,7 @@ describe('Verify email and finishes creating the participant', () => {
 
 describe('Participant update email', () => {
   beforeAll(async (done) => {
-    server = app.listen(0, async (err: any) => {
-      if (err) return done(err);
-
+    server = app.listen(0, async () => {
       agent = request.agent(server); // since the application is already listening, it should use the allocated port
       if (!connection) {
         connection = await createConnection();
@@ -456,9 +450,7 @@ describe('Participant update email', () => {
 
 describe('Participant update password', () => {
   beforeAll(async (done) => {
-    server = app.listen(0, async (err: any) => {
-      if (err) return done(err);
-
+    server = app.listen(0, async () => {
       agent = request.agent(server);
       if (!connection) {
         connection = await createConnection();
@@ -528,9 +520,7 @@ describe('Participant update password', () => {
 
 describe('Participant update personal data', () => {
   beforeAll(async (done) => {
-    server = app.listen(0, async (err: any) => {
-      if (err) return done(err);
-
+    server = app.listen(0, async () => {
       agent = request.agent(server);
       if (!connection) {
         connection = await createConnection();
