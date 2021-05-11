@@ -19,7 +19,7 @@ const coursesController = new CoursesController();
 routes.post('/api/authenticate', authController.authenticate);
 routes.post('/api/authenticate-share', authController.authenticateShare);
 
-routes.post('/api/register/', participantsController.create);
+routes.post('/api/register', participantsController.create);
 routes.get(
   '/api/register/verify-email/:token',
   participantsController.verifyEmail

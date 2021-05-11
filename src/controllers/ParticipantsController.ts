@@ -15,6 +15,11 @@ interface PayloadEmail {
   email: string;
 }
 
+interface AsksAnswers {
+  asksId: string;
+  response: string;
+}
+
 interface IParticipant {
   name: string;
   email: string;
@@ -24,12 +29,7 @@ interface IParticipant {
   country: string;
   state: string;
   city: string;
-  asksAnswers: [
-    {
-      asksId: string;
-      response: string;
-    }
-  ];
+  asksAnswers: Array<AsksAnswers>;
 }
 
 class ParticipantsController {
@@ -80,10 +80,11 @@ class ParticipantsController {
       return _next(new AppError('Email already exists!'));
     }
 
+    const senha = await bcrypt.hash(password, 10);
     const participant = participantsRepository.create({
       nome: name,
       email: 'inactive',
-      senha: password,
+      senha,
       telefone: phone,
       nascimento: birth_date,
       pais: country,
@@ -93,19 +94,26 @@ class ParticipantsController {
     });
 
     const asksRepository = getRepository(Pergunta);
-
     const asksParticipantsRepository = getRepository(PerguntaParticipante);
-    for (let i = 0; i < asksAnswers.length; i++) {
-      const isExist = await asksRepository.findOne(asksAnswers[i].asksId, {
-        select: ['id'],
-      });
-      if (!isExist) {
-        return _next(new AppError('Ask not found.', 400));
+    const asks = await asksRepository.find();
+
+    if (!(asks.length === asksAnswers.length))
+      return _next(new AppError('You do not submit all asks'));
+
+    for (let i = 0; i < asks.length; i++) {
+      const ask = asks[i];
+
+      const answer = (asksAnswers as AsksAnswers[]).find(
+        (currentAnswer) => currentAnswer.asksId === ask.id
+      );
+
+      if (!answer) {
+        return _next(new AppError('Some answer is missing.'));
       }
 
       const newAsk = asksParticipantsRepository.create({
-        pergunta_id: asksAnswers[i].asksId,
-        resposta: asksAnswers[i].response,
+        pergunta_id: ask.id,
+        resposta: answer.response,
         participante_id: participant.id,
       });
 
@@ -126,13 +134,13 @@ class ParticipantsController {
 
     const variables = {
       name,
-      link: `${process.env.URL_MAIL}${token}`,
+      link: `http://localhost:3333/api/register/verify-email/${token}`,
     };
+
+    await participantsRepository.save(participant);
 
     await SendMailService.execute(email, 'Cadastro', variables, npsPath);
     // END sending email
-
-    await participantsRepository.save(participant);
 
     return response
       .status(201)
@@ -156,13 +164,14 @@ class ParticipantsController {
         });
 
         if (!participante) {
-          return _next(new AppError('Participant not found.', 400));
+          return _next(new AppError('Participant not found.', 404));
         }
 
         const emailAlreadyExists = await participantesRepository.findOne({
           email,
         });
 
+        /** @TODO redirect pra tela de dizendo que já existe o email ou pra tela de login*/
         if (emailAlreadyExists) {
           return _next(new AppError('Email already confirmed!'));
         }
@@ -171,7 +180,7 @@ class ParticipantsController {
 
         participantesRepository.save(participante);
 
-        /** @TODO substituir URL para o login */
+        /** @TODO página dizendo tipo "Teu email foi confirmado com sucesso, faça o login" */
         response.redirect('https://associacaoshare.com.br/');
       }
     );

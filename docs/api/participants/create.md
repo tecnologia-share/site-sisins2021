@@ -4,7 +4,7 @@ Cria o participante.
 
 - **URL**
 
-  /api/registerl
+  /api/register
 
 </br>
 
@@ -24,12 +24,14 @@ Cria o participante.
   `country: string`
   `state: string`
   `city: string`
-  `asksAnswers` `[`
-  `{`
-  `asksId: string`
-  `response: string`
-  `}`
-  `]`
+  `asksAnswers:` [ {
+    <br>
+    `asksId: string`
+    </br>
+    `response: string`
+    <br>
+  } ]
+
 
 </br>
 
@@ -51,4 +53,10 @@ Cria o participante.
 
   - **Code:** 400 BAD REQUEST
 
-    **Content:** `{ "message": "Ask not found." }`
+    **Content:** `{ "message": "You do not submit all asks" }`
+
+  OR
+
+  - **Code:** 400 BAD REQUEST
+
+    **Content:** `{ "message": "Some answer is missing." }`
