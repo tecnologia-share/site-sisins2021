@@ -19,7 +19,7 @@ const populateDatabase = async (connection: Connection) => {
   const participantsRepository = connection.getRepository(Participante);
   const participant = participantsRepository.create({
     email: 'this_email_exists@example.com',
-    senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
+    senha: '$2b$10$6FD3duMwr0qUTbREF.jE7O7AidMeeZPcGRTIAUh77Ml/jbpVnUYwy',
     cidade: 'Test',
     estado: 'Test',
     nascimento: new Date(1999, 2, 27),
