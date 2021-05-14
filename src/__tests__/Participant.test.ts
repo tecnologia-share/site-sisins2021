@@ -8,6 +8,12 @@ import { AsksTypes } from '../typings/AsksTypes';
 import jwt from 'jsonwebtoken';
 import { Server } from 'http';
 
+const mockSendEmail = jest.fn();
+
+jest.mock('../services/SendMailService.ts', () => ({
+  execute: () => mockSendEmail(),
+}));
+
 let server: Server, agent: request.SuperAgentTest;
 let token = '';
 let connection: Connection;
@@ -161,6 +167,10 @@ describe('Create a new Participant and to send email', () => {
     return server && server.close(done);
   });
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('The creation of the new personal account should be successful, if to send asks that exist.', async () => {
     const response = await agent.post('/api/register/').send({
       name: 'new nome',
@@ -192,6 +202,7 @@ describe('Create a new Participant and to send email', () => {
     });
 
     expect(response.status).toBe(201);
+    expect(mockSendEmail.mock.calls.length).toBe(1);
   });
 
   it('Should not be possible to create an account if email already exist', async () => {

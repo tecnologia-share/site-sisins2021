@@ -15,7 +15,7 @@ interface PayloadEmail {
   email: string;
 }
 
-interface AsksAnswers {
+interface AskAnswer {
   asksId: string;
   response: string;
 }
@@ -29,7 +29,7 @@ interface IParticipant {
   country: string;
   state: string;
   city: string;
-  asksAnswers: Array<AsksAnswers>;
+  asksAnswers: Array<AskAnswer>;
 }
 
 class ParticipantsController {
@@ -80,11 +80,11 @@ class ParticipantsController {
       return _next(new AppError('Email already exists!'));
     }
 
-    const senha = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10);
     const participant = participantsRepository.create({
       nome: name,
       email: 'inactive',
-      senha,
+      senha: passwordHash,
       telefone: phone,
       nascimento: birth_date,
       pais: country,
@@ -103,7 +103,7 @@ class ParticipantsController {
     for (let i = 0; i < asks.length; i++) {
       const ask = asks[i];
 
-      const answer = (asksAnswers as AsksAnswers[]).find(
+      const answer = (asksAnswers as AskAnswer[]).find(
         (currentAnswer) => currentAnswer.asksId === ask.id
       );
 
@@ -159,9 +159,7 @@ class ParticipantsController {
         const { id, email } = decoded as PayloadEmail;
         const participantesRepository = getRepository(Participante);
 
-        const participante = await participantesRepository.findOne({
-          id,
-        });
+        const participante = await participantesRepository.findOne(id);
 
         if (!participante) {
           return _next(new AppError('Participant not found.', 404));

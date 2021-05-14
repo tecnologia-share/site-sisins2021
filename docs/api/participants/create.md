@@ -24,13 +24,15 @@ Cria o participante.
   `country: string`
   `state: string`
   `city: string`
-  `asksAnswers:` [ {
-    <br>
-    `asksId: string`
-    </br>
-    `response: string`
-    <br>
-  } ]
+  ```ts 
+  asksAnswers: 
+  [ 
+    {
+      `asksId: string`
+      `response: string`
+    } 
+  ]
+  ```
 
 
 </br>
