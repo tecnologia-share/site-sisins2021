@@ -57,8 +57,8 @@ class Curso {
   @Column()
   tempo_duracao: string;
 
-  @Column()
-  curso_continuacao_id: string;
+  @Column({ type: 'varchar' })
+  curso_continuacao_id: string | null;
 
   @CreateDateColumn()
   created_at: Date;

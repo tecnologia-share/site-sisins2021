@@ -2,6 +2,8 @@
 
 Lista os cursos.
 
+Somente os do processo seletivo em aberto.
+
 - **URL**
 
   /api/courses

@@ -14,6 +14,7 @@ const populateDatabase = async (connection: Connection) => {
     cidade: 'Test',
     estado: 'Test',
     nascimento: new Date(1999, 2, 27),
+    cpf: '12345678912',
     nome: 'Test',
     pais: 'Test',
     telefone: '1234',

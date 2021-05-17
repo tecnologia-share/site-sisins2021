@@ -36,6 +36,7 @@ export class CreateInscricao1615329070691 implements MigrationInterface {
           {
             name: 'link_video',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',

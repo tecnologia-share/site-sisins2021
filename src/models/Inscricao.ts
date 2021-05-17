@@ -60,8 +60,8 @@ class Inscricao {
   @Column()
   desistencia: Date;
 
-  @Column()
-  link_video: string;
+  @Column({ type: 'varchar' })
+  link_video: string | null;
 
   @CreateDateColumn()
   created_at: Date;

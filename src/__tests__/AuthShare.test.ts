@@ -11,6 +11,12 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Admin',
     role: UserRoles.admin,
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(user);
 };

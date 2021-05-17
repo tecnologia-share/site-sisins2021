@@ -9,13 +9,15 @@ import { UsuarioShare } from '../models/UsuarioShare';
 
 class selectionProcessController {
   async create(request: Request, response: Response, _next: NextFunction) {
-    const { name, startDate, endDate } = request.body;
+    const { name, startDate, endDate, editalLink, manualLink } = request.body;
     const { userId } = request;
 
     const schema = yup.object().shape({
       name: yup.string().required(),
       startDate: yup.string().required(),
       endDate: yup.string().required(),
+      editalLink: yup.string().required(),
+      manualLink: yup.string().required(),
     });
 
     try {
@@ -53,6 +55,8 @@ class selectionProcessController {
       nome: name,
       data_inicio: startDate,
       data_final: endDate,
+      link_edital: editalLink,
+      link_manual: manualLink,
     });
     await selectionProcessRepository.save(selectionProcess);
 
@@ -63,13 +67,22 @@ class selectionProcessController {
         startDate: selectionProcess.data_inicio,
         endDate: selectionProcess.data_final,
         name: selectionProcess.nome,
+        editalLink: selectionProcess.link_edital,
+        manualLink: selectionProcess.link_manual,
         created_at: selectionProcess.created_at,
       },
     });
   }
 
   async update(request: Request, response: Response, _next: NextFunction) {
-    const { id, name, startDate, endDate } = request.body;
+    const {
+      id,
+      name,
+      startDate,
+      endDate,
+      editalLink,
+      manualLink,
+    } = request.body;
     const { userId } = request;
 
     const usersRepository = getRepository(UsuarioShare);
@@ -97,6 +110,12 @@ class selectionProcessController {
 
     if (name) {
       selectionProcess.nome = name;
+    }
+    if (editalLink) {
+      selectionProcess.link_edital = editalLink;
+    }
+    if (manualLink) {
+      selectionProcess.link_manual = manualLink;
     }
 
     const updateOnlyStartDate = startDate && !endDate;

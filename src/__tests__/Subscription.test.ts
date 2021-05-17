@@ -22,6 +22,7 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     cidade: 'Test',
     estado: 'Test',
+    cpf: '12345678912',
     nascimento: new Date(1999, 2, 27),
     nome: 'Test',
     pais: 'Test',
@@ -39,12 +40,16 @@ const populateDatabase = async (connection: Connection) => {
     data_inicio: new Date(),
     data_final: futureDate,
     nome: 'Selective Process Name',
+    link_edital: 'link edital',
+    link_manual: 'link manual',
   });
   await selectiveProcessRepository.save(selectiveProcess);
   const selectiveProcessInactive = selectiveProcessRepository.create({
     data_inicio: pastDate,
     data_final: pastDate,
     nome: 'Selective Process Name',
+    link_edital: 'link edital',
+    link_manual: 'link manual',
   });
   await selectiveProcessRepository.save(selectiveProcessInactive);
 
@@ -56,6 +61,7 @@ const populateDatabase = async (connection: Connection) => {
     nome: 'Course Name',
     professor: 'Professor Name',
     processo_seletivo_id: selectiveProcess.id,
+    tempo_duracao: '6 meses',
   });
   await coursesRepository.save(course);
 
@@ -66,6 +72,7 @@ const populateDatabase = async (connection: Connection) => {
     nome: 'Course Name',
     professor: 'Professor Name',
     processo_seletivo_id: selectiveProcess.id,
+    tempo_duracao: '6 meses',
   });
   await coursesRepository.save(courseWithExam);
 
@@ -76,6 +83,7 @@ const populateDatabase = async (connection: Connection) => {
     nome: 'Course Name',
     professor: 'Professor Name',
     processo_seletivo_id: selectiveProcess.id,
+    tempo_duracao: '6 meses',
   });
   await coursesRepository.save(thirdCourse);
 
@@ -86,6 +94,7 @@ const populateDatabase = async (connection: Connection) => {
     nome: 'Course Name',
     professor: 'Professor Name',
     processo_seletivo_id: selectiveProcessInactive.id,
+    tempo_duracao: '6 meses',
   });
   await coursesRepository.save(courseInactive);
 
@@ -145,10 +154,11 @@ describe('Subscriptions tests', () => {
       .send({
         courseId,
         reason: 'My Reason',
+        videoLink: 'link',
       });
 
-    expect(response.status).toBe(201);
     expect(response.body.message).toBe('Successful subscription.');
+    expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('subscription');
   });
 
@@ -218,8 +228,8 @@ describe('Subscriptions tests', () => {
         reason: 'My Reason',
       });
 
-    expect(response.status).toBe(404);
     expect(response.body.message).toBe('Course not found.');
+    expect(response.status).toBe(404);
   });
 
   it('Should return 400 BAD REQUEST if the answer to any question in the test is missing.', async () => {
@@ -232,8 +242,8 @@ describe('Subscriptions tests', () => {
         examAnswers: [],
       });
 
-    expect(response.status).toBe(400);
     expect(response.body.message).toBe('Some answer is missing.');
+    expect(response.status).toBe(400);
   });
 
   it('Should be possible to enroll for a course that has exam.', async () => {
@@ -251,8 +261,8 @@ describe('Subscriptions tests', () => {
         ],
       });
 
-    expect(response.status).toBe(201);
     expect(response.body.message).toBe('Successful subscription.');
+    expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('subscription');
   });
 
@@ -265,10 +275,10 @@ describe('Subscriptions tests', () => {
         reason: 'My Reason',
       });
 
-    expect(response.status).toBe(400);
     expect(response.body.message).toBe(
       'Participant already has two subscriptions.'
     );
+    expect(response.status).toBe(400);
   });
 
   it('Should not be possible to enroll in the same course twice.', async () => {
@@ -286,10 +296,10 @@ describe('Subscriptions tests', () => {
         ],
       });
 
-    expect(response.status).toBe(400);
     expect(response.body.message).toBe(
       'Participant already subscribed in this course.'
     );
+    expect(response.status).toBe(400);
   });
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
