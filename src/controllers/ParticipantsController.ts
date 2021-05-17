@@ -24,6 +24,7 @@ interface IParticipant {
   name: string;
   email: string;
   password: string;
+  cpf: string;
   phone: string;
   birth_date: Date;
   country: string;
@@ -41,20 +42,22 @@ class ParticipantsController {
       phone,
       birth_date,
       country,
+      cpf,
       state,
       city,
       asksAnswers,
     }: IParticipant = request.body;
 
     const schema = yup.object().shape({
-      name: yup.string().required('Nome obrigatório'),
-      email: yup.string().email().required('Email obrigatório'),
-      password: yup.string().required('Senha obrigatório'),
-      phone: yup.string().required('Telefone obrigatório'),
-      birth_date: yup.date().required('Data de nascimento obrigatório'),
-      country: yup.string().required('País obrigatório'),
-      state: yup.string().required('Estado obrigatório'),
-      city: yup.string().required('Cidade obrigatório'),
+      name: yup.string().required(),
+      email: yup.string().email().required(),
+      password: yup.string().required(),
+      cpf: yup.string().required(),
+      phone: yup.string().required(),
+      birth_date: yup.date().required(),
+      country: yup.string().required(),
+      state: yup.string().required(),
+      city: yup.string().required(),
       asksAnswers: yup
         .array()
         .of(
@@ -67,7 +70,7 @@ class ParticipantsController {
     });
 
     try {
-      await schema.validate(request.body, { abortEarly: false });
+      await schema.validate(request.body);
     } catch (err) {
       return _next(new AppError('Something wrong with the request.'));
     }
@@ -87,6 +90,7 @@ class ParticipantsController {
       senha: passwordHash,
       telefone: phone,
       nascimento: birth_date,
+      cpf,
       pais: country,
       estado: state,
       cidade: city,
