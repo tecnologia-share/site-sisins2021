@@ -4,4 +4,5 @@ export const SubscriptionStatus = {
   waitingList: 'WAITING_LIST',
   disapproved: 'DISAPPROVED',
   droppedOut: 'DROPPED_OUT',
+  concluded: 'CONCLUDED',
 };

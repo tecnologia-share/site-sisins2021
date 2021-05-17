@@ -28,6 +28,10 @@ Cria um processo seletivo.
 
   `endDate: string`
 
+  `editalLink: string`
+
+  `manualLink: string`
+
 </br>
 
 - **Success Response:**
@@ -44,6 +48,8 @@ Cria um processo seletivo.
         "startDate": "2021-03-17T21:20:20.143Z",
         "endDate": "2021-03-17T21:20:20.143Z",
         "name": "Selection Process Name",
+        "editalLink": "link/to.edital",
+        "manualLink": "link/to.manual",
         "created_at": "2021-03-17T21:20:20.143Z"
       }
     }

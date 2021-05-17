@@ -17,6 +17,10 @@ export class CreateParticipante1615329051641 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'cpf',
+            type: 'varchar',
+          },
+          {
             name: 'senha',
             type: 'varchar',
           },

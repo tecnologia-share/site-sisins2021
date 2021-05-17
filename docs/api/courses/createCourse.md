@@ -32,6 +32,10 @@ Cria um curso.
 
   `professor: string`
 
+  `duration: string`
+
+  `predecessorCourseId?: string`
+
 </br>
 
 - **Success Response:**
@@ -51,6 +55,8 @@ Cria um curso.
         "time": "Time",
         "professor": "Professor",
         "selectionProcessId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
+        "duration": "6 meses",
+        "predecessorCourseId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
         "created_at": "2021-03-17T21:20:20.143Z"
       }
     }

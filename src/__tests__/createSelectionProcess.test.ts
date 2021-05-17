@@ -19,6 +19,12 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Non Admin',
     role: 'Non Admin',
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(nonAdminUser);
   const adminUser = usersRepository.create({
@@ -26,6 +32,12 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Admin',
     role: UserRoles.admin,
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(adminUser);
 };
@@ -68,6 +80,8 @@ describe('Create Selection Process tests', () => {
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
         endDate: futureDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
 
     expect(response.status).toBe(201);
@@ -85,6 +99,8 @@ describe('Create Selection Process tests', () => {
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
         endDate: futureDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
 
     expect(response.status).toBe(401);
@@ -100,6 +116,8 @@ describe('Create Selection Process tests', () => {
       .send({
         startDate: pastDate.toJSON(),
         endDate: futureDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
     const responseWithoutStartDate = await request(app)
       .post('/api/selection-process')
@@ -107,6 +125,8 @@ describe('Create Selection Process tests', () => {
       .send({
         name: 'Selection Process Name',
         endDate: futureDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
     const responseWithoutEndDate = await request(app)
       .post('/api/selection-process')
@@ -114,6 +134,8 @@ describe('Create Selection Process tests', () => {
       .send({
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
 
     expect(responseWithoutName.status).toBe(400);
@@ -138,6 +160,8 @@ describe('Create Selection Process tests', () => {
         name: 'Selection Process Name',
         startDate: '2020-03-17',
         endDate: futureDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
     const responseEndDateError = await request(app)
       .post('/api/selection-process')
@@ -146,6 +170,8 @@ describe('Create Selection Process tests', () => {
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
         endDate: '123456789',
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
 
     expect(responseStartDateError.status).toBe(400);
@@ -162,6 +188,8 @@ describe('Create Selection Process tests', () => {
         name: 'Selection Process Name',
         startDate: futureDate.toJSON(),
         endDate: pastDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
 
     expect(response.status).toBe(400);
@@ -178,6 +206,8 @@ describe('Create Selection Process tests', () => {
         name: 'Selection Process Name',
         startDate: futureDate.toJSON(),
         endDate: pastDate.toJSON(),
+        editalLink: 'link edital',
+        manualLink: 'link manual',
       });
 
     expect(response.status).toBe(401);

@@ -2,6 +2,8 @@
 
 Inscreve o participante em um curso.
 
+Se o curso é continuação de outro e o participante já concluiu o anterior, o status será APPROVED, se não NOT_EVALUATED.
+
 - **URL**
 
   /api/subscriptions
@@ -26,6 +28,8 @@ Inscreve o participante em um curso.
 
   `reason: string`
 
+  `videoLink?: string`
+
   `examAnswers?: Array<{ questionId: string; response: string }>`
 
 </br>
@@ -45,7 +49,7 @@ Inscreve o participante em um curso.
         "courseId": "71a0c4d2-5649-4b03-abca-631c8f9ebf72",
         "reason": "Participant Reason Text",
         "status": "NOT_EVALUATED",
-        "droppedOut": undefined,
+        "videoLink": "link/to.video",
         "created_at": "2021-03-17T21:20:20.143Z"
       }
     }

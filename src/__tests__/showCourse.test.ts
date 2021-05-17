@@ -14,6 +14,12 @@ const createUsers = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Non Admin',
     role: 'Non Admin',
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(nonAdminUser);
   const adminUser = usersRepository.create({
@@ -21,6 +27,12 @@ const createUsers = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Admin',
     role: UserRoles.admin,
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(adminUser);
 };
@@ -49,6 +61,8 @@ const createSelectionProcess = async () => {
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
       endDate: futureDate.toJSON(),
+      editalLink: 'link edital',
+      manualLink: 'link manual',
     });
 
   const responseInactiveSelectionProcess = await request(app)
@@ -58,6 +72,8 @@ const createSelectionProcess = async () => {
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
       endDate: new Date().toJSON(),
+      editalLink: 'link edital',
+      manualLink: 'link manual',
     });
 
   const selectionProcessId = responseSelectionProcess.body.selectionProcess.id;
@@ -74,6 +90,7 @@ const createSelectionProcess = async () => {
       time: 'Time',
       professor: 'Professor',
       selectionProcessId,
+      duration: '6 meses',
     });
 
   await request(app)
@@ -86,6 +103,7 @@ const createSelectionProcess = async () => {
       time: 'Time',
       professor: 'Professor',
       selectionProcessId: InactiveSelectionProcessId,
+      duration: '6 meses',
     });
 };
 

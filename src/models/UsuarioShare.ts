@@ -30,6 +30,24 @@ class UsuarioShare {
   @Column()
   nome: string;
 
+  @Column()
+  cpf: string;
+
+  @Column()
+  telefone: string;
+
+  @Column()
+  nascimento: Date;
+
+  @Column()
+  pais: string;
+
+  @Column()
+  estado: string;
+
+  @Column()
+  cidade: string;
+
   @CreateDateColumn()
   created_at: Date;
 

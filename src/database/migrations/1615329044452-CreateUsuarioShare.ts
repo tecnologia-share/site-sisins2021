@@ -29,6 +29,30 @@ export class CreateUsuarioShare1615329044452 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'cpf',
+            type: 'varchar',
+          },
+          {
+            name: 'telefone',
+            type: 'varchar',
+          },
+          {
+            name: 'nascimento',
+            type: 'timestamp',
+          },
+          {
+            name: 'pais',
+            type: 'varchar',
+          },
+          {
+            name: 'estado',
+            type: 'varchar',
+          },
+          {
+            name: 'cidade',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

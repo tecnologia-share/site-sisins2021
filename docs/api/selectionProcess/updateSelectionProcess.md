@@ -26,6 +26,10 @@ Atualiza as informações de um processo seletivo.
 
   `name?: string`
 
+  `editalLink?: string`
+
+  `manualLink?: string`
+
   `startDate?: string`
 
   `endDate?: string`

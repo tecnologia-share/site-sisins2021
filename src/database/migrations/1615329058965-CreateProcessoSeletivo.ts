@@ -25,6 +25,14 @@ export class CreateProcessoSeletivo1615329058965 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'link_edital',
+            type: 'varchar',
+          },
+          {
+            name: 'link_manual',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

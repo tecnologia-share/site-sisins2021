@@ -17,6 +17,8 @@ class CoursesController {
       time,
       professor,
       selectionProcessId,
+      duration,
+      predecessorCourseId,
     } = request.body;
     const { userId } = request;
 
@@ -27,6 +29,8 @@ class CoursesController {
       time: yup.string().required(),
       professor: yup.string().required(),
       selectionProcessId: yup.string().required(),
+      duration: yup.string().required(),
+      predecessorCourseId: yup.string().optional(),
     });
 
     try {
@@ -66,6 +70,8 @@ class CoursesController {
       nome: name,
       professor: professor,
       processo_seletivo_id: selectionProcessId,
+      tempo_duracao: duration,
+      curso_continuacao_id: predecessorCourseId,
     });
 
     await coursesRepository.save(course);
@@ -81,6 +87,8 @@ class CoursesController {
         professor: course.professor,
         selectionProcessId: course.processo_seletivo_id,
         created_at: course.created_at,
+        duration: course.tempo_duracao,
+        predecessorCourseId: course.curso_continuacao_id,
       },
     });
   }

@@ -19,6 +19,7 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     cidade: 'Test',
     estado: 'Test',
+    cpf: '12345678912',
     nascimento: new Date(1999, 2, 27),
     nome: 'Test',
     pais: 'Test',
@@ -36,12 +37,16 @@ const populateDatabase = async (connection: Connection) => {
     data_inicio: new Date(),
     data_final: futureDate,
     nome: 'Selective Process Name',
+    link_edital: 'link edital',
+    link_manual: 'link manual',
   });
   await selectiveProcessRepository.save(selectiveProcess);
   const selectiveProcessInactive = selectiveProcessRepository.create({
     data_inicio: pastDate,
     data_final: pastDate,
     nome: 'Selective Process Name',
+    link_edital: 'link edital',
+    link_manual: 'link manual',
   });
   await selectiveProcessRepository.save(selectiveProcessInactive);
 
@@ -52,6 +57,7 @@ const populateDatabase = async (connection: Connection) => {
     horario: 'From 8h to 9h',
     nome: 'Course Name',
     professor: 'Professor Name',
+    tempo_duracao: '6 meses',
     processo_seletivo_id: selectiveProcess.id,
   });
   await coursesRepository.save(course);
@@ -62,6 +68,7 @@ const populateDatabase = async (connection: Connection) => {
     horario: 'From 8h to 9h',
     nome: 'Course Name',
     professor: 'Professor Name',
+    tempo_duracao: '6 meses',
     processo_seletivo_id: selectiveProcessInactive.id,
   });
   await coursesRepository.save(courseInactive);

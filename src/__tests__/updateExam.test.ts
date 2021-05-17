@@ -19,6 +19,12 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Non Admin',
     role: 'Non Admin',
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(nonAdminUser);
   const adminUser = usersRepository.create({
@@ -26,6 +32,12 @@ const populateDatabase = async (connection: Connection) => {
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
     nome: 'Admin',
     role: UserRoles.admin,
+    cpf: '12345678912',
+    cidade: 'Capela do Alto',
+    estado: 'São Paulo',
+    pais: 'Brasil',
+    nascimento: new Date(),
+    telefone: '15997965485',
   });
   await usersRepository.save(adminUser);
 };
@@ -61,6 +73,8 @@ const createCourse = async () => {
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
       endDate: futureDate.toJSON(),
+      editalLink: 'link edital',
+      manualLink: 'link manual',
     });
 
   const selectionProcessId = selectionProcessResponse.body.selectionProcess.id;
@@ -75,6 +89,7 @@ const createCourse = async () => {
       time: 'Time',
       professor: 'Professor',
       selectionProcessId,
+      duration: '6 meses',
     });
 
   courseId = courseResponse.body.course.id;

@@ -18,7 +18,7 @@ interface ExamAnswer {
 
 class SubscriptionsController {
   async subscribe(request: Request, response: Response, _next: NextFunction) {
-    const { courseId, reason, examAnswers } = request.body;
+    const { courseId, reason, examAnswers, videoLink } = request.body;
     const { userId } = request;
 
     const schema = yup.object().shape({
@@ -33,6 +33,7 @@ class SubscriptionsController {
           })
         )
         .optional(),
+      videoLink: yup.string().optional(),
     });
 
     try {
@@ -48,23 +49,6 @@ class SubscriptionsController {
     });
     if (!participant) {
       return _next(new Error('Participant not found.'));
-    }
-    if (participant.inscricoes.length > 0) {
-      for (let i = 0; i < participant.inscricoes.length; i++) {
-        const subscription = participant.inscricoes[i];
-
-        if (subscription.curso_id === courseId) {
-          return _next(
-            new AppError('Participant already subscribed in this course.')
-          );
-        }
-      }
-
-      if (participant.inscricoes.length >= 2) {
-        return _next(
-          new AppError('Participant already has two subscriptions.')
-        );
-      }
     }
 
     const coursesRepository = getRepository(Curso);
@@ -86,11 +70,64 @@ class SubscriptionsController {
     }
 
     const subscriptionsRepository = getRepository(Inscricao);
+    const subscriptionsForThisSelectionProcess = await subscriptionsRepository
+      .createQueryBuilder('inscricoes')
+      .leftJoinAndSelect('inscricoes.curso', 'curso')
+      .where(
+        'curso.processo_seletivo_id = :selectionProcessId AND inscricoes.participante_id = :userId',
+        {
+          selectionProcessId: course.processoSeletivo.id,
+          userId,
+        }
+      )
+      .getMany();
+
+    if (subscriptionsForThisSelectionProcess.length > 0) {
+      for (let i = 0; i < subscriptionsForThisSelectionProcess.length; i++) {
+        const subscription = subscriptionsForThisSelectionProcess[i];
+
+        if (subscription.curso_id === courseId) {
+          return _next(
+            new AppError('Participant already subscribed in this course.')
+          );
+        }
+      }
+
+      if (participant.inscricoes.length >= 2) {
+        return _next(
+          new AppError('Participant already has two subscriptions.')
+        );
+      }
+    }
+
+    let alreadyFinishedPredecessorCourse = false;
+
+    if (course.curso_continuacao_id) {
+      const predecessorCourse = await coursesRepository.findOne(
+        course.curso_continuacao_id
+      );
+
+      if (predecessorCourse) {
+        alreadyFinishedPredecessorCourse = !!(await subscriptionsRepository.count(
+          {
+            where: {
+              participante_id: userId,
+              status: SubscriptionStatus.concluded,
+              curso_id: predecessorCourse.id,
+            },
+          }
+        ));
+      }
+    }
+
     const subscription = subscriptionsRepository.create({
       curso_id: courseId,
       motivo: reason,
       participante_id: userId,
-      status: SubscriptionStatus.notEvaluated,
+      status: alreadyFinishedPredecessorCourse
+        ? SubscriptionStatus.approved
+        : SubscriptionStatus.notEvaluated,
+      link_video: videoLink,
     });
 
     const examsRepository = getRepository(Prova);
@@ -151,6 +188,7 @@ class SubscriptionsController {
         courseId: subscription.curso_id,
         reason: subscription.motivo,
         status: subscription.status,
+        videoLink: subscription.link_video,
         droppedOut: subscription.desistencia,
         created_at: subscription.created_at,
       },
