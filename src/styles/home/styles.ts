@@ -6,7 +6,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: justify;
-  height: 100%;
   overflow: auto;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -47,9 +46,8 @@ export const LottieWrapper = styled.div`
 export const Footer = styled.div`
   background-color: #a4e887;
   color: #ffffff;
-  width: 100vw;
+  width: 100%;
   text-align: center;
-
   padding-bottom: 2rem;
   padding-top: 2rem;
   z-index: 0;

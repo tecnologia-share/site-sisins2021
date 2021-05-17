@@ -28,7 +28,7 @@ export const StyledButton = styled.button<ButtonProps>`
 
         @media (min-width: ${theme.sizes.mobile}) {
           font-size: 1rem;
-          padding: 1rem 2rem;
+          margin: 1rem 2rem;
           border-radius: 0.625rem;
         }
       `;
