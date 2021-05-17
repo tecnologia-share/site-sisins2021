@@ -26,6 +26,7 @@ export const colors = {
     '1': '#4db972',
     '2': '#f2fff4',
     '3': 'rgba(77, 185, 114, 0.5)',
+    '4': '#A4E887',
   },
   black: '#000000',
   blacks: {
