@@ -3,13 +3,12 @@ import styled, { css } from 'styled-components';
 interface ButtonProps {
   size?: 'normal' | 'small';
   enabled?: boolean;
+  color?: 'blue' | 'green' | 'yellow';
 }
 
 export const StyledButton = styled.button<ButtonProps>`
   position: relative;
   z-index: 1;
-  background-color: ${({ enabled, theme }) =>
-    enabled ? theme.colors.blue : theme.colors.blues[6]};
   color: ${({ theme }) => theme.colors.white};
   border: none;
   overflow: hidden;
@@ -43,10 +42,6 @@ export const StyledButton = styled.button<ButtonProps>`
       return css`
         transition: background-color 0.2s;
 
-        &:hover {
-          background-color: ${({ theme }) => theme.colors.blues[5]};
-        }
-
         &:after {
           content: '';
           z-index: -2;
@@ -57,7 +52,6 @@ export const StyledButton = styled.button<ButtonProps>`
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background-color: ${({ theme }) => theme.colors.blues[4]};
           opacity: 0;
           transition: all 0.2s;
           transition-timing-function: linear;
@@ -70,6 +64,45 @@ export const StyledButton = styled.button<ButtonProps>`
             width: 300px;
             height: 300px;
           }
+        }
+      `;
+    }
+  }};
+
+  ${({ color, enabled }) => {
+    if (color === 'blue') {
+      return css`
+        background-color: ${({ theme }) =>
+          enabled ? theme.colors.blue : theme.colors.blues[6]};
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.blues[5]};
+        }
+        &:after {
+          background-color: ${({ theme }) => theme.colors.blues[4]};
+        }
+      `;
+    }
+    if (color === 'green') {
+      return css`
+        background-color: ${({ theme }) =>
+          enabled ? theme.colors.greens[4] : theme.colors.green};
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.greens[0]};
+        }
+        &:after {
+          background-color: ${({ theme }) => theme.colors.greens[3]};
+        }
+      `;
+    }
+    if (color === 'yellow') {
+      return css`
+        background-color: ${({ theme }) =>
+          enabled ? theme.colors.yellow : theme.colors.yellows[0]};
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.yellows[3]};
+        }
+        &:after {
+          background-color: ${({ theme }) => theme.colors.yellows[2]};
         }
       `;
     }

@@ -31,7 +31,7 @@ const Home = () => {
         oferecemos semestralmente cursos de idioma, culturais e administrativos.
       </Text>
 
-      <Button size="small" type="button">
+      <Button size="small" type="button" color="green">
         Saiba mais
       </Button>
     </Container>

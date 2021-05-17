@@ -24,9 +24,17 @@ export const colors = {
   greens: {
     '0': 'rgba(86, 154, 88, 0.8)',
     '1': '#4db972',
-    '2': '#f2fff4',
+    '2': '#C2Efc2',
     '3': 'rgba(77, 185, 114, 0.5)',
     '4': '#A4E887',
+  },
+  yellow: '#FAD02C',
+  yellows: {
+    '0': '#FFC675',
+    '1': '#F8EA8C',
+    '2': '#E1C340',
+    '3': '#DBA40E',
+    '4': '#F2E34C',
   },
   black: '#000000',
   blacks: {
