@@ -13,7 +13,11 @@ export const StyledButton = styled.button<ButtonProps>`
   border: none;
   overflow: hidden;
   outline: none;
-  width: fit-content;
+  width: 9.188rem;
+  min-height: 2.188rem;
+  max-height: 2.188rem;
+  margin-top: 2.5rem;
+  margin-bottom: 5rem;
 
   ${({ size, theme }) => {
     if (size === 'small') {
