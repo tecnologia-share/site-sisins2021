@@ -22,9 +22,11 @@ export const StyledButton = styled.button<ButtonProps>`
   ${({ size, theme }) => {
     if (size === 'small') {
       return css`
-        font-size: 0.75rem;
+        font-size: 1rem;
         padding: 0.5rem 1rem;
         border-radius: 0.3125rem;
+        line-height: 1.2rem;
+        font-weight: bold;
 
         @media (min-width: ${theme.sizes.mobile}) {
           font-size: 1rem;

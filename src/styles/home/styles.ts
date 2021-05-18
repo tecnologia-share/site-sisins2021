@@ -5,11 +5,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: justify;
   overflow: auto;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   margin-top: 2rem;
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    display: flex;
+  } ;
 `;
 
 export const Title = styled.h1`
@@ -18,6 +20,11 @@ export const Title = styled.h1`
   font-weight: 700;
   line-height: 1.2rem;
   align-self: center;
+  grid-area: title;
+
+  @media (max-width: 340px) {
+    font-size: 0.925rem;
+  }
 `;
 
 export const Text = styled.div`
@@ -25,25 +32,29 @@ export const Text = styled.div`
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   line-height: 1.2rem;
+  grid-area: txt;
 `;
 
 export const LottieWrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 18.75rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  grid-area: lottieWrapper;
 
-  > * {
-    width: 100% !important;
-    height: auto !important;
-
-    @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-      width: 10rem !important;
-    }
+  @media (max-width: ${({ theme }) => theme.sizes.mobile}) {
+    height: 12.313rem;
+    width: auto;
+  }
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    height: 17.825rem;
+    width: auto;
   }
 `;
 
 export const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: #a4e887;
   color: #ffffff;
   width: 100%;
@@ -52,6 +63,7 @@ export const Footer = styled.div`
   padding-top: 2rem;
   z-index: 0;
   margin-top: 2rem;
+  grid-area: footer;
 `;
 
 export const FeatherContainer = styled.div`
