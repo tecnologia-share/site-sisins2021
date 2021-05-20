@@ -18,6 +18,7 @@ export const StyledButton = styled.button<ButtonProps>`
   max-height: 2.188rem;
   margin-top: 2.5rem;
   margin-bottom: 5rem;
+  font-family: 'Lato', sans-serif;
 
   ${({ size, theme }) => {
     if (size === 'small') {
@@ -31,14 +32,23 @@ export const StyledButton = styled.button<ButtonProps>`
         @media (min-width: ${theme.sizes.mobile}) {
           font-size: 1rem;
           margin: 1rem 2rem;
-          border-radius: 0.625rem;
+          border-radius: 0.325rem;
         }
       `;
     } else {
       return css`
         font-size: 1rem;
-        padding: 1rem 2rem;
+        padding: 0.5rem 1rem;
         border-radius: 0.3125rem;
+        line-height: 1.2rem;
+        font-weight: 700 normal;
+
+        @media (min-width: ${theme.sizes.mobile}) {
+          font-size: 1.1rem;
+          margin: 2rem 0rem;
+          border-radius: 0.325rem;
+          width: 20vw;
+        }
       `;
     }
   }};

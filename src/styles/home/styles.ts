@@ -1,16 +1,76 @@
 import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
 
+export const MobileContainer = styled.div`
+  @media (min-width: 680px) {
+    display: none;
+  }
+  @media (max-width: 680px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-top: 2.25rem;
+  }
+`;
+
 export const Container = styled.div`
+  @media (max-width: 680px) {
+    display: none;
+  }
+
+  @media (min-width: 680px) {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: 2, 1fr;
+    grid-row-gap: 2.5rem;
+    grid-template-areas:
+      'leftContainer rightContainer'
+      'leftContainer rightContainer'
+      'leftContainer rightContainer'
+      'leftContainer rightContainer';
+    margin-left: 10vw;
+    margin-right: 1.5rem;
+    margin-top: 2.25rem;
+    width: 80vw;
+  }
+`;
+
+export const LeftContainer = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: leftContainer;
+
+  @media (max-width: 360px) {
+    flex: 1;
+  }
+
+  @media (min-width: 360px) {
+    flex: 1;
+  }
+
+  @media (min-width: 680px) {
+    flex-direction: column;
+  } ;
+`;
+export const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  margin-top: 2rem;
+  grid-area: rightContainer;
+
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-    display: flex;
+    grid-template-rows: repeat(minmax(3, 7), 1fr);
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 360px) {
+    flex: 1;
+  }
+  @media (min-width: 680px) {
+    flex-direction: column;
   } ;
 `;
 
@@ -21,10 +81,41 @@ export const Title = styled.h1`
   line-height: 1.2rem;
   align-self: center;
   grid-area: title;
+  z-index: 2;
 
-  @media (max-width: 340px) {
+  @media (max-width: 360px) {
     font-size: 0.925rem;
   }
+  @media (min-width: 360px) {
+    font-size: 1rem;
+  }
+  @media (min-width: 680px) {
+    width: 45vw;
+    padding-top: 4rem;
+    margin-left: 7.5rem;
+  } ;
+`;
+
+export const TitleBottom = styled.h1`
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  line-height: 1.2rem;
+  align-self: center;
+  grid-area: titleBottom;
+  z-index: 2;
+
+  @media (max-width: 360px) {
+    font-size: 0.925rem;
+    width: 87.5vw;
+  }
+  @media (min-width: 360px) {
+    width: 87.5vw;
+  }
+  @media (min-width: 680px) {
+    width: 45vw;
+    margin-left: 7.5rem;
+  } ;
 `;
 
 export const Text = styled.div`
@@ -33,23 +124,64 @@ export const Text = styled.div`
   font-weight: 300;
   line-height: 1.2rem;
   grid-area: txt;
+  z-index: 2;
+  margin-top: 2rem;
+  @media (max-width: 360px) {
+    font-size: 0.925rem;
+    width: 87.5vw;
+  }
+  @media (min-width: 360px) {
+    width: 87.5vw;
+  }
+  @media (min-width: 680px) {
+    width: 45vw;
+    margin-left: 7.5rem;
+  } ;
+`;
+
+export const TextBottom = styled.div`
+  font-size: 1rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  line-height: 1.2rem;
+  grid-area: txtBottom;
+  z-index: 2;
+
+  @media (max-width: 360px) {
+    font-size: 0.925rem;
+    width: 80vw;
+  }
+  @media (min-width: 360px) {
+    width: 87.5vw;
+  }
+  @media (min-width: 680px) {
+    width: 45vw;
+    margin-left: 7.5rem;
+  } ;
 `;
 
 export const LottieWrapper = styled.div`
   display: flex;
   width: 18.75rem;
-  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   grid-area: lottieWrapper;
+  margin-bottom: 3.5rem;
+  z-index: 1;
+  overflow-y: clip;
+
+  @media (max-width: 360px) {
+    font-size: 0.925rem;
+  }
 
   @media (max-width: ${({ theme }) => theme.sizes.mobile}) {
     height: 12.313rem;
     width: auto;
   }
-  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-    height: 17.825rem;
+  @media (min-width: 680px) {
+    font-size: 1rem;
+    height: 100%;
     width: auto;
-  }
+  } ;
 `;
 
 export const Footer = styled.div`
