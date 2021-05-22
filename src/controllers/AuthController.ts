@@ -98,6 +98,50 @@ class AuthController {
 
     return response.status(200).json({ token });
   }
+
+  async authenticateSuperAdmin(
+    request: Request,
+    response: Response,
+    _next: NextFunction
+  ) {
+    const { email, password } = request.body;
+
+    const schema = yup.object().shape({
+      email: yup.string().required(),
+      password: yup.string().required(),
+    });
+
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      return _next(new AppError('Email and password are required.'));
+    }
+
+    const usersRepository = getRepository(UsuarioShare);
+
+    const user = await usersRepository.findOne({
+      email,
+    });
+
+    if (!user) {
+      return _next(new AppError('Invalid email or password.', 401));
+    }
+
+    const passwordIsCorrect = await bcrypt.compare(password, user.senha);
+    if (!passwordIsCorrect) {
+      return _next(new AppError('Invalid email or password.', 401));
+    }
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      process.env.JWT_SECRET_SUPER_ADMIN as string,
+      { expiresIn: '24h' }
+    );
+
+    return response.status(200).json({ token });
+  }
 }
 
 export default AuthController;

@@ -14,6 +14,12 @@ Cria um usuário da share, por exemplo professor ou membro administrativo.
 
 </br>
 
+- **Headers**
+
+  `authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJIZXkiOiJ0aGlzIGlzIGFuIGV4YW1wbGUgdG9rZW4gOkQifQ.LZ9wWBMzgpV80AtEjjN5KW45WbFcZRZ4pFjHCX7Kr_g`
+
+</br>
+
 - **Data Params**
 
   `name: string`

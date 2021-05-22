@@ -20,6 +20,7 @@ class SuperAdminController {
       state,
       city,
     } = request.body;
+    const { userId } = request;
 
     const schema = yup.object().shape({
       name: yup.string().required(),
@@ -41,7 +42,7 @@ class SuperAdminController {
 
     const userShareRepository = getRepository(UserShare);
 
-    const user = await userShareRepository.findOne(request.userId);
+    const user = await userShareRepository.findOne(userId);
     const userIsSuperAdmin = user?.role === UserRoles.superAdmin;
 
     if (!userIsSuperAdmin) {

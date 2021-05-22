@@ -40,13 +40,13 @@ const createUsers = async (connection: Connection) => {
 
 const getToken = async () => {
   const responseNonSuperAdmin = await request(app)
-    .post('/api/authenticate-share')
+    .post('/api/authenticate-super-admin')
     .send({
       email: 'non_superAdmin@example.com',
       password: 'correct_password',
     });
   const responseSuperAdmin = await request(app)
-    .post('/api/authenticate-share')
+    .post('/api/authenticate-super-admin')
     .send({
       email: 'super-admin@example.com',
       password: 'correct_password',
@@ -71,7 +71,7 @@ describe('Create users share test', () => {
   it('Should be possible to create a users-share.', async () => {
     const response = await request(app)
       .post('/api/super-admin')
-      .set({ 'x-access-token': superAdminToken })
+      .set({ authorization: `Bearer ${superAdminToken}` })
       .send({
         name: 'Teacher',
         email: 'teacher@email.com',
@@ -92,7 +92,7 @@ describe('Create users share test', () => {
   test('Only the super admin can create a user share.', async () => {
     const response = await request(app)
       .post('/api/super-admin')
-      .set({ 'x-access-token': nonSuperAdminToken })
+      .set({ authorization: `Bearer ${nonSuperAdminToken}` })
       .send({
         name: 'Teacher',
         email: 'teacher@email.com',
@@ -115,7 +115,7 @@ describe('Create users share test', () => {
   it('Should not be possible to create a user share if email already exist', async () => {
     const response = await request(app)
       .post('/api/super-admin')
-      .set({ 'x-access-token': superAdminToken })
+      .set({ authorization: `Bearer ${superAdminToken}` })
       .send({
         name: 'User already exist',
         email: 'non_superAdmin@example.com',
@@ -136,7 +136,7 @@ describe('Create users share test', () => {
   it('Should not be possible to create a user share if CPF already exist', async () => {
     const response = await request(app)
       .post('/api/super-admin')
-      .set({ 'x-access-token': superAdminToken })
+      .set({ authorization: `Bearer ${superAdminToken}` })
       .send({
         name: 'CPF already exist',
         email: 'non_superAdmin@example.com',
@@ -157,7 +157,7 @@ describe('Create users share test', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .post('/api/super-admin')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: `Bearer ${'invalid_token'}` })
       .send({
         name: 'Teacher',
         email: 'teacher@email.com',
