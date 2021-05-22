@@ -21,3 +21,4 @@
 | POST   | [/api/exams](./exams/createExam.md)                                                      | Cria uma prova.                                                  |
 | PATCH  | [/api/exams](./exams/updateExam.md)                                                      | Atualiza informações de uma prova.                               |
 | DELETE | [/api/exams](./exams/deleteExam.md)                                                      | Exclui uma prova.                                                |
+| POST   | [/api/super-admin](./superAdmin/create.md)                                               | Cria um usuário da share.                                        |
