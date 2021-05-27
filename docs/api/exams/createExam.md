@@ -83,7 +83,7 @@ Cria uma prova.
 
   - **Code:** 401 UNAUTHORIZED
 
-    **Content:** `{ "message": "Only the administrator can create an exam." }`
+    **Content:** `{ "message": "You are not authorized to access this route" }`
 
   OR
 

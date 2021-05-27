@@ -62,12 +62,6 @@ class ExamsController {
       return _next(new Error('User not found.'));
     }
 
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError('Only the administrator can create an exam.', 401)
-      );
-    }
-
     const coursesRepository = getRepository(Curso);
     const course = await coursesRepository.findOne(courseId, {
       relations: ['provas'],
@@ -159,12 +153,6 @@ class ExamsController {
       return _next(new Error('User not found.'));
     }
 
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError('Only the administrator can update an exam.', 401)
-      );
-    }
-
     const examsRepository = getRepository(Prova);
     const exam = await examsRepository.findOne(id, { relations: ['questoes'] });
 
@@ -241,12 +229,6 @@ class ExamsController {
 
     if (!user) {
       return _next(new Error('User not found.'));
-    }
-
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError('Only the administrator can delete an exam.', 401)
-      );
     }
 
     const examsRepository = getRepository(Prova);

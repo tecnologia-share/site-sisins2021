@@ -127,7 +127,7 @@ describe('Delete courses', () => {
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe(
-      'Only the administrator can delete a course.'
+      'You are not authorized to access this route'
     );
   });
 

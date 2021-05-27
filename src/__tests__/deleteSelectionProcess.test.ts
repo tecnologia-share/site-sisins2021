@@ -152,7 +152,7 @@ describe('Update Selection Process tests', () => {
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe(
-      'Only the administrator can delete a selection process.'
+      'You are not authorized to access this route'
     );
   });
 

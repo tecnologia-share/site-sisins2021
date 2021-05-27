@@ -20,7 +20,6 @@ class SuperAdminController {
       state,
       city,
     } = request.body;
-    const { userId } = request;
 
     const schema = yup.object().shape({
       name: yup.string().required(),
@@ -41,18 +40,6 @@ class SuperAdminController {
     }
 
     const userShareRepository = getRepository(UserShare);
-
-    const user = await userShareRepository.findOne(userId);
-    const userIsSuperAdmin = user?.role === UserRoles.superAdmin;
-
-    if (!userIsSuperAdmin) {
-      return _next(
-        new AppError(
-          'Only the super-administrator can create a user share.',
-          401
-        )
-      );
-    }
 
     const emailAlreadyExists = await userShareRepository.findOne({
       email,

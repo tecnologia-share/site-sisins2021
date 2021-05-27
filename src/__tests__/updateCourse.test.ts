@@ -155,7 +155,7 @@ describe('Update Course', () => {
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe(
-      'Only the administrator can update a course.'
+      'You are not authorized to access this route'
     );
   });
 

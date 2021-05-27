@@ -107,7 +107,7 @@ describe('Create users share test', () => {
       });
 
     expect(response.body.message).toBe(
-      'Only the super-administrator can create a user share.'
+      'You are not authorized to access this route'
     );
     expect(response.status).toBe(401);
   });

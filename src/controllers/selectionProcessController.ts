@@ -41,15 +41,6 @@ class selectionProcessController {
       return _next(new Error('User not found.'));
     }
 
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError(
-          'Only the administrator can create a selection process.',
-          401
-        )
-      );
-    }
-
     const selectionProcessRepository = getRepository(ProcessoSeletivo);
     const selectionProcess = selectionProcessRepository.create({
       nome: name,
@@ -90,15 +81,6 @@ class selectionProcessController {
 
     if (!user) {
       return _next(new Error('User not found.'));
-    }
-
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError(
-          'Only the administrator can update a selection process.',
-          401
-        )
-      );
     }
 
     const selectionProcessRepository = getRepository(ProcessoSeletivo);
@@ -175,15 +157,6 @@ class selectionProcessController {
 
     if (!user) {
       return _next(new Error('User not found.'));
-    }
-
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError(
-          'Only the administrator can delete a selection process.',
-          401
-        )
-      );
     }
 
     const selectionProcessRepository = getRepository(ProcessoSeletivo);

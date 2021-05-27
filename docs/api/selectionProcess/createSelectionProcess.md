@@ -79,7 +79,7 @@ Cria um processo seletivo.
 
   - **Code:** 401 UNAUTHORIZED
 
-    **Content:** `{ "message": "Only the administrator can create a selection process." }`
+    **Content:** `{ "message": "You are not authorized to access this route" }`
 
   OR
 
