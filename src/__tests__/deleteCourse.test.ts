@@ -65,7 +65,7 @@ const createCourse = async () => {
 
   const selectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -78,7 +78,7 @@ const createCourse = async () => {
 
   const courseResponse = await request(app)
     .post('/api/courses')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Name',
       category: 'Category',
@@ -108,7 +108,7 @@ describe('Delete courses', () => {
   it('Should be possible to delete a course.', async () => {
     const response = await request(app)
       .delete('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: courseId,
       });
@@ -120,7 +120,7 @@ describe('Delete courses', () => {
   test('Only the admin can delete a course.', async () => {
     const response = await request(app)
       .delete('/api/courses')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         id: courseId,
       });
@@ -134,7 +134,7 @@ describe('Delete courses', () => {
   it('Should be possible to delete a course only if it exists.', async () => {
     const response = await request(app)
       .delete('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: courseId,
       });
@@ -146,7 +146,7 @@ describe('Delete courses', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .delete('/api/courses')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         id: courseId,
       });

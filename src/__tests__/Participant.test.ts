@@ -418,7 +418,7 @@ describe('Participant update email', () => {
   it('Should update the email successfully if the correct password and valid token are sent', async () => {
     const response = await agent
       .patch('/api/participants/update-email')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         email: 'another_email@example.com',
         password: 'correct_password',
@@ -430,13 +430,13 @@ describe('Participant update email', () => {
   it('Should return 400 BAD REQUEST if the password or email is not sent', async () => {
     const responseWithoutPassword = await agent
       .patch('/api/participants/update-email')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         email: 'another_email@example.com',
       });
     const responseWithoutEmail = await agent
       .patch('/api/participants/update-email')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         password: 'correct_password',
       });
@@ -448,14 +448,14 @@ describe('Participant update email', () => {
   it('Should return 401 UNAUTHORIZED if the password or token sent is invalid', async () => {
     const responseWithInvalidPassword = await agent
       .patch('/api/participants/update-email')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         email: 'another_email@example.com',
         password: 'incorrect_password',
       });
     const responseWithInvalidToken = await agent
       .patch('/api/participants/update-email')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         email: 'another_email@example.com',
         password: 'correct_password',
@@ -488,13 +488,13 @@ describe('Participant update password', () => {
   it('Should return 400 BAD REQUEST if the currentPassword or newPassword is not sent', async () => {
     const responseWithoutCurrentPassword = await agent
       .patch('/api/participants/update-password')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         newPassword: 'new_password',
       });
     const responseWithoutNewPassword = await agent
       .patch('/api/participants/update-password')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         currentPassword: 'correct_password',
       });
@@ -506,14 +506,14 @@ describe('Participant update password', () => {
   it('Should return 401 UNAUTHORIZED if the password or token sent is invalid', async () => {
     const responseWithInvalidPassword = await agent
       .patch('/api/participants/update-password')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         currentPassword: 'incorrect_password',
         newPassword: 'new_password',
       });
     const responseWithInvalidToken = await agent
       .patch('/api/participants/update-password')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         currentPassword: 'correct_password',
         newPassword: 'new_password',
@@ -526,7 +526,7 @@ describe('Participant update password', () => {
   it('Should update the password successfully if the correct password and valid token are sent', async () => {
     const response = await agent
       .patch('/api/participants/update-password')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         currentPassword: 'correct_password',
         newPassword: 'new_password',
@@ -558,7 +558,7 @@ describe('Participant update personal data', () => {
   it('Should successfully update personal data if an valid token are sent', async () => {
     const responseWithAllUpdates = await agent
       .patch('/api/participants')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         nome: 'new nome',
         telefone: '1234',
@@ -570,7 +570,7 @@ describe('Participant update personal data', () => {
 
     const responseWithFewUpdates = await agent
       .patch('/api/participants')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         nome: 'new nome 2',
         cidade: 'new cidade 2',
@@ -583,7 +583,7 @@ describe('Participant update personal data', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await agent
       .patch('/api/participants')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         nome: 'new nome',
         telefone: '1234',

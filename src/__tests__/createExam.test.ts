@@ -65,7 +65,7 @@ const createCourse = async () => {
 
   const selectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -78,7 +78,7 @@ const createCourse = async () => {
 
   const courseResponse = await request(app)
     .post('/api/courses')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Name',
       category: 'Category',
@@ -108,7 +108,7 @@ describe('Create Exam tests', () => {
   it('Should be possible to create an exam.', async () => {
     const response = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId,
         questions: [
@@ -134,7 +134,7 @@ describe('Create Exam tests', () => {
   it('Should not be possible to create a exam if the user is not an admin.', async () => {
     const response = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         courseId,
         questions: [
@@ -161,7 +161,7 @@ describe('Create Exam tests', () => {
   it('Should return 400 BAD REQUEST if any information is missing from the request.', async () => {
     const responseWithoutCourseId = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         questions: [
           {
@@ -179,13 +179,13 @@ describe('Create Exam tests', () => {
       });
     const responseWithoutQuestions = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId,
       });
     const responseWithoutQuestionsProps = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId,
         questions: [
@@ -217,7 +217,7 @@ describe('Create Exam tests', () => {
   it('Should not be possible to create an exam if the course does not exists.', async () => {
     const response = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId: 'Non-existent id',
         questions: [
@@ -242,7 +242,7 @@ describe('Create Exam tests', () => {
   it('Should not be possible to create an exam if the course already has an exam.', async () => {
     const response = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId,
         questions: [
@@ -267,7 +267,7 @@ describe('Create Exam tests', () => {
   it('Should not be possible to create an exam if the correct alternative not exists.', async () => {
     const response1 = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId,
         questions: [
@@ -286,7 +286,7 @@ describe('Create Exam tests', () => {
       });
     const response2 = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         courseId,
         questions: [
@@ -313,7 +313,9 @@ describe('Create Exam tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .post('/api/exams')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({
+        authorization: 'invalid_token',
+      })
       .send({
         courseId,
         questions: [

@@ -75,7 +75,7 @@ describe('Create Selection Process tests', () => {
   it('Should be possible to create a selection process.', async () => {
     const response = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
@@ -94,7 +94,7 @@ describe('Create Selection Process tests', () => {
   it('Should not be possible to create a selection process if the user is not an admin.', async () => {
     const response = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
@@ -112,7 +112,7 @@ describe('Create Selection Process tests', () => {
   it('Should return 400 BAD REQUEST if any information is missing from the request.', async () => {
     const responseWithoutName = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         startDate: pastDate.toJSON(),
         endDate: futureDate.toJSON(),
@@ -121,7 +121,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutStartDate = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Selection Process Name',
         endDate: futureDate.toJSON(),
@@ -130,7 +130,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutEndDate = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
@@ -155,7 +155,7 @@ describe('Create Selection Process tests', () => {
   it('Should return 400 BAD REQUEST if one of the dates is in the wrong format.', async () => {
     const responseStartDateError = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Selection Process Name',
         startDate: '2020-03-17',
@@ -165,7 +165,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseEndDateError = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Selection Process Name',
         startDate: pastDate.toJSON(),
@@ -183,7 +183,7 @@ describe('Create Selection Process tests', () => {
   it('endDate must be greater than startDate.', async () => {
     const response = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Selection Process Name',
         startDate: futureDate.toJSON(),
@@ -201,7 +201,9 @@ describe('Create Selection Process tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .post('/api/selection-process')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({
+        authorization: 'invalid_token',
+      })
       .send({
         name: 'Selection Process Name',
         startDate: futureDate.toJSON(),

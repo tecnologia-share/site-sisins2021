@@ -65,7 +65,7 @@ const createCourse = async () => {
 
   const selectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -78,7 +78,7 @@ const createCourse = async () => {
 
   const courseResponse = await request(app)
     .post('/api/courses')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Name',
       category: 'Category',
@@ -108,7 +108,7 @@ describe('Update Course', () => {
   it('Should be possible to edit a course.', async () => {
     const response = await request(app)
       .patch('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: courseId,
         name: 'Another Name',
@@ -126,7 +126,7 @@ describe('Update Course', () => {
   it('Should be possible to edit a course only if that course exists.', async () => {
     const response = await request(app)
       .patch('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: 'Non-existent id',
         name: 'Another Name',
@@ -143,7 +143,7 @@ describe('Update Course', () => {
   test('Only the admin can edit a course.', async () => {
     const response = await request(app)
       .patch('/api/courses')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         id: courseId,
         name: 'Name',
@@ -162,7 +162,7 @@ describe('Update Course', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .patch('/api/courses')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         id: courseId,
         name: 'Another Name',

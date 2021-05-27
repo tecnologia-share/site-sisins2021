@@ -66,7 +66,7 @@ const getToken = async () => {
 const createSelectionProcess = async () => {
   const createSelectionProcessWithCourseResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -76,7 +76,7 @@ const createSelectionProcess = async () => {
     });
   const createSelectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -119,7 +119,7 @@ describe('Update Selection Process tests', () => {
   it('Should not be possible to exclude a selection process that has courses.', async () => {
     const response = await request(app)
       .delete('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessWithCourseId,
       });
@@ -133,7 +133,7 @@ describe('Update Selection Process tests', () => {
   it('Should not be possible to exclude a selection process that does not exist.', async () => {
     const response = await request(app)
       .delete('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: 'Some id',
       });
@@ -145,7 +145,7 @@ describe('Update Selection Process tests', () => {
   test('Only the admin can delete a selection process.', async () => {
     const response = await request(app)
       .delete('/api/selection-process')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         id: selectionProcessWithoutCourseId,
       });
@@ -159,7 +159,7 @@ describe('Update Selection Process tests', () => {
   it('Should be possible to exclude a selection process.', async () => {
     const response = await request(app)
       .delete('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessWithoutCourseId,
       });
@@ -173,7 +173,7 @@ describe('Update Selection Process tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .delete('/api/selection-process')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         id: selectionProcessWithoutCourseId,
       });

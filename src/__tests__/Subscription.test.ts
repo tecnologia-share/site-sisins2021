@@ -150,7 +150,7 @@ describe('Subscriptions tests', () => {
   it('Should be possible to enroll for a course that does not have an exam.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId,
         reason: 'My Reason',
@@ -165,7 +165,7 @@ describe('Subscriptions tests', () => {
   it('Should not be possible to enroll for a course that is not open for subscriptions.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId: courseInactiveId,
         reason: 'My Reason',
@@ -180,21 +180,21 @@ describe('Subscriptions tests', () => {
   it('Should return 400 BAD REQUEST if the request body is in the wrong format.', async () => {
     const responseWithoutCourseId = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         reason: 'My Reason',
       });
 
     const responseWithouReason = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId,
       });
 
     const responseWithExamAnswersMalformed = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId,
         reason: 'My Reason',
@@ -222,7 +222,7 @@ describe('Subscriptions tests', () => {
   it('Should not be able to enroll in a course that does not exist.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId: 'nonexistent_id',
         reason: 'My Reason',
@@ -235,7 +235,7 @@ describe('Subscriptions tests', () => {
   it('Should return 400 BAD REQUEST if the answer to any question in the test is missing.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId: courseWithExamId,
         reason: 'My Reason',
@@ -249,7 +249,7 @@ describe('Subscriptions tests', () => {
   it('Should be possible to enroll for a course that has exam.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId: courseWithExamId,
         reason: 'My Reason',
@@ -269,7 +269,7 @@ describe('Subscriptions tests', () => {
   it('Should not be possible to enroll in more than two courses.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId: thirdCourseId,
         reason: 'My Reason',
@@ -284,7 +284,7 @@ describe('Subscriptions tests', () => {
   it('Should not be possible to enroll in the same course twice.', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({
         courseId,
         reason: 'My Reason',
@@ -305,7 +305,7 @@ describe('Subscriptions tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .post('/api/subscriptions')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         courseId,
         reason: 'My Reason',
