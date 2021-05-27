@@ -98,7 +98,7 @@ const getToken = async () => {
 const enrollInTheCourses = async () => {
   await request(app)
     .post('/api/subscriptions')
-    .set({ 'x-access-token': token })
+    .set({ authorization: `Bearer ${token}` })
     .send({
       courseId,
       reason: 'My Reason',
@@ -121,7 +121,7 @@ describe('Unsubscriptions tests', () => {
   it('Should return 400 BAD REQUEST if the courseId is not sent.', async () => {
     const response = await request(app)
       .delete('/api/subscriptions')
-      .set({ 'x-access-token': token });
+      .set({ authorization: `Bearer ${token}` });
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('courseId is required.');
@@ -130,7 +130,7 @@ describe('Unsubscriptions tests', () => {
   it('Should return 400 BAD REQUEST if the participant is not enrolled in the course.', async () => {
     const response = await request(app)
       .delete('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({ courseId: 'some-other-course-id' });
 
     expect(response.status).toBe(400);
@@ -142,7 +142,7 @@ describe('Unsubscriptions tests', () => {
   it('Should be possible to unsubscribe from a course.', async () => {
     const response = await request(app)
       .delete('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({ courseId });
 
     expect(response.status).toBe(200);
@@ -152,7 +152,7 @@ describe('Unsubscriptions tests', () => {
   it('it should not be possible to unsubscribe from a closed enrollment course.', async () => {
     const response = await request(app)
       .delete('/api/subscriptions')
-      .set({ 'x-access-token': token })
+      .set({ authorization: `Bearer ${token}` })
       .send({ courseId: courseInactiveId });
 
     expect(response.status).toBe(400);
@@ -164,7 +164,7 @@ describe('Unsubscriptions tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .delete('/api/subscriptions')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         courseId,
       });

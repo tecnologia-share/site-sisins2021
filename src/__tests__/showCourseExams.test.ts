@@ -45,7 +45,7 @@ const createCourse = async () => {
 
   const selectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -58,7 +58,7 @@ const createCourse = async () => {
 
   const courseResponse = await request(app)
     .post('/api/courses')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Name',
       category: 'Category',
@@ -73,7 +73,7 @@ const createCourse = async () => {
 
   const courseWithoutExamResponse = await request(app)
     .post('/api/courses')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Name',
       category: 'Category',
@@ -88,7 +88,7 @@ const createCourse = async () => {
 
   await request(app)
     .post('/api/exams')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       courseId,
       questions: [

@@ -65,7 +65,7 @@ const createSelectionProcess = async () => {
 
   const response = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -93,7 +93,7 @@ describe('Create Selection Process tests', () => {
   it('Should be possible to create a course.', async () => {
     const response = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -112,7 +112,7 @@ describe('Create Selection Process tests', () => {
   test('Only the admin can create a course.', async () => {
     const response = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -132,7 +132,7 @@ describe('Create Selection Process tests', () => {
   test('A selection process is required to create a course.', async () => {
     const response = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -150,7 +150,7 @@ describe('Create Selection Process tests', () => {
   it('Should return an error if any property is missing from the request body.', async () => {
     const responseWithoutName = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         category: 'Category',
         description: 'Description',
@@ -161,7 +161,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutCategory = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         description: 'Description',
@@ -172,7 +172,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutDescription = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -183,7 +183,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutTime = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -194,7 +194,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutProfessor = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -205,7 +205,7 @@ describe('Create Selection Process tests', () => {
       });
     const responseWithoutSelectionProcessId = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         name: 'Name',
         category: 'Category',
@@ -244,7 +244,9 @@ describe('Create Selection Process tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .post('/api/courses')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({
+        authorization: 'invalid_token',
+      })
       .send({
         name: 'Name',
         category: 'Category',

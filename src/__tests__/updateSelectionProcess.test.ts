@@ -64,7 +64,7 @@ const getToken = async () => {
 const createSelectionProcess = async () => {
   const createSelectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -92,7 +92,7 @@ describe('Update Selection Process tests', () => {
   it('Should be possible to update a selection process.', async () => {
     const response = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -110,7 +110,7 @@ describe('Update Selection Process tests', () => {
   test('Only the admin should be able to update a selection process.', async () => {
     const response = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -127,7 +127,7 @@ describe('Update Selection Process tests', () => {
   it('Should not be possible to update a selection process that does not exist.', async () => {
     const response = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: 'Non-existent id',
         name: 'Selection Process Name',
@@ -142,7 +142,7 @@ describe('Update Selection Process tests', () => {
   it('Should not be possible to update with an invalid date format.', async () => {
     const response1 = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -151,7 +151,7 @@ describe('Update Selection Process tests', () => {
       });
     const response2 = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -160,7 +160,7 @@ describe('Update Selection Process tests', () => {
       });
     const response3 = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -168,7 +168,7 @@ describe('Update Selection Process tests', () => {
       });
     const response4 = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -193,7 +193,7 @@ describe('Update Selection Process tests', () => {
 
     const responseStartDate = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -201,7 +201,7 @@ describe('Update Selection Process tests', () => {
       });
     const responseEndDate = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',
@@ -221,21 +221,21 @@ describe('Update Selection Process tests', () => {
   it('Should be possible to update only a few properties.', async () => {
     const responseStartDate = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         startDate: pastDate.toJSON(),
       });
     const responseEndDate = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         endDate: futureDate.toJSON(),
       });
     const responseName = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: selectionProcessId,
         name: 'New Selection Process Name',
@@ -264,7 +264,7 @@ describe('Update Selection Process tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .patch('/api/selection-process')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         id: selectionProcessId,
         name: 'Selection Process Name',

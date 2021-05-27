@@ -65,7 +65,7 @@ const createCourse = async () => {
 
   const selectionProcessResponse = await request(app)
     .post('/api/selection-process')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
@@ -78,7 +78,7 @@ const createCourse = async () => {
 
   const courseResponse = await request(app)
     .post('/api/courses')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       name: 'Name',
       category: 'Category',
@@ -93,7 +93,7 @@ const createCourse = async () => {
 
   const examResponse = await request(app)
     .post('/api/exams')
-    .set({ 'x-access-token': adminToken })
+    .set({ authorization: `Bearer ${adminToken}` })
     .send({
       courseId,
       questions: [
@@ -131,7 +131,7 @@ describe('Delete Exam tests', () => {
   it('Should be possible to delete an exam.', async () => {
     const response = await request(app)
       .delete('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: examId,
       });
@@ -143,7 +143,7 @@ describe('Delete Exam tests', () => {
   it('Should not be possible to delete an exam if the user is not an admin.', async () => {
     const response = await request(app)
       .delete('/api/exams')
-      .set({ 'x-access-token': nonAdminToken })
+      .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
         id: examId,
       });
@@ -157,7 +157,7 @@ describe('Delete Exam tests', () => {
   it('Should return 400 BAD REQUEST id is missing.', async () => {
     const response = await request(app)
       .delete('/api/exams')
-      .set({ 'x-access-token': adminToken });
+      .set({ authorization: `Bearer ${adminToken}` });
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Something wrong with the request.');
@@ -166,7 +166,7 @@ describe('Delete Exam tests', () => {
   it('Should not be possible to delete an exam if the exam does not exists.', async () => {
     const response = await request(app)
       .delete('/api/exams')
-      .set({ 'x-access-token': adminToken })
+      .set({ authorization: `Bearer ${adminToken}` })
       .send({
         id: examId,
       });
@@ -178,7 +178,7 @@ describe('Delete Exam tests', () => {
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
       .delete('/api/exams')
-      .set({ 'x-access-token': 'invalid_token' })
+      .set({ authorization: 'invalid_token' })
       .send({
         id: examId,
       });
