@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { verifyJWT } from './middlewares/verifyJWT';
-import { verifySuperAdminJWT } from './middlewares/verifySuperAdminJWT';
+import { verifyShareJWT } from './middlewares/verifyShareJWT';
 import AuthController from './controllers/AuthController';
 import ExamsController from './controllers/ExamsController';
 import CoursesController from './controllers/coursesController';
@@ -25,10 +25,6 @@ const { admin, superAdmin } = UserRoles;
 
 routes.post('/api/authenticate', authController.authenticate);
 routes.post('/api/authenticate-share', authController.authenticateShare);
-routes.post(
-  '/api/authenticate-super-admin',
-  authController.authenticateSuperAdmin
-);
 
 routes.post('/api/register', participantsController.create);
 routes.get(
@@ -66,66 +62,66 @@ routes.get(
 
 routes.post(
   '/api/selection-process',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   selectionProcessController.create
 );
 routes.patch(
   '/api/selection-process',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   selectionProcessController.update
 );
 routes.delete(
   '/api/selection-process',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   selectionProcessController.delete
 );
 
 routes.get('/api/courses', coursesController.show);
 routes.post(
   '/api/courses',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   coursesController.create
 );
 routes.patch(
   '/api/courses',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   coursesController.update
 );
 routes.delete(
   '/api/courses',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   coursesController.delete
 );
 routes.get('/api/courses/:id/exam', coursesController.showExam);
 
 routes.post(
   '/api/exams',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   examsController.create
 );
 routes.patch(
   '/api/exams',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   examsController.update
 );
 routes.delete(
   '/api/exams',
-  verifyJWT(),
-  accessOnlyFor([admin]),
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
   examsController.delete
 );
 
 routes.post(
   '/api/super-admin',
-  verifySuperAdminJWT(),
+  verifyShareJWT(),
   accessOnlyFor([superAdmin]),
   superAdminController.create
 );

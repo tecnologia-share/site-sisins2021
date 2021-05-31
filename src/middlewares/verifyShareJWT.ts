@@ -7,7 +7,7 @@ interface tokenPayload {
   id: string;
 }
 
-export const verifySuperAdminJWT = () => {
+export const verifyShareJWT = () => {
   return (request: Request, response: Response, _next: NextFunction) => {
     const authorization = request.headers['authorization'];
     const token = authorization?.split(' ')[1];
@@ -16,7 +16,7 @@ export const verifySuperAdminJWT = () => {
 
     jwt.verify(
       token,
-      process.env.JWT_SECRET_SUPER_ADMIN as string,
+      process.env.JWT_SHARE_SECRET as string,
       (error, decoded) => {
         if (error) throw new AppError('Invalid token.', 401);
 
