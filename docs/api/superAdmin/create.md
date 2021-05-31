@@ -66,4 +66,4 @@ Cria um usuário da share, por exemplo professor ou membro administrativo.
 
   - **Code:** 401 UNAUTHORIZED
 
-    **Content:** `{ "message": "Only the super-administrator can create a user share." }`
+    **Content:** `{ "message": "You are not authorized to access this route" }`

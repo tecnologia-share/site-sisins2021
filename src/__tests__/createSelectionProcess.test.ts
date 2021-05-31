@@ -105,7 +105,7 @@ describe('Create Selection Process tests', () => {
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe(
-      'Only the administrator can create a selection process.'
+      'You are not authorized to access this route'
     );
   });
 

@@ -46,12 +46,6 @@ class CoursesController {
       return _next(new Error('User not found.'));
     }
 
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError('Only the administrator can create a course.', 401)
-      );
-    }
-
     const selecrionProcessRepository = getRepository(ProcessoSeletivo);
     const selectionProcess = await selecrionProcessRepository.findOne(
       selectionProcessId,
@@ -241,12 +235,6 @@ class CoursesController {
       return _next(new Error('User not found.'));
     }
 
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError('Only the administrator can update a course.', 401)
-      );
-    }
-
     const coursesRepository = getRepository(Curso);
     const course = await coursesRepository.findOne(id);
 
@@ -286,12 +274,6 @@ class CoursesController {
 
     if (!user) {
       return _next(new Error('User not found.'));
-    }
-
-    if (user.role !== UserRoles.admin) {
-      return _next(
-        new AppError('Only the administrator can delete a course.', 401)
-      );
     }
 
     const coursesRepository = getRepository(Curso);

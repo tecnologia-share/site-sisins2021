@@ -40,13 +40,13 @@ const createUsers = async (connection: Connection) => {
 
 const getToken = async () => {
   const responseNonSuperAdmin = await request(app)
-    .post('/api/authenticate-super-admin')
+    .post('/api/authenticate-share')
     .send({
       email: 'non_superAdmin@example.com',
       password: 'correct_password',
     });
   const responseSuperAdmin = await request(app)
-    .post('/api/authenticate-super-admin')
+    .post('/api/authenticate-share')
     .send({
       email: 'super-admin@example.com',
       password: 'correct_password',
@@ -107,7 +107,7 @@ describe('Create users share test', () => {
       });
 
     expect(response.body.message).toBe(
-      'Only the super-administrator can create a user share.'
+      'You are not authorized to access this route'
     );
     expect(response.status).toBe(401);
   });

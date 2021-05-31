@@ -124,7 +124,7 @@ describe('Create Selection Process tests', () => {
       });
 
     expect(response.body.message).toBe(
-      'Only the administrator can create a course.'
+      'You are not authorized to access this route'
     );
     expect(response.status).toBe(401);
   });

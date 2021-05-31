@@ -84,7 +84,7 @@ Atualiza informações de uma prova.
 
   - **Code:** 401 UNAUTHORIZED
 
-    **Content:** `{ "message": "Only the administrator can update an exam." }`
+    **Content:** `{ "message": "You are not authorized to access this route" }`
 
   OR
 

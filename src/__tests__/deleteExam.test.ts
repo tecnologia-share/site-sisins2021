@@ -150,7 +150,7 @@ describe('Delete Exam tests', () => {
 
     expect(response.status).toBe(401);
     expect(response.body.message).toBe(
-      'Only the administrator can delete an exam.'
+      'You are not authorized to access this route'
     );
   });
 
