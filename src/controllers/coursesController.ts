@@ -6,7 +6,6 @@ import { Curso } from '../models/Curso';
 import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
 import { UsuarioShare } from '../models/UsuarioShare';
 import { CourseStates } from '../typings/CourseStates';
-import { UserRoles } from '../typings/UserRoles';
 
 class CoursesController {
   async create(request: Request, response: Response, _next: NextFunction) {
