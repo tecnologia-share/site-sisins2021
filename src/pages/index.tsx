@@ -3,6 +3,10 @@ import Lottie from 'react-lottie';
 import Button from '../components/Button';
 
 import WaitingWithACupCoffee from '../assets/lotties/waiting-with-a-cup-coffee.json';
+import MeninoLendoHome from '../assets/lotties/menino com livro na mao home.json';
+import MeninoDigitandoHome from '../assets/lotties/menino digitando no notebook home.json';
+import MeninasPulandoHome from '../assets/lotties/meninas pulando home.json';
+import X from '../assets/lotties/waiting-with-a-cup-coffee.json';
 
 import {
   LottieWrapper,
@@ -25,44 +29,171 @@ const Home = () => {
   return (
     <>
       <MobileContainer>
-        <LeftContainer>
-          <Title>Aqui na Share nós compartilhamos ideias</Title>
+        <Title>Share aqui nós compartilhamos ideias</Title>
+        <LottieWrapper>
+          <Lottie
+            isClickToPauseDisabled
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: MeninoLendoHome,
+            }}
+          />
+        </LottieWrapper>
+        <Text>
+          Seja bem-vindo ao site da Associação Share!
+          <br />
+          <br />
+          <br />A Share é uma Entidade Estudantil fundada em 2016 por alunos de
+          Ciências Econômicas na UFSCar - Campus Sorocaba, com o intuito de
+          conectar o desejo de ensinar com a vontade de aprender. Para isso
+          oferecemos semestralmente cursos de idioma, culturais e
+          administrativos.
+        </Text>
+        <Button size="small" type="button" color="green">
+          Saiba mais
+        </Button>
+        <Title>Fique atento aos nossos processos seletivos</Title>
+        <LottieWrapper>
+          <Lottie
+            isClickToPauseDisabled
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: MeninasPulandoHome,
+            }}
+          />
+        </LottieWrapper>
+        <Text>
+          Processo seletivo estudantes 2021/1.
+          <br />
+          Confira aqui informações sobre o processo seletivo.
+        </Text>
+        <Button size="small" type="button" color="green">
+          Saiba mais
+        </Button>
+        <Title>Nossa missão</Title> <br /> <br />
+        <LottieWrapper>
+          <Lottie
+            isClickToPauseDisabled
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: MeninoDigitandoHome,
+            }}
+          />
+        </LottieWrapper>
+        <Text>
+          Visamos a construção do conhecimento nas mais diversas áreas: idiomas,
+          cultura e até softwares. Tudo isso de forma íntegra e gratuita,
+          preservando, assim, tanto o ensinar quanto o aprender. <br /> <br />
+          No primeiro semestre de 2020 mais de 3.900 pessoas tanto no Brasil
+          quanto no exterior se inscreveram em cursos da Share. <br />
+          Oferecemos 18 cursos e ofertamos 370 vagas. <br />
+          Fomos destaque no G1 Notícias, Site da UFSCar Sorocaba, Rádio Jornal
+          Cruzeiro do Sul e TV Sorocaba(SBT)
+        </Text>
+        <br />
+        <br />
+        <br />
+        <br />
+        <TitleBottom>
+          "Conectar o desejo de ensinar com a vontade de aprender"
+        </TitleBottom>
+        <LottieWrapper>
+          <Lottie
+            isClickToPauseDisabled
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: X,
+            }}
+          />
+        </LottieWrapper>
+        <br />
+        <br />
+        <TextBottom>
+          "Fazer o curso de oratória na share, para mim, foi incrível! Além de
+          ter a oportunidade de conhecer pessoas de outros cursos e pessoas de
+          fora da UFSCar, as aulas me proporcionaram um aprendizado muito rico
+          sobre técnicas de apresentação, como se portar durante um discurso e
+          como ser claro e coerente ao passar uma mensagem verbal. Indico a
+          Share para todos aqueles que tem vontade de aprender de forma
+          inovadora!"
+        </TextBottom>
+        <TitleBottom>- Vitória Benevenuto - curso de Oratória</TitleBottom>
+        <br />
+        <br />
+        <TextBottom>
+          "Eu fiz o curso de espanhol pós intermediário e foi muito bom, gostei
+          muito da relação aluno-professor que eu tive com a minha professora
+          (tanto que agora ela é minha aluna de alemão). Já sabia muito do
+          idioma, mas eu não tinha nenhuma prova ou certificado e isso me ajudou
+          muito: quase fui contratada como professora de espanhol esse ano, mas
+          por não atender meu horário de disponibilidade mesmo que eu não
+          consegui"
+        </TextBottom>
+        <TitleBottom>
+          - Helena do Carmo - curso de Espanhol Pós-&#65279;intermediário
+        </TitleBottom>
+      </MobileContainer>
+      <Container>
+        <RightContainer>
+          <Title>Share aqui nós compartilhamos ideias</Title>
           <Text>
             Seja bem-vindo ao site da Associação Share!
-            <br /> <br />
+            <br />
             <br />A Share é uma Entidade Estudantil fundada em 2016 por alunos
             de Ciências Econômicas na UFSCar - Campus Sorocaba, com o intuito de
             conectar o desejo de ensinar com a vontade de aprender. Para isso
             oferecemos semestralmente cursos de idioma, culturais e
             administrativos.
+            <br />
+            <Button size="normal" type="button" color="green">
+              Saiba mais
+            </Button>
           </Text>
-          <Button size="small" type="button" color="green">
-            Saiba mais
-          </Button>
-        </LeftContainer>
-        <RightContainer>
+        </RightContainer>
+        <LeftContainer>
           <LottieWrapper>
             <Lottie
               isClickToPauseDisabled
               options={{
                 loop: true,
                 autoplay: true,
-                animationData: WaitingWithACupCoffee,
+                animationData: MeninoLendoHome,
               }}
             />
           </LottieWrapper>
-        </RightContainer>
-        <RightContainer>
+        </LeftContainer>
+      </Container>
+      <Container>
+        <LeftContainer>
           <Title>Fique atento aos nossos processos seletivos</Title>
           <Text>
             Processo seletivo estudantes 2021/1.
             <br />
             Confira aqui informações sobre o processo seletivo.
+            <br />
+            <Button size="normal" type="button" color="green">
+              Saiba mais
+            </Button>
           </Text>
-          <Button size="small" type="button" color="green">
-            Saiba mais
-          </Button>
+        </LeftContainer>
+        <RightContainer>
+          <LottieWrapper>
+            <Lottie
+              isClickToPauseDisabled
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: MeninasPulandoHome,
+              }}
+            />
+          </LottieWrapper>
         </RightContainer>
+      </Container>
+      <Container>
         <LeftContainer>
           <LottieWrapper>
             <Lottie
@@ -70,18 +201,18 @@ const Home = () => {
               options={{
                 loop: true,
                 autoplay: true,
-                animationData: WaitingWithACupCoffee,
+                animationData: MeninoDigitandoHome,
               }}
             />
           </LottieWrapper>
         </LeftContainer>
-        <LeftContainer>
+        <RightContainer>
           <Title>Nossa missão</Title>
           <Text>
             Visamos a construção do conhecimento nas mais diversas áreas:
             idiomas, cultura e até softwares. Tudo isso de forma íntegra e
-            gratuita, preservando, assim, tanto o ensinar quanto o aprender.{' '}
-            <br /> <br />
+            gratuita, preservando, assim, tanto o ensinar quanto o aprender.
+            <br /> <br /> <br />
             No primeiro semestre de 2020 mais de 3.900 pessoas tanto no Brasil
             quanto no exterior se inscreveram em cursos da Share. <br />
             Oferecemos 18 cursos e ofertamos 370 vagas. <br />
@@ -89,10 +220,9 @@ const Home = () => {
             Cruzeiro do Sul e TV Sorocaba(SBT)
           </Text>
           <br />
-          <br />
-          <br />
-          <br />
-        </LeftContainer>
+        </RightContainer>
+      </Container>
+      <Container>
         <RightContainer>
           <LottieWrapper>
             <Lottie
@@ -105,26 +235,10 @@ const Home = () => {
             />
           </LottieWrapper>
         </RightContainer>
-        <RightContainer>
+        <LeftContainer>
           <TitleBottom>
             "Conectar o desejo de ensinar com a vontade de aprender"
           </TitleBottom>
-        </RightContainer>
-        <LeftContainer>
-          <LottieWrapper>
-            <Lottie
-              isClickToPauseDisabled
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: WaitingWithACupCoffee,
-              }}
-            />
-          </LottieWrapper>
-          <br />
-          <br />
-        </LeftContainer>
-        <LeftContainer>
           <TextBottom>
             "Fazer o curso de oratória na share, para mim, foi incrível! Além de
             ter a oportunidade de conhecer pessoas de outros cursos e pessoas de
@@ -136,143 +250,6 @@ const Home = () => {
           </TextBottom>
           <br />
           <TitleBottom>- Vitória Benevenuto - curso de Oratória</TitleBottom>
-        </LeftContainer>
-        <br />
-        <br />
-        <RightContainer>
-          <TextBottom>
-            "Eu fiz o curso de espanhol pós intermediário e foi muito bom,
-            gostei muito da relação aluno-professor que eu tive com a minha
-            professora (tanto que agora ela é minha aluna de alemão). Já sabia
-            muito do idioma, mas eu não tinha nenhuma prova ou certificado e
-            isso me ajudou muito: quase fui contratada como professora de
-            espanhol esse ano, mas por não atender meu horário de
-            disponibilidade mesmo que eu não consegui"
-          </TextBottom>
-          <br />
-          <TitleBottom>
-            - Helena do Carmo - curso de Espanhol Pós-&#65279;intermediário
-          </TitleBottom>
-        </RightContainer>
-      </MobileContainer>
-      <Container>
-        <RightContainer>
-          <Title>Aqui na Share nós compartilhamos ideias</Title>
-          <Text>
-            Seja bem-vindo ao site da Associação Share!
-            <br /> <br />
-            <br />A Share é uma Entidade Estudantil fundada em 2016 por alunos
-            de Ciências Econômicas na UFSCar - Campus Sorocaba, com o intuito de
-            conectar o desejo de ensinar com a vontade de aprender. Para isso
-            oferecemos semestralmente cursos de idioma, culturais e
-            administrativos.
-            <br />
-            <Button size="normal" type="button" color="green">
-              Saiba mais
-            </Button>
-          </Text>
-        </RightContainer>
-        <LeftContainer>
-          <LottieWrapper>
-            <Lottie
-              isClickToPauseDisabled
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: WaitingWithACupCoffee,
-              }}
-            />
-          </LottieWrapper>
-        </LeftContainer>
-      </Container>
-      <Container>
-        <LeftContainer>
-          <Title>Fique atento aos nossos processos seletivos</Title>
-          <Text>
-            Processo seletivo estudantes 2021/1.
-            <br />
-            Confira aqui informações sobre o processo seletivo.
-            <br />
-            <Button size="normal" type="button" color="green">
-              Saiba mais
-            </Button>
-          </Text>
-        </LeftContainer>
-        <RightContainer>
-          <LottieWrapper>
-            <Lottie
-              isClickToPauseDisabled
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: WaitingWithACupCoffee,
-              }}
-            />
-          </LottieWrapper>
-        </RightContainer>
-      </Container>
-      <Container>
-        <LeftContainer>
-          <LottieWrapper>
-            <Lottie
-              isClickToPauseDisabled
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: WaitingWithACupCoffee,
-              }}
-            />
-          </LottieWrapper>
-        </LeftContainer>
-        <RightContainer>
-          <Title>Nossa missão</Title>
-          <Text>
-            Visamos a construção do conhecimento nas mais diversas áreas:
-            idiomas, cultura e até softwares. Tudo isso de forma íntegra e
-            gratuita, preservando, assim, tanto o ensinar quanto o aprender.{' '}
-            <br /> <br />
-            No primeiro semestre de 2020 mais de 3.900 pessoas tanto no Brasil
-            quanto no exterior se inscreveram em cursos da Share. <br />
-            Oferecemos 18 cursos e ofertamos 370 vagas. <br />
-            Fomos destaque no G1 Notícias, Site da UFSCar Sorocaba, Rádio Jornal
-            Cruzeiro do Sul e TV Sorocaba(SBT)
-          </Text>
-          <br />
-          <br />
-          <br />
-          <br />
-        </RightContainer>
-      </Container>
-      <Container>
-        <RightContainer>
-          <LottieWrapper>
-            <Lottie
-              isClickToPauseDisabled
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: WaitingWithACupCoffee,
-              }}
-            />
-          </LottieWrapper>
-        </RightContainer>
-        <LeftContainer>
-          <TitleBottom>
-            "Conectar o desejo de ensinar com a vontade de aprender"
-          </TitleBottom>
-          <TextBottom>
-            "Fazer o curso de oratória na share, para mim, foi incrível! Além de
-            ter a oportunidade de conhecer pessoas de outros cursos e pessoas de
-            fora da UFSCar, as aulas me proporcionaram um aprendizado muito rico
-            sobre técnicas de apresentação, como se portar durante um discurso e
-            como ser claro e coerente ao passar uma mensagem verbal. Indico a
-            Share para todos aqueles que tem vontade de aprender de forma
-            inovadora!"
-          </TextBottom>
-          <br />
-          <TitleBottom>
-            - Vitória Benevenuto - curso de Oratória
-          </TitleBottom>{' '}
           <br />
           <br />
           <TextBottom>
@@ -290,11 +267,10 @@ const Home = () => {
           </TitleBottom>
         </LeftContainer>
       </Container>
-
       <Footer>
         <FeatherContainer>
           <Feather>
-            <Vector src={'icons/instagram.svg'} />{' '}
+            <Vector src={'icons/instagram.svg'} />
           </Feather>
           <Feather>
             <Vector src={'icons/facebook.svg'} />
