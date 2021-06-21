@@ -66,7 +66,7 @@ export const Title = styled.h1`
   line-height: 1.2rem;
   align-self: center;
   grid-area: title;
-  z-index: 2;
+  z-index: 1;
 
   @media (max-width: 360px) {
     font-size: 0.925rem;
