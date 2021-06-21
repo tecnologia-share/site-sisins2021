@@ -1,25 +1,7 @@
 import request from 'supertest';
 import app from '../app';
 import { Connection, createConnection } from 'typeorm';
-import { UsuarioShare } from '../models/UsuarioShare';
-import { UserRoles } from '../typings/UserRoles';
-
-const populateDatabase = async (connection: Connection) => {
-  const usersRepository = connection.getRepository(UsuarioShare);
-  const user = usersRepository.create({
-    email: 'this_email_exists@example.com',
-    senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
-    nome: 'Admin',
-    role: UserRoles.admin,
-    cpf: '12345678912',
-    cidade: 'Capela do Alto',
-    estado: 'São Paulo',
-    pais: 'Brasil',
-    nascimento: new Date(),
-    telefone: '15997965485',
-  });
-  await usersRepository.save(user);
-};
+import { createAdmin } from '../utils/tests';
 
 describe('Authentication User Share tests', () => {
   beforeAll(async () => {
@@ -27,12 +9,12 @@ describe('Authentication User Share tests', () => {
     await connection.dropDatabase();
     await connection.runMigrations();
 
-    await populateDatabase(connection);
+    await createAdmin(connection);
   });
 
   it('Should return a token if the email and password sent are correct', async () => {
     const response = await request(app).post('/api/authenticate-share').send({
-      email: 'this_email_exists@example.com',
+      email: 'admin@example.com',
       password: 'correct_password',
     });
 
