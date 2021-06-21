@@ -1,7 +1,12 @@
 import request from 'supertest';
 import app from '../app';
 import { Connection, createConnection } from 'typeorm';
-import { createAdmin, genTokenAdmin, genTokenNonAdmin } from '../utils/tests';
+import {
+  createAdmin,
+  createNonAdmin,
+  genTokenAdmin,
+  genTokenNonAdmin,
+} from '../utils/tests';
 
 let adminToken: string;
 let nonAdminToken: string;
@@ -52,6 +57,7 @@ describe('Create Exam tests', () => {
     await connection.runMigrations();
 
     await createAdmin(connection);
+    await createNonAdmin(connection);
     adminToken = await genTokenAdmin();
     nonAdminToken = await genTokenNonAdmin();
     await createCourse();
