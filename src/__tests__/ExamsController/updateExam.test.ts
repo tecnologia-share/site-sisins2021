@@ -1,17 +1,21 @@
 import request from 'supertest';
-import app from '../app';
-import { Connection, createConnection } from 'typeorm';
+import app from '../../app';
+import { Connection, createConnection, getRepository } from 'typeorm';
 import {
   createAdmin,
   createNonAdmin,
   genTokenAdmin,
   genTokenNonAdmin,
-} from '../utils/tests';
+} from '../../utils/tests';
+
+import { Questao } from '../../models/Questao';
 
 let adminToken: string;
 let nonAdminToken: string;
 let connection: Connection;
 let courseId: string;
+let examId: string;
+let questionId: string;
 
 const createCourse = async () => {
   const futureDate = new Date();
@@ -46,9 +50,37 @@ const createCourse = async () => {
     });
 
   courseId = courseResponse.body.course.id;
+
+  const responseExam = await request(app)
+    .post('/api/exams')
+    .set({ authorization: `Bearer ${adminToken}` })
+    .send({
+      courseId,
+      questions: [
+        {
+          question: 'Correct Alternative is the 2.',
+          image: 'Image Path',
+          alternative1: 'Alternative 1',
+          alternative2: 'Alternative 2',
+          alternative3: 'Alternative 3',
+          alternative4: 'Alternative 4',
+          alternative5: 'Alternative 5',
+          correctAlternative: 2,
+          points: 10,
+        },
+      ],
+    });
+
+  examId = responseExam.body.exam.id;
+
+  const questionsRepository = getRepository(Questao);
+
+  const question = await questionsRepository.findOne();
+
+  questionId = (question as Questao).id;
 };
 
-describe('Create Exam tests', () => {
+describe('Update Exam tests', () => {
   beforeAll(async () => {
     if (!connection) {
       connection = await createConnection();
@@ -63,12 +95,32 @@ describe('Create Exam tests', () => {
     await createCourse();
   });
 
-  it('Should be possible to create an exam.', async () => {
-    const response = await request(app)
-      .post('/api/exams')
+  it('Should be possible to update an exam.', async () => {
+    const responseWithQuestionId = await request(app)
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
-        courseId,
+        id: examId,
+        questions: [
+          {
+            id: questionId,
+            question: 'Correct Alternative is the 2.',
+            image: 'Image Path',
+            alternative1: 'Alternative 1',
+            alternative2: 'Alternative 2',
+            alternative3: 'Alternative 3',
+            alternative4: 'Alternative 4',
+            alternative5: 'Alternative 5',
+            correctAlternative: 2,
+            points: 10,
+          },
+        ],
+      });
+    const responseWithoutQuestionId = await request(app)
+      .patch('/api/exams')
+      .set({ authorization: `Bearer ${adminToken}` })
+      .send({
+        id: examId,
         questions: [
           {
             question: 'Correct Alternative is the 2.',
@@ -84,19 +136,27 @@ describe('Create Exam tests', () => {
         ],
       });
 
-    expect(response.status).toBe(201);
-    expect(response.body.message).toBe('Exam successfully created.');
-    expect(response.body).toHaveProperty('exam');
+    expect(responseWithQuestionId.status).toBe(200);
+    expect(responseWithQuestionId.body.message).toBe(
+      'Exam successfully updated.'
+    );
+    expect(responseWithQuestionId.body).toHaveProperty('exam');
+    expect(responseWithoutQuestionId.status).toBe(200);
+    expect(responseWithoutQuestionId.body.message).toBe(
+      'Exam successfully updated.'
+    );
+    expect(responseWithoutQuestionId.body).toHaveProperty('exam');
   });
 
-  it('Should not be possible to create a exam if the user is not an admin.', async () => {
+  it('Should not be possible to update an exam if the user is not an admin.', async () => {
     const response = await request(app)
-      .post('/api/exams')
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${nonAdminToken}` })
       .send({
-        courseId,
+        id: examId,
         questions: [
           {
+            id: questionId,
             question: 'Correct Alternative is the 2.',
             image: 'Image Path',
             alternative1: 'Alternative 1',
@@ -116,9 +176,35 @@ describe('Create Exam tests', () => {
     );
   });
 
+  it('Should not be possible to update a question if the question does not exists.', async () => {
+    const response = await request(app)
+      .patch('/api/exams')
+      .set({ authorization: `Bearer ${adminToken}` })
+      .send({
+        id: examId,
+        questions: [
+          {
+            id: 'Non-existent-id',
+            question: 'Correct Alternative is the 2.',
+            image: 'Image Path',
+            alternative1: 'Alternative 1',
+            alternative2: 'Alternative 2',
+            alternative3: 'Alternative 3',
+            alternative4: 'Alternative 4',
+            alternative5: 'Alternative 5',
+            correctAlternative: 2,
+            points: 10,
+          },
+        ],
+      });
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe(`Question Non-existent-id not found.`);
+  });
+
   it('Should return 400 BAD REQUEST if any information is missing from the request.', async () => {
-    const responseWithoutCourseId = await request(app)
-      .post('/api/exams')
+    const responseWithoutExamId = await request(app)
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
         questions: [
@@ -136,16 +222,16 @@ describe('Create Exam tests', () => {
         ],
       });
     const responseWithoutQuestions = await request(app)
-      .post('/api/exams')
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
-        courseId,
+        id: examId,
       });
     const responseWithoutQuestionsProps = await request(app)
-      .post('/api/exams')
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
-        courseId,
+        id: examId,
         questions: [
           {
             question: 'Correct Alternative is the 2.',
@@ -158,8 +244,8 @@ describe('Create Exam tests', () => {
         ],
       });
 
-    expect(responseWithoutCourseId.status).toBe(400);
-    expect(responseWithoutCourseId.body.message).toBe(
+    expect(responseWithoutExamId.status).toBe(400);
+    expect(responseWithoutExamId.body.message).toBe(
       'Something wrong with the request.'
     );
     expect(responseWithoutQuestions.status).toBe(400);
@@ -172,12 +258,12 @@ describe('Create Exam tests', () => {
     );
   });
 
-  it('Should not be possible to create an exam if the course does not exists.', async () => {
+  it('Should not be possible to update an exam if the exam does not exists.', async () => {
     const response = await request(app)
-      .post('/api/exams')
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
-        courseId: 'Non-existent id',
+        id: 'Non-existent id',
         questions: [
           {
             question: 'Correct Alternative is the 2.',
@@ -194,40 +280,15 @@ describe('Create Exam tests', () => {
       });
 
     expect(response.status).toBe(404);
-    expect(response.body.message).toBe('Course not found.');
+    expect(response.body.message).toBe('Exam not found.');
   });
 
-  it('Should not be possible to create an exam if the course already has an exam.', async () => {
-    const response = await request(app)
-      .post('/api/exams')
-      .set({ authorization: `Bearer ${adminToken}` })
-      .send({
-        courseId,
-        questions: [
-          {
-            question: 'Correct Alternative is the 2.',
-            image: 'Image Path',
-            alternative1: 'Alternative 1',
-            alternative2: 'Alternative 2',
-            alternative3: 'Alternative 3',
-            alternative4: 'Alternative 4',
-            alternative5: 'Alternative 5',
-            correctAlternative: 2,
-            points: 10,
-          },
-        ],
-      });
-
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe('This course already has an exam.');
-  });
-
-  it('Should not be possible to create an exam if the correct alternative not exists.', async () => {
+  it('Should not be possible to update an exam if the correct alternative not exists.', async () => {
     const response1 = await request(app)
-      .post('/api/exams')
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
-        courseId,
+        id: examId,
         questions: [
           {
             question: 'Correct Alternative is the 2.',
@@ -243,10 +304,10 @@ describe('Create Exam tests', () => {
         ],
       });
     const response2 = await request(app)
-      .post('/api/exams')
+      .patch('/api/exams')
       .set({ authorization: `Bearer ${adminToken}` })
       .send({
-        courseId,
+        id: examId,
         questions: [
           {
             question: 'Correct Alternative is the 2.',
@@ -270,12 +331,10 @@ describe('Create Exam tests', () => {
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
-      .post('/api/exams')
-      .set({
-        authorization: 'invalid_token',
-      })
+      .patch('/api/exams')
+      .set({ authorization: 'invalid_token' })
       .send({
-        courseId,
+        id: examId,
         questions: [
           {
             question: 'Correct Alternative is the 2.',

@@ -1,13 +1,13 @@
 import request from 'supertest';
-import app from '../app';
+import app from '../../app';
 import { Connection, createConnection } from 'typeorm';
 import {
   createAdmin,
   createNonAdmin,
   genTokenAdmin,
   genTokenNonAdmin,
-} from '../utils/tests';
-import { createCourse } from '../utils/tests/course';
+  createCourse,
+} from '../../utils/tests';
 
 let adminToken: string;
 let nonAdminToken: string;

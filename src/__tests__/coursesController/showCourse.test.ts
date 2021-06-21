@@ -1,12 +1,10 @@
 import request from 'supertest';
-import app from '../app';
+import app from '../../app';
 import { Connection, createConnection } from 'typeorm';
-import { createAdmin, createNonAdmin } from '../utils/tests';
+import { createAdmin, createNonAdmin } from '../../utils/tests';
 
 let adminToken: string;
 let connection: Connection;
-let selectionProcessId: string;
-let InactiveSelectionProcessId: string;
 
 const getToken = async () => {
   const responseAdmin = await request(app)
@@ -47,8 +45,8 @@ const createSelectionProcess = async () => {
       manualLink: 'link manual',
     });
 
-  selectionProcessId = responseSelectionProcess.body.selectionProcess.id;
-  InactiveSelectionProcessId =
+  const selectionProcessId = responseSelectionProcess.body.selectionProcess.id;
+  const InactiveSelectionProcessId =
     responseInactiveSelectionProcess.body.selectionProcess.id;
 
   await request(app)
@@ -78,7 +76,7 @@ const createSelectionProcess = async () => {
     });
 };
 
-describe('Show Selection Process Courses tests', () => {
+describe('Show Courses tests', () => {
   beforeAll(async () => {
     if (!connection) {
       connection = await createConnection();
@@ -92,30 +90,38 @@ describe('Show Selection Process Courses tests', () => {
     await createSelectionProcess();
   });
 
-  it('Should be possible get all courses of a selection process.', async () => {
-    const activesCourses = await request(app).get(
-      `/api/selection-process/${selectionProcessId}/courses`
-    );
-    const inactivesCourses = await request(app).get(
-      `/api/selection-process/${InactiveSelectionProcessId}/courses`
-    );
+  it('Should be possible get all courses.', async () => {
+    const response = await request(app).get('/api/courses');
 
-    expect(activesCourses.status).toBe(200);
-    expect(activesCourses.body).toHaveProperty('courses');
-    expect(activesCourses.body.courses).toHaveLength(1);
-    expect(activesCourses.body.courses[0].name).toBe('Active Course');
-    expect(inactivesCourses.status).toBe(200);
-    expect(inactivesCourses.body).toHaveProperty('courses');
-    expect(inactivesCourses.body.courses).toHaveLength(1);
-    expect(inactivesCourses.body.courses[0].name).toBe('Inactive Course');
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('courses');
+    expect(response.body.courses).toHaveLength(2);
   });
 
-  it('Should return error if the selection process does not exists.', async () => {
+  it('Should be possible get only active courses.', async () => {
+    const response = await request(app).get('/api/courses?state=active');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('courses');
+    expect(response.body.courses).toHaveLength(1);
+    expect(response.body.courses[0].name).toBe('Active Course');
+  });
+
+  it('Should be possible get only inactive courses.', async () => {
+    const response = await request(app).get('/api/courses?state=inactive');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('courses');
+    expect(response.body.courses).toHaveLength(1);
+    expect(response.body.courses[0].name).toBe('Inactive Course');
+  });
+
+  it('Should return error if the state does not exists.', async () => {
     const response = await request(app).get(
-      `/api/selection-process/non-existent-id/courses`
+      '/api/courses?state=non-existent-state'
     );
 
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe('Selection Process not found.');
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Invalid state.');
   });
 });

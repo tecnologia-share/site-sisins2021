@@ -1,7 +1,7 @@
 import request from 'supertest';
-import app from '../app';
+import app from '../../app';
 import { Connection, createConnection } from 'typeorm';
-import { createAdmin } from '../utils/tests';
+import { createAdmin } from '../../utils/tests';
 
 describe('Authentication User Share tests', () => {
   beforeAll(async () => {
