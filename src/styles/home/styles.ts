@@ -62,8 +62,7 @@ export const RightContainer = styled.div`
 
 export const Title = styled.h1`
   font-size: 1rem;
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
+  font: 'Lato', sans-serif 700 normal;
   line-height: 1.2rem;
   align-self: center;
   grid-area: title;
@@ -77,8 +76,8 @@ export const Title = styled.h1`
 
   @media (min-width: 680px) {
     width: 45vw;
-    margin-left: 7.5rem;
-    padding-top: 2.5rem;
+    margin-left: 13rem;
+    margin-top: 7.5rem;
   } ;
 `;
 
@@ -102,6 +101,7 @@ export const TitleBottom = styled.h1`
     width: 45vw;
     font-size: 1rem;
     margin-right: 5rem;
+    padding-left: 5rem;
   } ;
 `;
 
@@ -122,8 +122,9 @@ export const Text = styled.div`
   }
   @media (min-width: 680px) {
     width: 45vw;
-    margin-left: 7.5rem;
     margin-top: 0.75rem;
+    margin-left: 13rem;
+    padding-right: 16rem;
   } ;
 `;
 
@@ -144,8 +145,8 @@ export const TextBottom = styled.div`
   }
   @media (min-width: 680px) {
     width: 45vw;
-    padding-top: 2.5rem;
-    margin-right: 5rem;
+    padding-top: 4.25rem;
+    padding-left: 2.5rem;
   } ;
 `;
 
@@ -167,8 +168,10 @@ export const LottieWrapper = styled.div`
     margin-top: 1rem;
   }
   @media (min-width: 680px) {
-    transform: scale(1.5);
-    padding-top: 1.2rem;
+    transform: scale(1.8);
+    margin-top: 10rem;
+    margin-left: 8.5rem;
+    margin-right: 12.5rem;
   } ;
 `;
 
@@ -181,7 +184,7 @@ export const Footer = styled.div`
   text-align: center;
   padding-bottom: 2rem;
   padding-top: 2rem;
-  margin-top: 4rem;
+  margin-top: 6rem;
   z-index: 0;
   grid-area: footer;
 `;

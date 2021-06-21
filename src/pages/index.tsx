@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Lottie from 'react-lottie';
 
 import Button from '../components/Button';
@@ -98,7 +99,7 @@ const Home = () => {
         <br />
         <br />
         <TitleBottom>
-          "Conectar o desejo de ensinar com a vontade de aprender"
+          &quot;Conectar o desejo de ensinar com a vontade de aprender&quot;
         </TitleBottom>
         <LottieWrapper>
           <Lottie
@@ -113,25 +114,25 @@ const Home = () => {
         <br />
         <br />
         <TextBottom>
-          "Fazer o curso de oratória na share, para mim, foi incrível! Além de
-          ter a oportunidade de conhecer pessoas de outros cursos e pessoas de
-          fora da UFSCar, as aulas me proporcionaram um aprendizado muito rico
-          sobre técnicas de apresentação, como se portar durante um discurso e
-          como ser claro e coerente ao passar uma mensagem verbal. Indico a
-          Share para todos aqueles que tem vontade de aprender de forma
-          inovadora!"
+          &quot; Fazer o curso de oratória na share, para mim, foi incrível!
+          Além de ter a oportunidade de conhecer pessoas de outros cursos e
+          pessoas de fora da UFSCar, as aulas me proporcionaram um aprendizado
+          muito rico sobre técnicas de apresentação, como se portar durante um
+          discurso e como ser claro e coerente ao passar uma mensagem verbal.
+          Indico a Share para todos aqueles que tem vontade de aprender de forma
+          inovadora! &quot;
         </TextBottom>
         <TitleBottom>- Vitória Benevenuto - curso de Oratória</TitleBottom>
         <br />
         <br />
         <TextBottom>
-          "Eu fiz o curso de espanhol pós intermediário e foi muito bom, gostei
-          muito da relação aluno-professor que eu tive com a minha professora
-          (tanto que agora ela é minha aluna de alemão). Já sabia muito do
+          &quot; Eu fiz o curso de espanhol pós intermediário e foi muito bom,
+          gostei muito da relação aluno-professor que eu tive com a minha
+          professora que agora ela é minha aluna de alemão). Já sabia muito do
           idioma, mas eu não tinha nenhuma prova ou certificado e isso me ajudou
-          muito: quase fui contratada como professora de espanhol esse ano, mas
-          por não atender meu horário de disponibilidade mesmo que eu não
-          consegui"
+          muito: muito: quase fui contratada como professora de espanhol esse
+          ano, mas por não atender meu horário de disponibilidade mesmo que eu
+          não consegui &quot;
         </TextBottom>
         <TitleBottom>
           - Helena do Carmo - curso de Espanhol Pós-&#65279;intermediário
@@ -143,10 +144,15 @@ const Home = () => {
           <Text>
             Seja bem-vindo ao site da Associação Share!
             <br />
-            <br />A Share é uma Entidade Estudantil fundada em 2016 por alunos
-            de Ciências Econômicas na UFSCar - Campus Sorocaba, com o intuito de
+            <br />
+            A Share é uma Entidade Estudantil fundada em 2016 por alunos de
+            <br />
+            Ciências Econômicas na UFSCar - Campus Sorocaba, com o intuito de
+            <br />
             conectar o desejo de ensinar com a vontade de aprender. Para isso
+            <br />
             oferecemos semestralmente cursos de idioma, culturais e
+            <br />
             administrativos.
             <br />
             <Button size="normal" type="button" color="green">
@@ -169,7 +175,10 @@ const Home = () => {
       </Container>
       <Container>
         <LeftContainer>
-          <Title>Fique atento aos nossos processos seletivos</Title>
+          <Title>
+            Fique atento aos nossos processos seletivos
+            <br />
+          </Title>
           <Text>
             Processo seletivo estudantes 2021/1.
             <br />
@@ -210,14 +219,25 @@ const Home = () => {
           <Title>Nossa missão</Title>
           <Text>
             Visamos a construção do conhecimento nas mais diversas áreas:
-            idiomas, cultura e até softwares. Tudo isso de forma íntegra e
-            gratuita, preservando, assim, tanto o ensinar quanto o aprender.
-            <br /> <br /> <br />
+            idiomas, cultura e até
+            <br />
+            softwares. Tudo isso de forma íntegra e gratuita, preservando,
+            assim, tanto o ensinar
+            <br />
+            quanto o aprender.
+            <br />
+            <br />
+            <br />
             No primeiro semestre de 2020 mais de 3.900 pessoas tanto no Brasil
-            quanto no exterior se inscreveram em cursos da Share. <br />
-            Oferecemos 18 cursos e ofertamos 370 vagas. <br />
-            Fomos destaque no G1 Notícias, Site da UFSCar Sorocaba, Rádio Jornal
-            Cruzeiro do Sul e TV Sorocaba(SBT)
+            quanto no exterior
+            <br />
+            se inscreveram em cursos da Share.
+            <br />
+            Oferecemos 18 cursos e ofertamos 370 vagas.
+            <br />
+            Fomos destaque no G1 Notícias, Site da UFSCar Sorocaba,
+            <br />
+            Rádio Jornal Cruzeiro do Sul e TV Sorocaba(SBT)
           </Text>
           <br />
         </RightContainer>
@@ -237,33 +257,45 @@ const Home = () => {
         </RightContainer>
         <LeftContainer>
           <TitleBottom>
-            "Conectar o desejo de ensinar com a vontade de aprender"
+            &quot;Conectar o desejo de ensinar com a vontade de aprender&quot;
           </TitleBottom>
           <TextBottom>
-            "Fazer o curso de oratória na share, para mim, foi incrível! Além de
-            ter a oportunidade de conhecer pessoas de outros cursos e pessoas de
-            fora da UFSCar, as aulas me proporcionaram um aprendizado muito rico
-            sobre técnicas de apresentação, como se portar durante um discurso e
-            como ser claro e coerente ao passar uma mensagem verbal. Indico a
-            Share para todos aqueles que tem vontade de aprender de forma
-            inovadora!"
+            &quot;Fazer o curso de oratória na share, para mim, foi incrível!
+            Além de ter a oportunidade de
+            <br />
+            conhecer pessoas de outros cursos e pessoas de fora da UFSCar, as
+            aulas me
+            <br />
+            proporcionaram um aprendizado muito rico sobre técnicas de
+            apresentação, como se
+            <br />
+            portar durante um discurso e como ser claro e coerente ao passar uma
+            mensagem verbal.
+            <br />
+            Indico a Share para todos aqueles que tem vontade de aprender de
+            forma
+            <br />
+            inovadora!&quot;
           </TextBottom>
-          <br />
-          <TitleBottom>- Vitória Benevenuto - curso de Oratória</TitleBottom>
-          <br />
-          <br />
+          <TitleBottom>- Vitória Benevenuto, curso de Oratória</TitleBottom>
           <TextBottom>
-            "Eu fiz o curso de espanhol pós intermediário e foi muito bom,
-            gostei muito da relação aluno-professor que eu tive com a minha
-            professora (tanto que agora ela é minha aluna de alemão). Já sabia
-            muito do idioma, mas eu não tinha nenhuma prova ou certificado e
-            isso me ajudou muito: quase fui contratada como professora de
-            espanhol esse ano, mas por não atender meu horário de
-            disponibilidade mesmo que eu não consegui"
+            &quot;Eu fiz o curso de espanhol pós intermediário e foi muito bom,
+            gostei muito da relação
+            <br />
+            aluno-professor que eu tive com a minha professora (tanto que agora
+            ela é minha aluna de
+            <br />
+            alemão). Já sabia muito do idioma, mas eu não tinha nenhuma prova ou
+            certificado e isso me
+            <br />
+            ajudou muito: quase fui contratada como professora de espanhol esse
+            ano, mas por não
+            <br />
+            atender meu horário de disponibilidade mesmo que eu não
+            consegui&quot;
           </TextBottom>
-          <br />
           <TitleBottom>
-            - Helena do Carmo - curso de Espanhol Pós-&#65279;intermediário
+            - Helena do Carmo, curso de Espanhol Pós-&#65279;intermediário
           </TitleBottom>
         </LeftContainer>
       </Container>
