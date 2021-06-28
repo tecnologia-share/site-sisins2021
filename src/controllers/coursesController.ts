@@ -289,6 +289,24 @@ class CoursesController {
       message: 'Course successfully deleted.',
     });
   }
+
+  async showCourseSubscribes(
+    request: Request,
+    response: Response,
+    _next: NextFunction
+  ) {
+    const { id } = request.params;
+
+    const coursesRepository = getRepository(Curso);
+    const course = await coursesRepository.findOne(id, {
+      relations: ['inscricoes'],
+    });
+    if (!course) return _next(new AppError('Course not found.', 404));
+
+    const subscribes = course.inscricoes;
+
+    return response.status(200).json({ subscribes });
+  }
 }
 
 export default CoursesController;
