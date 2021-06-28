@@ -1,11 +1,7 @@
-import { Container, Title } from '../styles/home/styles';
+import Home from '../pagesComponents/home';
 
-const Home = () => {
-  return (
-    <Container>
-      <Title>Home</Title>
-    </Container>
-  );
+const HomePage = () => {
+  return <Home />;
 };
 
-export default Home;
+export default HomePage;

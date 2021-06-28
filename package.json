@@ -12,6 +12,9 @@
     "prettier:check": "prettier --check src"
   },
   "dependencies": {
+    "@types/yup": "^0.29.11",
+    "@unform/core": "^2.1.6",
+    "@unform/web": "^2.1.6",
     "lodash": "^4.17.21",
     "next": "10.0.7",
     "next-secure-headers": "^2.2.0",
@@ -20,7 +23,8 @@
     "react-inlinesvg": "^2.2.2",
     "react-lottie": "^1.2.3",
     "styled-components": "^5.2.1",
-    "webpack-subresource-integrity": "^1.5.2"
+    "webpack-subresource-integrity": "^1.5.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

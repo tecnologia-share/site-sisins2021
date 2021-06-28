@@ -19,6 +19,9 @@ export const colors = {
     '4': '#0459d7',
     '5': '#1470fa',
     '6': '#a6b2c5',
+    '7': 'rgba(193, 216, 231, 0.45)',
+    '8': '#0099ff',
+    '9': '#0e9efe',
   },
   green: '#579B59',
   greens: {
@@ -37,4 +40,4 @@ export const colors = {
     '1': '#fff8f8',
     '2': 'rgba(255, 89, 89, 0.5)',
   },
-};
+} as const;

@@ -11,12 +11,12 @@ export const SelectControl = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  min-height: 48px;
+  min-height: 3rem;
   position: relative;
   outline: none;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  background: ${({ theme }) => theme.colors.white};
+  box-shadow: 0 0.25rem 0.25rem ${({ theme }) => theme.colors.blacks[1]};
+  border-radius: 0.5rem;
   padding: 0 0.5rem 0 1rem;
   gap: 0.5rem;
 `;
@@ -44,7 +44,7 @@ export const SelectValue = styled.span<SelectValueProps>`
 export const SelectInput = styled.input`
   width: 100%;
   background: 0 center;
-  border: 0px;
+  border: 0;
   font-size: inherit;
   opacity: 1;
   outline: 0;
@@ -74,16 +74,16 @@ export const SelectMenu = styled.div<SelectMenuProps>`
   top: 100%;
   max-height: 200px;
   overflow: auto;
-  margin-top: 16px;
+  margin-top: 1rem;
   padding: 1rem;
   z-index: 1;
   width: 100%;
   display: ${({ open }) => (open ? 'flex' : 'none')};
   flex-direction: column;
-  background: #ffffff;
-  border: 0.5px solid #0099ff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  background: ${({ theme }) => theme.colors.white};
+  border: 0.5px solid ${({ theme }) => theme.colors.blues[8]};
+  box-shadow: 0px 0.25rem 0.25rem ${({ theme }) => theme.colors.blacks[1]};
+  border-radius: 0.5rem;
 `;
 
 interface SelectMenuItemProps {
@@ -94,19 +94,19 @@ export const SelectMenuItemContainer = styled.div<SelectMenuItemProps>`
   ${({ active }) => {
     if (active) {
       return css`
-        background-color: rgba(193, 216, 231, 0.45);
-        color: #0e9efe;
+        background-color: ${({ theme }) => theme.colors.blues[7]};
+        color: ${({ theme }) => theme.colors.blues[9]};
       `;
     }
   }}
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
   cursor: default;
   width: 100%;
 
   &:hover {
-    background-color: rgba(193, 216, 231, 0.45);
-    color: #0e9efe;
+    background-color: ${({ theme }) => theme.colors.blues[7]};
+    color: ${({ theme }) => theme.colors.blues[9]};
   }
 `;
 

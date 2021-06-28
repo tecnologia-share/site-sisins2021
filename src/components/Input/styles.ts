@@ -8,6 +8,11 @@ export const Container = styled.div`
   width: 100%;
 `;
 
+export const Label = styled.p`
+  width: 100%;
+  margin-bottom: 1rem;
+`;
+
 export const InputContainer = styled.div`
   position: relative;
   display: flex;
@@ -23,8 +28,8 @@ interface CustomInputProps {
 
 export const CustomInput = styled.input<CustomInputProps>`
   box-sizing: border-box;
-  box-shadow: 0px 4px 4px ${({ theme }) => theme.colors.blacks[1]};
-  border-radius: 8px;
+  box-shadow: 0 0.25rem 0.25rem ${({ theme }) => theme.colors.blacks[1]};
+  border-radius: 0.5rem;
   outline: none;
   padding: 0.75rem ${({ hasIcon }) => (hasIcon ? '3.5rem' : '1rem')} 0.75rem
     1rem;
@@ -56,16 +61,18 @@ export const CustomInput = styled.input<CustomInputProps>`
       switch (variant) {
         case 'error':
           return css`
-            box-shadow: 0px 4px 4px ${({ theme }) => theme.colors.reds[2]};
+            box-shadow: 0 0.25rem 0.25rem ${({ theme }) => theme.colors.reds[2]};
           `;
         case 'success':
           return css`
-            box-shadow: 0px 4px 4px ${({ theme }) => theme.colors.greens[3]};
+            box-shadow: 0 0.25rem 0.25rem
+              ${({ theme }) => theme.colors.greens[3]};
           `;
         default:
           return css`
             border: 1px solid ${({ theme }) => theme.colors.blue};
-            box-shadow: 0px 4px 4px ${({ theme }) => theme.colors.blues[2]};
+            box-shadow: 0 0.25rem 0.25rem
+              ${({ theme }) => theme.colors.blues[2]};
           `;
       }
     }};
