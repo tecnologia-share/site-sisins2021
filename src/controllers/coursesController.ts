@@ -6,7 +6,6 @@ import { Curso } from '../models/Curso';
 import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
 import { UsuarioShare } from '../models/UsuarioShare';
 import { CourseStates } from '../typings/CourseStates';
-import { UserRoles } from '../typings/UserRoles';
 
 class CoursesController {
   async create(request: Request, response: Response, _next: NextFunction) {
@@ -217,6 +216,7 @@ class CoursesController {
           time: course.horario,
           professor: course.professor,
           hasExam: course.provas.length > 0,
+          numberOfQuestions: course.provas.length,
           selectionProcessId: course.processo_seletivo_id,
           created_at: course.created_at,
         };
