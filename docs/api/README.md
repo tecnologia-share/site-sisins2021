@@ -18,6 +18,7 @@
 | PATCH  | [/api/courses](./courses/updateCourse.md)                                                | Atualiza informações de um curso.                                |
 | DELETE | [/api/courses](./courses/deleteCourse.md)                                                | Exclui um curso.                                                 |
 | GET    | [/api/courses](./courses/showCourses.md)                                                 | Lista os cursos.                                                 |
+| GET    | [/api/courses/:id/subscribes](./courses/showCourseSubscribes.md)                         | Lista os inscritos no curso.                                     |
 | POST   | [/api/exams](./exams/createExam.md)                                                      | Cria uma prova.                                                  |
 | PATCH  | [/api/exams](./exams/updateExam.md)                                                      | Atualiza informações de uma prova.                               |
 | DELETE | [/api/exams](./exams/deleteExam.md)                                                      | Exclui uma prova.                                                |
