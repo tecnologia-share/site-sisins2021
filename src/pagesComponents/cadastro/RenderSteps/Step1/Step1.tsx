@@ -1,18 +1,13 @@
 import { useCallback, useContext, useRef } from 'react';
 import { CadastroContext, CadastroData } from '../../CadastroContext';
-import {
-  Container,
-  Title,
-  Subtitle,
-  FormSection,
-  FormSectionContent,
-  FooterSection,
-} from './styles';
+import * as S from './styles';
 import { Form } from '@unform/web';
 import Input from '../../../../components/Input';
 import * as yup from 'yup';
 import InputPassword from '../../../../components/InputPassword';
 import Button from '../../../../components/Button';
+import Lottie from 'react-lottie';
+import AnimationRegisterStep1 from 'assets/lotties/registerStep1.json';
 
 interface Step1Data extends CadastroData {
   confirmPassword: string;
@@ -78,12 +73,14 @@ export const Step1 = () => {
   );
 
   return (
-    <Container>
-      <FormSection>
-        <FormSectionContent>
-          <span>{step}</span>
-          <Title>Cadastro</Title>
-          <Subtitle>Olá, vamos começar seu cadastro.</Subtitle>
+    <S.Container>
+      <S.FormSection>
+        <S.FormSectionContent>
+          <S.Step>
+            <span>{step}</span>
+          </S.Step>
+          <S.Title>Cadastro</S.Title>
+          <S.Subtitle>Olá, vamos começar seu cadastro.</S.Subtitle>
 
           <Form
             initialData={cadastroData}
@@ -130,18 +127,34 @@ export const Step1 = () => {
             />
             <Input
               label="Celular (DDD+número) - (whatsapp)"
-              placeholder="55998989898"
+              placeholder="5511998989898"
               name="phone"
               type="tel"
               pattern="\d+"
+              title="Digite somente números"
               style={{ marginBottom: '3rem' }}
             />
 
             <Button>Continuar cadastro</Button>
           </Form>
-        </FormSectionContent>
-      </FormSection>
-      <FooterSection></FooterSection>
-    </Container>
+        </S.FormSectionContent>
+      </S.FormSection>
+      <S.FooterSection>
+        <S.LottieWrapper>
+          <Lottie
+            isClickToPauseDisabled
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: AnimationRegisterStep1,
+            }}
+          />
+        </S.LottieWrapper>
+        <S.FooterText>
+          <h3>Valor</h3>
+          <p>A taxa de matrícula é de apenas R$5,00 reais.</p>
+        </S.FooterText>
+      </S.FooterSection>
+    </S.Container>
   );
 };

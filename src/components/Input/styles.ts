@@ -11,6 +11,7 @@ export const Container = styled.div`
 export const Label = styled.p`
   width: 100%;
   margin-bottom: 1rem;
+  font-weight: ${({ theme }) => theme.fontWeights.light};
 `;
 
 export const InputContainer = styled.div`
