@@ -6,8 +6,8 @@ import Input from '../../../../components/Input';
 import * as yup from 'yup';
 import InputPassword from '../../../../components/InputPassword';
 import Button from '../../../../components/Button';
-import Lottie from 'react-lottie';
 import AnimationRegisterStep1 from 'assets/lotties/registerStep1.json';
+import { CadastroLayout } from 'pagesComponents/cadastro/components/CadastroLayout';
 
 interface Step1Data extends CadastroData {
   confirmPassword: string;
@@ -73,88 +73,73 @@ export const Step1 = () => {
   );
 
   return (
-    <S.Container>
-      <S.FormSection>
-        <S.FormSectionContent>
-          <S.Step>
-            <span>{step}</span>
-          </S.Step>
-          <S.Title>Cadastro</S.Title>
-          <S.Subtitle>Olá, vamos começar seu cadastro.</S.Subtitle>
-
-          <Form
-            initialData={cadastroData}
-            ref={formRef}
-            onSubmit={handleSubmit}
-            style={{ width: '100%' }}
-          >
-            <Input
-              label="Nome completo"
-              placeholder="Nome Completo"
-              name="name"
-              style={{ marginBottom: '3rem' }}
-            />
-            <Input
-              label="Data de nascimento"
-              placeholder="yyyy-mm-dd"
-              name="birth_date"
-              type="date"
-              style={{ marginBottom: '3rem' }}
-            />
-            <Input
-              label="E-mail"
-              placeholder="E-mail"
-              name="email"
-              style={{ marginBottom: '3rem' }}
-            />
-            <InputPassword
-              label="Senha"
-              placeholder="Senha"
-              name="password"
-              style={{ marginBottom: '3rem' }}
-            />
-            <InputPassword
-              label="Confirmar senha"
-              placeholder="Confirmar senha"
-              name="confirmPassword"
-              style={{ marginBottom: '3rem' }}
-            />
-            <Input
-              label="CPF"
-              placeholder="CPF"
-              name="cpf"
-              style={{ marginBottom: '3rem' }}
-            />
-            <Input
-              label="Celular (DDD+número) - (whatsapp)"
-              placeholder="5511998989898"
-              name="phone"
-              type="tel"
-              pattern="\d+"
-              title="Digite somente números"
-              style={{ marginBottom: '3rem' }}
-            />
-
-            <Button>Continuar cadastro</Button>
-          </Form>
-        </S.FormSectionContent>
-      </S.FormSection>
-      <S.FooterSection>
-        <S.LottieWrapper>
-          <Lottie
-            isClickToPauseDisabled
-            options={{
-              loop: true,
-              autoplay: true,
-              animationData: AnimationRegisterStep1,
-            }}
+    <CadastroLayout
+      step={step}
+      title="Cadastro"
+      subtitle="Olá, vamos começar seu cadastro."
+      footer={{
+        title: 'Valor',
+        subtitle: 'A taxa de matrícula é de apenas R$5,00 reais.',
+        animation: AnimationRegisterStep1,
+      }}
+    >
+      <S.FormContainer>
+        <Form
+          initialData={cadastroData}
+          ref={formRef}
+          onSubmit={handleSubmit}
+          style={{ width: '100%' }}
+        >
+          <Input
+            label="Nome completo"
+            placeholder="Nome Completo"
+            name="name"
+            style={{ marginBottom: '3rem' }}
           />
-        </S.LottieWrapper>
-        <S.FooterText>
-          <h3>Valor</h3>
-          <p>A taxa de matrícula é de apenas R$5,00 reais.</p>
-        </S.FooterText>
-      </S.FooterSection>
-    </S.Container>
+          <Input
+            label="Data de nascimento"
+            placeholder="yyyy-mm-dd"
+            name="birth_date"
+            type="date"
+            style={{ marginBottom: '3rem' }}
+          />
+          <Input
+            label="E-mail"
+            placeholder="E-mail"
+            name="email"
+            style={{ marginBottom: '3rem' }}
+          />
+          <InputPassword
+            label="Senha"
+            placeholder="Senha"
+            name="password"
+            style={{ marginBottom: '3rem' }}
+          />
+          <InputPassword
+            label="Confirmar senha"
+            placeholder="Confirmar senha"
+            name="confirmPassword"
+            style={{ marginBottom: '3rem' }}
+          />
+          <Input
+            label="CPF"
+            placeholder="CPF"
+            name="cpf"
+            style={{ marginBottom: '3rem' }}
+          />
+          <Input
+            label="Celular (DDD+número) - (whatsapp)"
+            placeholder="5511998989898"
+            name="phone"
+            type="tel"
+            pattern="\d+"
+            title="Digite somente números"
+            style={{ marginBottom: '3rem' }}
+          />
+
+          <Button>Continuar cadastro</Button>
+        </Form>
+      </S.FormContainer>
+    </CadastroLayout>
   );
 };
