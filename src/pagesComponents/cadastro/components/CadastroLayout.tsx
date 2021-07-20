@@ -46,10 +46,13 @@ export const CadastroLayout = ({
             }}
           />
         </S.LottieWrapper>
-        <S.FooterText>
-          <h3>{footer.title}</h3>
-          <p>{footer.subtitle}</p>
-        </S.FooterText>
+        <S.FooterInfo>
+          <S.FooterIcon></S.FooterIcon>
+          <S.FooterText>
+            <h3>{footer.title}</h3>
+            <p>{footer.subtitle}</p>
+          </S.FooterText>
+        </S.FooterInfo>
       </S.FooterSection>
     </S.Container>
   );

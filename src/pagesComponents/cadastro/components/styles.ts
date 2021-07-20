@@ -13,11 +13,15 @@ export const Container = styled.div`
 `;
 
 export const FormSection = styled.section`
-  display: flex;
-  justify-content: center;
   width: 100%;
   padding: 2rem;
   padding-bottom: 3rem;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    overflow: auto;
+    padding-top: 4rem;
+    flex: 1;
+  }
 `;
 
 export const FormSectionContent = styled.div`
@@ -26,6 +30,11 @@ export const FormSectionContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    max-width: 28rem;
+    margin: 0 auto;
+  }
 `;
 
 export const Step = styled.div`
@@ -58,6 +67,20 @@ export const Step = styled.div`
     bottom: 1px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.blues[8]};
+  }
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    border-width: 1.5px;
+    min-width: 5rem;
+    min-height: 5rem;
+    margin-bottom: 2rem;
+
+    &::before {
+      top: 3px;
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+    }
   }
 `;
 
@@ -94,6 +117,41 @@ export const FooterSection = styled.section`
   display: grid;
   grid-template-columns: 7.75rem minmax(0, 1fr);
   gap: 1rem;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 4rem;
+    flex: 1;
+  }
+`;
+
+export const FooterInfo = styled.div`
+  display: flex;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    width: 100%;
+  }
+`;
+
+export const FooterIcon = styled.div`
+  display: none;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    display: initial;
+    width: 8rem;
+    height: 8rem;
+    min-width: 8rem;
+    min-height: 8rem;
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: 1rem;
+    opacity: 0.4;
+    margin-right: 1.5rem;
+  }
 `;
 
 export const FooterText = styled.div`
@@ -112,6 +170,18 @@ export const FooterText = styled.div`
     font-size: 1rem;
     font-weight: ${({ theme }) => theme.fontWeights.normal};
   }
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    flex: 1;
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const LottieWrapper = styled.div`
@@ -123,5 +193,10 @@ export const LottieWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.white};
     width: 100% !important;
     height: auto !important;
+  }
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    width: 60%;
+    margin-bottom: 4rem;
   }
 `;
