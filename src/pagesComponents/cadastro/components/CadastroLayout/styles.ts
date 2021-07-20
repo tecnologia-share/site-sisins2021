@@ -8,7 +8,9 @@ export const Container = styled.div`
   overflow: auto;
 
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-    flex-direction: row-reverse;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 100%;
   }
 `;
 
@@ -20,7 +22,8 @@ export const FormSection = styled.section`
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
     overflow: auto;
     padding-top: 4rem;
-    flex: 1;
+    grid-row: 1;
+    grid-column: 2;
   }
 `;
 
@@ -130,7 +133,8 @@ export const FooterSection = styled.section`
     justify-content: center;
     overflow: auto;
     padding: 4rem;
-    flex: 1;
+    grid-row: 1;
+    grid-column: 1;
   }
 `;
 
@@ -200,7 +204,7 @@ export const LottieWrapper = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-    width: 60%;
+    width: 50%;
     margin-bottom: 4rem;
   }
 `;
