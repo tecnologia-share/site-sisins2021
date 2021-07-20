@@ -75,6 +75,10 @@ export const Step = styled.div`
     min-height: 5rem;
     margin-bottom: 2rem;
 
+    span {
+      font-size: 1.5rem;
+    }
+
     &::before {
       top: 3px;
       left: 3px;
