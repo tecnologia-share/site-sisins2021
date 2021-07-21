@@ -6,6 +6,7 @@ import {
   KeyboardEvent,
   useCallback,
 } from 'react';
+import { CSSProperties } from 'styled-components';
 import {
   Container,
   SelectControl,
@@ -17,28 +18,40 @@ import {
   SelectMenuItemContainer,
   SelectMenuItemText,
   Icon,
+  HelperText,
+  SelectContainer,
 } from './styles';
 
-interface Item {
+export interface SelectItem {
   value: string;
   label: string;
 }
 
 interface SelectProps {
-  items: Item[];
-  value?: string;
-  onChange?: (item: Item) => void;
+  items: SelectItem[];
+  value: string;
+  placeholder?: string;
+  onChange?: (item: SelectItem) => void;
+  variant?: 'error' | 'success';
+  helperText?: string;
+  style?: CSSProperties;
 }
 
-const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
+const Select: React.FC<SelectProps> = ({
+  items,
+  value,
+  onChange,
+  placeholder,
+  variant,
+  helperText,
+  style,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentValue, setCurrentValue] = useState(
-    value ? value : items.length > 0 ? items[0].value : ''
-  );
+  const [currentValue, setCurrentValue] = useState(value);
   const currentLabel = useMemo(() => {
     const item = items.find((item) => item.value === currentValue);
 
-    if (!item) return 'Nenhuma opção selecionada';
+    if (!item) return '';
 
     return item.label;
   }, [currentValue, items]);
@@ -227,35 +240,46 @@ const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
   );
 
   return (
-    <Container>
-      <SelectControl onClick={handleSelectControlClick}>
-        <SelectValueContainer>
-          <SelectValue visible={!menuOpen}>{currentLabel}</SelectValue>
-          <SelectInput
-            ref={inputRef}
-            onChange={filterItems}
-            onKeyDown={changeFilteringCurrentValue}
-            placeholder={currentLabel}
-          />
-        </SelectValueContainer>
-        <SelectIndicator onClick={handleIndicatorClick}>
-          <Icon
-            src={menuOpen ? 'icons/IndicatorUp.svg' : 'icons/IndicatorDown.svg'}
-          />
-        </SelectIndicator>
-      </SelectControl>
-      <SelectMenu ref={selectMenuRef} open={menuOpen}>
-        {filteredItems.map((item) => (
-          <SelectMenuItemContainer
-            active={item.value === filteringCurrentValue}
-            key={item.value}
-            id={`select-item-${item.value}`}
-            onClick={() => handleItemSelect(item.value)}
-          >
-            <SelectMenuItemText>{item.label}</SelectMenuItemText>
-          </SelectMenuItemContainer>
-        ))}
-      </SelectMenu>
+    <Container style={style}>
+      <SelectContainer>
+        <SelectControl onClick={handleSelectControlClick}>
+          <SelectValueContainer>
+            <SelectValue visible={!menuOpen} disabled={!value}>
+              {value
+                ? currentLabel
+                : placeholder || 'Nenhuma opção selecionada'}
+            </SelectValue>
+            <SelectInput
+              ref={inputRef}
+              onChange={filterItems}
+              onKeyDown={changeFilteringCurrentValue}
+              placeholder={menuOpen && (currentLabel || placeholder)}
+            />
+          </SelectValueContainer>
+          <SelectIndicator onClick={handleIndicatorClick}>
+            <Icon
+              src={
+                menuOpen ? 'icons/IndicatorUp.svg' : 'icons/IndicatorDown.svg'
+              }
+            />
+          </SelectIndicator>
+        </SelectControl>
+
+        <SelectMenu ref={selectMenuRef} open={menuOpen}>
+          {filteredItems.map((item) => (
+            <SelectMenuItemContainer
+              active={item.value === filteringCurrentValue}
+              key={item.value}
+              id={`select-item-${item.value}`}
+              onClick={() => handleItemSelect(item.value)}
+            >
+              <SelectMenuItemText>{item.label}</SelectMenuItemText>
+            </SelectMenuItemContainer>
+          ))}
+        </SelectMenu>
+      </SelectContainer>
+
+      {helperText && <HelperText variant={variant}>{helperText}</HelperText>}
     </Container>
   );
 };

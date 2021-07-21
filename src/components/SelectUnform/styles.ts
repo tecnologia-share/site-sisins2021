@@ -3,10 +3,6 @@ import SVG from 'react-inlinesvg';
 
 export const Container = styled.div`
   width: 100%;
-`;
-
-export const SelectContainer = styled.div`
-  width: 100%;
   position: relative;
 `;
 
@@ -32,7 +28,6 @@ export const SelectValueContainer = styled.div`
 
 interface SelectValueProps {
   visible: boolean;
-  disabled?: boolean;
 }
 
 export const SelectValue = styled.span<SelectValueProps>`
@@ -44,7 +39,6 @@ export const SelectValue = styled.span<SelectValueProps>`
   white-space: nowrap;
   top: 50%;
   transform: translateY(-50%);
-  opacity: ${({ disabled }) => (disabled ? '0.55' : '1')};
 `;
 
 export const SelectInput = styled.input`
@@ -114,33 +108,6 @@ export const SelectMenuItemContainer = styled.div<SelectMenuItemProps>`
     background-color: ${({ theme }) => theme.colors.blues[7]};
     color: ${({ theme }) => theme.colors.blues[9]};
   }
-`;
-
-interface HelperTextProps {
-  variant?: 'error' | 'success';
-}
-
-export const HelperText = styled.p<HelperTextProps>`
-  font-size: 0.75rem;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-
-  ${({ variant }) => {
-    switch (variant) {
-      case 'error':
-        return css`
-          color: ${({ theme }) => theme.colors.reds[0]};
-        `;
-      case 'success':
-        return css`
-          color: ${({ theme }) => theme.colors.greens[1]};
-        `;
-      default:
-        return css`
-          color: ${({ theme }) => theme.colors.grays[6]};
-        `;
-    }
-  }};
 `;
 
 export const SelectMenuItemText = styled.p`
