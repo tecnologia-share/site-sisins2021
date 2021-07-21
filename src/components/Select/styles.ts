@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
 import SVG from 'react-inlinesvg';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -82,7 +82,7 @@ export const SelectMenu = styled.div<SelectMenuProps>`
   overflow: auto;
   margin-top: 1rem;
   padding: 1rem;
-  z-index: 1;
+  z-index: 999;
   width: 100%;
   display: ${({ open }) => (open ? 'flex' : 'none')};
   flex-direction: column;

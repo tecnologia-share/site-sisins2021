@@ -1,13 +1,31 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100%;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
-export const Title = styled.h1`
-  font-size: 2rem;
+export const Questions = styled.h1`
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    font-size: 1.5rem;
+  }
 `;

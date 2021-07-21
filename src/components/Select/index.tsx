@@ -1,25 +1,26 @@
 import {
+  KeyboardEvent,
   MouseEventHandler,
+  useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
-  KeyboardEvent,
-  useCallback,
 } from 'react';
 import { CSSProperties } from 'styled-components';
 import {
   Container,
+  HelperText,
+  Icon,
+  SelectContainer,
   SelectControl,
-  SelectValueContainer,
-  SelectValue,
-  SelectInput,
   SelectIndicator,
+  SelectInput,
   SelectMenu,
   SelectMenuItemContainer,
   SelectMenuItemText,
-  Icon,
-  HelperText,
-  SelectContainer,
+  SelectValue,
+  SelectValueContainer,
 } from './styles';
 
 export interface SelectItem {
@@ -35,6 +36,7 @@ interface SelectProps {
   variant?: 'error' | 'success';
   helperText?: string;
   style?: CSSProperties;
+  id: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -44,6 +46,7 @@ const Select: React.FC<SelectProps> = ({
   placeholder,
   variant,
   helperText,
+  id,
   style,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,6 +64,22 @@ const Select: React.FC<SelectProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const selectMenuRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const onSelectClick = (data) => {
+      const { detail: idSelected } = data;
+
+      if (idSelected !== id) {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener('component-select-click', onSelectClick);
+
+    return () => {
+      window.removeEventListener('component-select-click', onSelectClick);
+    };
+  }, [id]);
+
   const handleSelectControlClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
       event.preventDefault();
@@ -68,6 +87,9 @@ const Select: React.FC<SelectProps> = ({
 
       if (menuOpen) return;
 
+      window.dispatchEvent(
+        new CustomEvent('component-select-click', { detail: id })
+      );
       setMenuOpen(true);
       setFilteredItems(items);
       if (items.length > 0) {
@@ -83,7 +105,7 @@ const Select: React.FC<SelectProps> = ({
 
       document.body.addEventListener('click', handleOutsideSelectClick);
     },
-    [items, menuOpen]
+    [id, items, menuOpen]
   );
 
   const closeMenu = () => {

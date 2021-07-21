@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100%;
-`;
 
-export const Title = styled.h1`
-  font-size: 2rem;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

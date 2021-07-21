@@ -34,7 +34,7 @@ export interface CadastroData {
 }
 
 export const CadastroContextProvider = ({ children }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const [cadastroData, setCadastroData] = useState({} as CadastroData);
 
   const nextStep = () => {

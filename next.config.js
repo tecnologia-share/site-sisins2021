@@ -17,6 +17,7 @@ module.exports = {
                 "'unsafe-inline'",
                 'https://fonts.googleapis.com',
               ],
+              connectSrc: ["'self'", 'https://servicodados.ibge.gov.br'],
               fontSrc: [
                 "'self'",
                 "'unsafe-inline'",
