@@ -105,6 +105,12 @@ routes.delete(
   coursesController.delete
 );
 routes.get('/api/courses/:id/exam', coursesController.showExam);
+routes.get(
+  '/api/courses/:id/subscribes',
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
+  coursesController.showCourseSubscribes
+);
 
 routes.post(
   '/api/exams',
