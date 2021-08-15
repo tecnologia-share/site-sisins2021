@@ -23,22 +23,27 @@ export class CreatePergunta1615329083096 implements MigrationInterface {
           {
             name: 'alternativa1',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'alternativa2',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'alternativa3',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'alternativa4',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'alternativa5',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
