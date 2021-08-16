@@ -7,6 +7,7 @@
 | PATCH  | [/api/participants](./participants/updatePersonalData.md)                                | Atualiza os dados pessoais do participante.                      |
 | PATCH  | [/api/participants/update-email](./participants/updateEmail.md)                          | Atualiza o email do participante.                                |
 | PATCH  | [/api/participants/update-password](./participants/updatePassword.md)                    | Atualiza a senha do participante.                                |
+| GET    | [/api/participants/asks](./participants/showAsks.md)                                     | Lista as perguntas do cadastro.                                  |
 | POST   | [/api/subscriptions](./subscriptions/subscribe.md)                                       | Inscreve o participante em um curso.                             |
 | DELETE | [/api/subscriptions](./subscriptions/unsubscribe.md)                                     | Desinscreve o participante de um curso.                          |
 | GET    | [/api/subscribe/:id](./subscriptions/showSubscribe.md)                                   | Lista os inscritos no curso.                                     |
