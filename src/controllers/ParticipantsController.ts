@@ -286,6 +286,13 @@ class ParticipantsController {
 
     return response.status(200).json({ message: 'Password updated.' });
   }
+  async showAsks(request: Request, response: Response, _next: NextFunction) {
+    const asksRepository = getRepository(Pergunta);
+    const asks = await asksRepository.find();
+
+    // TODO criar DTO
+    return response.status(200).json({ asks });
+  }
 }
 
 export default ParticipantsController;
