@@ -3,7 +3,7 @@ import app from '../../app';
 import { Connection, createConnection } from 'typeorm';
 import { createParticipant } from '../../utils/tests';
 
-const URL = '/api/participants/asks';
+const URL = '/api/ask';
 
 let connection: Connection;
 

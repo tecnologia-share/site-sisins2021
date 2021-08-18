@@ -7,6 +7,7 @@ interface IAlternatives {
 }
 
 export interface AsksDTO {
+  id?: string;
   type: string;
   ask: string;
   alternatives?: IAlternatives;

@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../errors/AppError';
 import { Pergunta } from '../../models/Pergunta';
-import { AsksDTO } from './dto/CreateDTO';
+import { AsksDTO } from './dto/asksDTO';
 import { AsksTypes } from '../../typings/AsksTypes';
 
 class AsksController {
@@ -75,6 +75,28 @@ class AsksController {
     return response
       .status(201)
       .json({ message: 'Question successfully created', questionCreated });
+  }
+
+  async show(request: Request, response: Response, _next: NextFunction) {
+    const asksRepository = getRepository(Pergunta);
+    const asks = await asksRepository.find();
+
+    const asksFormat = asks.map(
+      (item): AsksDTO => ({
+        id: item.id,
+        ask: item.pergunta,
+        type: item.tipo,
+        alternatives: {
+          one: item.alternativa1,
+          two: item.alternativa2,
+          tree: item.alternativa3,
+          four: item.alternativa4,
+          five: item.alternativa5,
+        },
+      })
+    );
+
+    return response.status(200).json({ asks: asksFormat });
   }
 }
 

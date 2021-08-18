@@ -45,7 +45,6 @@ routes.patch(
   verifyJWT(),
   participantsController.updatePassword
 );
-routes.get('/api/participants/asks', participantsController.showAsks);
 
 routes.post(
   '/api/subscriptions',
@@ -141,6 +140,7 @@ routes.post(
   superAdminController.create
 );
 
+routes.get('/api/ask', asksController.show);
 routes.post(
   '/api/ask',
   verifyShareJWT(),
