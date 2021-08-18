@@ -6,24 +6,10 @@ import { UserRoles } from '../../typings/UserRoles';
 import { AsksTypes } from '../../typings/AsksTypes';
 
 let superAdminToken: string;
-let nonSuperAdminToken: string;
 let connection: Connection;
 
 const createUsers = async (connection: Connection) => {
   const usersRepository = connection.getRepository(UsuarioShare);
-  const nonSuperAdminUser = usersRepository.create({
-    email: 'non_superAdmin@example.com',
-    senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
-    nome: 'Non Admin',
-    role: 'Non Admin',
-    cpf: '12345678912',
-    cidade: 'Capela do Alto',
-    estado: 'São Paulo',
-    pais: 'Brasil',
-    nascimento: new Date(),
-    telefone: '15997965485',
-  });
-  await usersRepository.save(nonSuperAdminUser);
   const superAdminUser = usersRepository.create({
     email: 'super-admin@example.com',
     senha: '$2b$10$c9v0imXbhfVuBgLfwaYSLubxb8.gpvr4MfX1ltmEDwIdh.x3ksj.y',
@@ -40,20 +26,12 @@ const createUsers = async (connection: Connection) => {
 };
 
 const getToken = async () => {
-  const responseNonSuperAdmin = await request(app)
-    .post('/api/authenticate-share')
-    .send({
-      email: 'non_superAdmin@example.com',
-      password: 'correct_password',
-    });
   const responseSuperAdmin = await request(app)
     .post('/api/authenticate-share')
     .send({
       email: 'super-admin@example.com',
       password: 'correct_password',
     });
-
-  nonSuperAdminToken = responseNonSuperAdmin.body.token;
   superAdminToken = responseSuperAdmin.body.token;
 };
 
@@ -75,7 +53,7 @@ describe('Create Ask test', () => {
       ask: 'any_ask',
     };
     const response = await request(app)
-      .post('/api/super-admin/ask')
+      .post('/api/ask')
       .set({ authorization: `Bearer ${superAdminToken}` })
       .send(httpRequest);
 
@@ -96,7 +74,7 @@ describe('Create Ask test', () => {
       },
     };
     const response = await request(app)
-      .post('/api/super-admin/ask')
+      .post('/api/ask')
       .set({ authorization: `Bearer ${superAdminToken}` })
       .send(httpRequest);
     expect(response.body.message).toBe('Question successfully created');
@@ -116,7 +94,7 @@ describe('Create Ask test', () => {
       },
     };
     const response = await request(app)
-      .post('/api/super-admin/ask')
+      .post('/api/ask')
       .set({ authorization: `Bearer ${superAdminToken}` })
       .send(httpRequest);
 
@@ -136,7 +114,7 @@ describe('Create Ask test', () => {
       },
     };
     const response = await request(app)
-      .post('/api/super-admin/ask')
+      .post('/api/ask')
       .set({ authorization: `Bearer ${superAdminToken}` })
       .send(httpRequest);
 
@@ -157,7 +135,7 @@ describe('Create Ask test', () => {
       },
     };
     const response = await request(app)
-      .post('/api/super-admin/ask')
+      .post('/api/ask')
       .set({ authorization: `Bearer ${superAdminToken}` })
       .send(httpRequest);
 
@@ -167,7 +145,7 @@ describe('Create Ask test', () => {
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
-      .post('/api/super-admin/ask')
+      .post('/api/ask')
       .set({ authorization: `Bearer ${'invalid_token'}` })
       .send({
         type: 'any_type',

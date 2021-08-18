@@ -4,7 +4,7 @@ Cria uma pergunta para ser usada no momento do cadastro dos participantes.
 
 - **URL**
 
-  /api/super-admin/ask
+  /api/ask
 
 </br>
 

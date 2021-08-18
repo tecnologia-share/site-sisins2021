@@ -11,6 +11,7 @@ import SubscriptionsController from './controllers/SubscriptionsController';
 import SuperAdminController from './controllers/superAdmin/SuperAdminController';
 import { accessOnlyFor } from './middlewares/accessOnlyFor';
 import { UserRoles } from './typings/UserRoles';
+import AsksController from './controllers/asks/asksController';
 const routes = Router();
 
 const authController = new AuthController();
@@ -20,6 +21,7 @@ const selectionProcessController = new SelectionProcessController();
 const examsController = new ExamsController();
 const coursesController = new CoursesController();
 const superAdminController = new SuperAdminController();
+const asksController = new AsksController();
 
 const { admin, superAdmin } = UserRoles;
 
@@ -133,10 +135,10 @@ routes.post(
 );
 
 routes.post(
-  '/api/super-admin/ask',
+  '/api/ask',
   verifyShareJWT(),
   accessOnlyFor([superAdmin]),
-  superAdminController.createAsks
+  asksController.create
 );
 
 export default routes;
