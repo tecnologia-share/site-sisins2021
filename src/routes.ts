@@ -45,6 +45,7 @@ routes.patch(
   verifyJWT(),
   participantsController.updatePassword
 );
+routes.get('/api/participants/asks', participantsController.showAsks);
 
 routes.post(
   '/api/subscriptions',
