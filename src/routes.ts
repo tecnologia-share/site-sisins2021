@@ -56,6 +56,12 @@ routes.delete(
   verifyJWT(),
   subscriptionsController.unsubscribe
 );
+routes.get(
+  '/api/subscribe/:id',
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
+  subscriptionsController.showSubscribe
+);
 
 routes.get(
   '/api/selection-process/:id/courses',
