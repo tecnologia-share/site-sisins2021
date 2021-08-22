@@ -1,5 +1,5 @@
-import Select, { SelectItem } from 'components/Select';
 import { useField } from '@unform/core';
+import Select, { SelectItem } from 'components/Select';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 
 interface SelectUnformProps {
@@ -9,6 +9,8 @@ interface SelectUnformProps {
   style?: CSSProperties;
   variant?: 'error' | 'success';
   helperText?: string;
+  id: string;
+  onChange?: (item: SelectItem) => void;
 }
 
 const SelectUnform = ({
@@ -17,7 +19,9 @@ const SelectUnform = ({
   placeholder,
   style,
   helperText,
+  id,
   variant,
+  onChange,
 }: SelectUnformProps) => {
   const { fieldName, defaultValue, registerField, error } = useField(name);
   const [selected, setSelected] = useState(defaultValue);
@@ -45,10 +49,14 @@ const SelectUnform = ({
 
   return (
     <Select
+      id={id}
       items={items}
       value={selected}
       onChange={(item) => {
         setSelected(item.value);
+        if (onChange) {
+          onChange(item);
+        }
       }}
       helperText={helperText || error}
       variant={error ? 'error' : variant}

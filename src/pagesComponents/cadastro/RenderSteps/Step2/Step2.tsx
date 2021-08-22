@@ -2,13 +2,14 @@ import { Form } from '@unform/web';
 import AnimationRegisterStep2 from 'assets/lotties/registerStep2.json';
 import Checkbox from 'components/Checkbox';
 import Input from 'components/Input';
-import Select from 'components/Select';
+import SelectUnform from 'components/SelectUnform';
+import useApi from 'hooks/useApi';
 import { CadastroLayout } from 'pagesComponents/cadastro/components/CadastroLayout';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import api from 'services/api';
 import * as yup from 'yup';
 import Button from '../../../../components/Button';
-import { CadastroContext, CadastroData } from '../../CadastroContext';
+import { CadastroContext } from '../../CadastroContext';
 import * as S from './styles';
 
 interface SelectItem {
@@ -17,9 +18,10 @@ interface SelectItem {
 }
 
 export const Step2 = () => {
-  const { nextStep, step, setCadastroData, cadastroData } = useContext(
+  const { nextStep, step, setCadastroData, cadastroData, setAsks } = useContext(
     CadastroContext
   );
+  const { apiGetAsks, apiRegister } = useApi();
   const [livesInBrazil, setLivesInBrazil] = useState(true);
   const [states, setStates] = useState<SelectItem[]>([]);
   const [cities, setCities] = useState<SelectItem[]>([]);
@@ -57,7 +59,7 @@ export const Step2 = () => {
   }, []);
 
   const handleSubmit = useCallback(
-    async (data: CadastroData) => {
+    async (data) => {
       formRef.current.setErrors({});
 
       let schema: yup.AnyObjectSchema;
@@ -77,8 +79,6 @@ export const Step2 = () => {
         });
       }
 
-      console.log(data);
-
       try {
         await schema.validate(data, {
           abortEarly: false,
@@ -96,10 +96,49 @@ export const Step2 = () => {
         return;
       }
 
-      setCadastroData((previousData) => ({ ...previousData, ...data }));
-      nextStep();
+      if (livesInBrazil) {
+        /** @TODO tratar caso der erro no find */
+        data.state = states.find((state) => state.value === data.state).label;
+        data.city = cities.find((city) => city.value === data.city).label;
+      }
+
+      try {
+        const {
+          data: { asks },
+        } = await apiGetAsks();
+
+        if (asks.length === 0) {
+          /** @TODO completa o cadastro aqui */
+
+          const { data: registerResponse } = await apiRegister({
+            asksAnswers: [],
+            ...cadastroData,
+            ...data,
+          });
+
+          /** @TODO enviar para tela do final do cadastro */
+          console.log(registerResponse.message);
+          return;
+        }
+
+        setAsks(asks);
+        setCadastroData((previousData) => ({ ...previousData, ...data }));
+        nextStep();
+      } catch (error) {
+        /** @TODO Tratar erro apiGetAsks e apiRegister */
+      }
     },
-    [livesInBrazil, nextStep, setCadastroData]
+    [
+      apiGetAsks,
+      apiRegister,
+      cadastroData,
+      cities,
+      livesInBrazil,
+      nextStep,
+      setAsks,
+      setCadastroData,
+      states,
+    ]
   );
 
   return (
@@ -109,6 +148,7 @@ export const Step2 = () => {
       subtitle="Não se esqueça de conferir seus dados antes de continuar para a
     próxima etapa."
       footer={{
+        icon: '/icons/Presentation.svg',
         title: 'Professores',
         subtitle: 'Você terá aulas com o melhor time de profesores.',
         animation: AnimationRegisterStep2,
@@ -134,18 +174,22 @@ export const Step2 = () => {
 
           {livesInBrazil ? (
             <>
-              <Select
+              <SelectUnform
+                name="state"
                 id="states"
                 items={states}
+                placeholder="Estados"
                 style={{ marginBottom: '3rem' }}
                 onChange={(state) => fetchCities(state.value)}
-              ></Select>
+              />
 
-              <Select
+              <SelectUnform
+                name="city"
                 id="cities"
                 items={cities}
+                placeholder="Cidades"
                 style={{ marginBottom: '3rem' }}
-              ></Select>
+              />
             </>
           ) : (
             <>

@@ -11,6 +11,7 @@ interface CadastroLayoutProps {
     subtitle: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     animation: any;
+    icon: string;
   };
   children: ReactNode;
 }
@@ -47,7 +48,9 @@ export const CadastroLayout = ({
           />
         </S.LottieWrapper>
         <S.FooterInfo>
-          <S.FooterIcon></S.FooterIcon>
+          <S.FooterIconContainer>
+            <S.Icon src={footer.icon} />
+          </S.FooterIconContainer>
           <S.FooterText>
             <h3>{footer.title}</h3>
             <p>{footer.subtitle}</p>

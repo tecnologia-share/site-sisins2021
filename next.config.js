@@ -17,7 +17,11 @@ module.exports = {
                 "'unsafe-inline'",
                 'https://fonts.googleapis.com',
               ],
-              connectSrc: ["'self'", 'https://servicodados.ibge.gov.br'],
+              connectSrc: [
+                "'self'",
+                'https://servicodados.ibge.gov.br',
+                'https://service-sisins2021-dev.herokuapp.com/',
+              ],
               fontSrc: [
                 "'self'",
                 "'unsafe-inline'",

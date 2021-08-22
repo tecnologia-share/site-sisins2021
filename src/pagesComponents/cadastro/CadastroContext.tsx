@@ -1,3 +1,4 @@
+import { Ask } from 'hooks/useApi/types';
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
 
 interface CadastroContextProps {
@@ -6,6 +7,8 @@ interface CadastroContextProps {
   step: number;
   cadastroData: CadastroData;
   setCadastroData: Dispatch<SetStateAction<CadastroData>>;
+  asks: Ask[];
+  setAsks: Dispatch<SetStateAction<Ask[]>>;
 }
 
 export const CadastroContext = createContext({} as CadastroContextProps);
@@ -34,7 +37,8 @@ export interface CadastroData {
 }
 
 export const CadastroContextProvider = ({ children }) => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
+  const [asks, setAsks] = useState<Ask[]>([]);
   const [cadastroData, setCadastroData] = useState({} as CadastroData);
 
   const nextStep = () => {
@@ -53,7 +57,15 @@ export const CadastroContextProvider = ({ children }) => {
 
   return (
     <CadastroContext.Provider
-      value={{ nextStep, previousStep, step, cadastroData, setCadastroData }}
+      value={{
+        nextStep,
+        previousStep,
+        step,
+        cadastroData,
+        setCadastroData,
+        asks,
+        setAsks,
+      }}
     >
       {children}
     </CadastroContext.Provider>

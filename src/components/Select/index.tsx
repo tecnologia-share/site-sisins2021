@@ -275,7 +275,7 @@ const Select: React.FC<SelectProps> = ({
               ref={inputRef}
               onChange={filterItems}
               onKeyDown={changeFilteringCurrentValue}
-              placeholder={menuOpen && (currentLabel || placeholder)}
+              placeholder={menuOpen ? currentLabel || placeholder : undefined}
             />
           </SelectValueContainer>
           <SelectIndicator onClick={handleIndicatorClick}>

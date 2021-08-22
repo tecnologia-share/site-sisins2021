@@ -1,3 +1,4 @@
+import SVG from 'react-inlinesvg';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -146,19 +147,31 @@ export const FooterInfo = styled.div`
   }
 `;
 
-export const FooterIcon = styled.div`
+export const FooterIconContainer = styled.div`
   display: none;
 
   @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-    display: initial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 8rem;
     height: 8rem;
     min-width: 8rem;
     min-height: 8rem;
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.grays[8]};
     border-radius: 1rem;
-    opacity: 0.4;
     margin-right: 1.5rem;
+  }
+`;
+
+export const Icon = styled(SVG)`
+  min-height: 5rem;
+  height: 5rem;
+  min-width: 5rem;
+  width: 5rem;
+
+  path {
+    fill: ${({ theme }) => theme.colors.white};
   }
 `;
 
@@ -198,7 +211,6 @@ export const LottieWrapper = styled.div`
 
   > * {
     border-radius: 1rem;
-    background-color: ${({ theme }) => theme.colors.white};
     width: 100% !important;
     height: auto !important;
   }

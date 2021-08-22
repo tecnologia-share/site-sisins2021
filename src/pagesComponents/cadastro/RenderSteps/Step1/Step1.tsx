@@ -1,13 +1,13 @@
-import { useCallback, useContext, useRef } from 'react';
-import { CadastroContext, CadastroData } from '../../CadastroContext';
-import * as S from './styles';
 import { Form } from '@unform/web';
-import Input from '../../../../components/Input';
-import * as yup from 'yup';
-import InputPassword from '../../../../components/InputPassword';
-import Button from '../../../../components/Button';
 import AnimationRegisterStep1 from 'assets/lotties/registerStep1.json';
 import { CadastroLayout } from 'pagesComponents/cadastro/components/CadastroLayout';
+import { useCallback, useContext, useRef } from 'react';
+import * as yup from 'yup';
+import Button from '../../../../components/Button';
+import Input from '../../../../components/Input';
+import InputPassword from '../../../../components/InputPassword';
+import { CadastroContext, CadastroData } from '../../CadastroContext';
+import * as S from './styles';
 
 interface Step1Data extends CadastroData {
   confirmPassword: string;
@@ -78,6 +78,7 @@ export const Step1 = () => {
       title="Cadastro"
       subtitle="Olá, vamos começar seu cadastro."
       footer={{
+        icon: '/icons/PaymentHand.svg',
         title: 'Valor',
         subtitle: 'A taxa de matrícula é de apenas R$5,00 reais.',
         animation: AnimationRegisterStep1,
