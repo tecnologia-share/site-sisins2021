@@ -1,68 +1,57 @@
 import { Form } from '@unform/web';
 import AnimationRegisterStep3 from 'assets/lotties/registerStep3.json';
 import Input from 'components/Input';
-import RadioButton from 'components/RadioButton';
+import RadioButton, { RadioItem } from 'components/RadioButton';
 import { CadastroLayout } from 'pagesComponents/cadastro/components/CadastroLayout';
-import { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 import Button from '../../../../components/Button';
 import { CadastroContext } from '../../CadastroContext';
 import * as S from './styles';
 
-interface Oi {
-  firstQuestion: string;
-  secondQuestion: string;
-  answer: string;
-}
-
 export const Step3 = () => {
-  const { step, setCadastroData, cadastroData, asks } = useContext(
-    CadastroContext
-  );
+  const { step, cadastroData, asks } = useContext(CadastroContext);
 
   const formRef = useRef(null);
 
-  const handleSubmit = useCallback(
-    async (data) => {
-      console.log(data);
-      // formRef.current.setErrors({});
+  const handleSubmit = useCallback(async (data) => {
+    console.log(data);
+    // formRef.current.setErrors({});
 
-      // const schema = yup.object().shape({
-      //   firstQuestion: yup.string().required('A resposta é obrigatória.'),
-      //   secondQuestion: yup.string().required('A resposta é obrigatória.'),
-      //   answer: yup.string().required('A resposta é obrigatória.'),
-      // });
+    // const schema = yup.object().shape({
+    //   firstQuestion: yup.string().required('A resposta é obrigatória.'),
+    //   secondQuestion: yup.string().required('A resposta é obrigatória.'),
+    //   answer: yup.string().required('A resposta é obrigatória.'),
+    // });
 
-      // try {
-      //   await schema.validate(
-      //     {
-      //       firstQuestion,
-      //       secondQuestion,
-      //       answer,
-      //     },
-      //     { abortEarly: false }
-      //   );
-      // } catch (error) {
-      //   const validationErrors = {};
+    // try {
+    //   await schema.validate(
+    //     {
+    //       firstQuestion,
+    //       secondQuestion,
+    //       answer,
+    //     },
+    //     { abortEarly: false }
+    //   );
+    // } catch (error) {
+    //   const validationErrors = {};
 
-      //   if (error instanceof yup.ValidationError) {
-      //     error.inner.forEach((currentError) => {
-      //       validationErrors[currentError.path] = currentError.message;
-      //     });
-      //     formRef.current.setErrors(validationErrors);
-      //   }
-      //   return;
-      // }
-      // setCadastroData((previousData) => ({
-      //   ...previousData,
-      //   ...{
-      //     firstQuestion,
-      //     secondQuestion,
-      //     answer,
-      //   },
-      // }));
-    },
-    [setCadastroData]
-  );
+    //   if (error instanceof yup.ValidationError) {
+    //     error.inner.forEach((currentError) => {
+    //       validationErrors[currentError.path] = currentError.message;
+    //     });
+    //     formRef.current.setErrors(validationErrors);
+    //   }
+    //   return;
+    // }
+    // setCadastroData((previousData) => ({
+    //   ...previousData,
+    //   ...{
+    //     firstQuestion,
+    //     secondQuestion,
+    //     answer,
+    //   },
+    // }));
+  }, []);
 
   return (
     <CadastroLayout
@@ -83,51 +72,51 @@ export const Step3 = () => {
           onSubmit={handleSubmit}
           style={{ width: '100%' }}
         >
-          <S.Questions>Como você conheceu a share?</S.Questions>
+          {asks.map((ask, index) => {
+            if (ask.type === 'ALTERNATIVE') {
+              const alternatives: RadioItem[] = [];
 
-          <RadioButton
-            name="question[0]"
-            style={{ marginBottom: '1rem' }}
-            items={[
-              {
-                label: 'Amigos',
-                value: '1',
-              },
-              {
-                label: 'Professor',
-                value: '2',
-              },
-              {
-                label: 'Outros',
-                value: '3',
-              },
-            ]}
-          />
+              if (ask.alternatives.one) {
+                alternatives.push({ label: ask.alternatives.one, value: '1' });
+              }
+              if (ask.alternatives.two) {
+                alternatives.push({ label: ask.alternatives.two, value: '2' });
+              }
+              if (ask.alternatives.tree) {
+                alternatives.push({ label: ask.alternatives.tree, value: '3' });
+              }
+              if (ask.alternatives.four) {
+                alternatives.push({ label: ask.alternatives.four, value: '4' });
+              }
+              if (ask.alternatives.five) {
+                alternatives.push({ label: ask.alternatives.five, value: '5' });
+              }
 
-          <S.Questions>Você já fez algum curso da share?</S.Questions>
+              return (
+                <React.Fragment key={ask.id}>
+                  <S.QuestionTitle>{ask.ask}</S.QuestionTitle>
 
-          <RadioButton
-            name="question[1]"
-            style={{ marginBottom: '1rem' }}
-            items={[
-              {
-                label: 'Sim',
-                value: '1',
-              },
-              {
-                label: 'Não',
-                value: '2',
-              },
-            ]}
-          />
+                  <RadioButton
+                    name={`asksAnswers[${index}].response`}
+                    style={{ marginBottom: '1rem' }}
+                    items={alternatives}
+                  />
+                </React.Fragment>
+              );
+            } else {
+              return (
+                <React.Fragment key={ask.id}>
+                  <S.QuestionTitle>{ask.ask}</S.QuestionTitle>
 
-          <S.Questions>O quê você acha da share?</S.Questions>
-
-          <Input
-            placeholder="Resposta"
-            name="answer"
-            style={{ marginBottom: '3rem' }}
-          ></Input>
+                  <Input
+                    placeholder="Resposta"
+                    name={`asksAnswers[${index}].response`}
+                    style={{ marginBottom: '3rem' }}
+                  ></Input>
+                </React.Fragment>
+              );
+            }
+          })}
 
           <Button>Continuar cadastro</Button>
         </Form>

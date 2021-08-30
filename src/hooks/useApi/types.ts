@@ -4,6 +4,15 @@ export interface ApiGetAsks {
 
 export interface Ask {
   id: string;
+  ask: string;
+  type: 'DISCURSIVE' | 'ALTERNATIVE';
+  alternatives: {
+    one: string;
+    two: string;
+    tree: string;
+    four: string;
+    five: string;
+  };
 }
 
 export interface Register {

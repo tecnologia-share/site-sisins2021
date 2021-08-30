@@ -15,7 +15,7 @@ export const FormContainer = styled.div`
   }
 `;
 
-export const Questions = styled.h1`
+export const QuestionTitle = styled.h2`
   width: 100%;
   max-width: 500px;
 
