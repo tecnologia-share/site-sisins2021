@@ -22,6 +22,7 @@ Cria o participante.
   `phone: string`
   `birth_date: Date`
   `country: string`
+  `cpf: string`
   `state: string`
   `city: string`
   ```ts 
