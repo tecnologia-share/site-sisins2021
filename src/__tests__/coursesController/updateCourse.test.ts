@@ -6,7 +6,7 @@ import {
   createNonAdmin,
   genTokenAdmin,
   genTokenNonAdmin,
-  createCourse,
+  createCourseWithSelectionProcess,
 } from '../../utils/tests';
 
 let adminToken: string;
@@ -26,7 +26,7 @@ describe('Update Course', () => {
     await createNonAdmin(connection);
     adminToken = await genTokenAdmin();
     nonAdminToken = await genTokenNonAdmin();
-    await createCourse(adminToken);
+    await createCourseWithSelectionProcess(adminToken);
   });
 
   it('Should be possible to edit a course.', async () => {

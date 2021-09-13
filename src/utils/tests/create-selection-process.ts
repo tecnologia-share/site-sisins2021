@@ -1,7 +1,9 @@
 import request from 'supertest';
 import app from '../../app';
 
-export const createCourse = async (adminToken: string) => {
+export const createSelectionProcess = async (
+  adminToken: string
+): Promise<string> => {
   const futureDate = new Date();
   futureDate.setFullYear(futureDate.getFullYear() + 1);
   const pastDate = new Date();
@@ -14,24 +16,9 @@ export const createCourse = async (adminToken: string) => {
       name: 'Selection Process Name',
       startDate: pastDate.toJSON(),
       endDate: futureDate.toJSON(),
-      editalLink: 'link edital',
       manualLink: 'link manual',
+      editalLink: 'link edital',
     });
 
-  const selectionProcessId = selectionProcessResponse.body.selectionProcess.id;
-
-  const courseResponse = await request(app)
-    .post('/api/courses')
-    .set({ authorization: `Bearer ${adminToken}` })
-    .send({
-      name: 'Name',
-      category: 'Category',
-      description: 'Description',
-      time: 'Time',
-      professor: 'Professor',
-      selectionProcessId,
-      duration: '6 meses',
-    });
-
-  return courseResponse.body.course.id;
+  return selectionProcessResponse.body.selectionProcess.id;
 };
