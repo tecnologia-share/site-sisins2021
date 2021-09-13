@@ -151,7 +151,6 @@ const getToken_idNotExist = async () => {
 };
 
 describe('Create a new Participant and to send email', () => {
-  jest.setTimeout(10000);
   beforeAll(async (done) => {
     server = app.listen(0, async () => {
       agent = request.agent(server);
