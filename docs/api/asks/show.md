@@ -28,13 +28,6 @@ Lista as perguntas do cadastro.
           "id": "bbf6d1a6-cde1-41c4-9ead-2350e422b735",
           "ask": "any_ask",
           "type": "DISCURSIVE",
-          "alternatives": {
-            "one": null,
-            "two": null,
-            "tree": null,
-            "four": null,
-            "five": null
-          }
         },
         {
           "id": "a88e5d2f-c51c-4f33-98f8-6b0c4201132a",
