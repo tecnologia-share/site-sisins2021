@@ -24,10 +24,12 @@ export interface Register {
   country: string;
   state: string;
   city: string;
-  asksAnswers: Array<{
-    asksId: string;
-    response: string;
-  }>;
+  asksAnswers: AsksAnswers[];
+}
+
+export interface AsksAnswers {
+  asksId: string;
+  response: string;
 }
 
 export interface RegisterReturn {

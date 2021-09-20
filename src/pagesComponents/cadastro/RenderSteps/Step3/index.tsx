@@ -2,56 +2,77 @@ import { Form } from '@unform/web';
 import AnimationRegisterStep3 from 'assets/lotties/registerStep3.json';
 import Input from 'components/Input';
 import RadioButton, { RadioItem } from 'components/RadioButton';
+import useApi from 'hooks/useApi';
+import { AsksAnswers } from 'hooks/useApi/types';
+import { useRouter } from 'next/router';
 import { CadastroLayout } from 'pagesComponents/cadastro/components/CadastroLayout';
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
+import * as yup from 'yup';
 import Button from '../../../../components/Button';
 import { CadastroContext } from '../../CadastroContext';
 import * as S from './styles';
 
+interface Step3Data {
+  asksAnswers: string[];
+}
+
 export const Step3 = () => {
+  const router = useRouter();
+  const { apiRegister } = useApi();
   const { step, cadastroData, asks } = useContext(CadastroContext);
+  const [loading, setLoading] = useState(false);
 
   const formRef = useRef(null);
 
-  const handleSubmit = useCallback(async (data) => {
-    console.log(data);
-    // formRef.current.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: Step3Data) => {
+      formRef.current.setErrors({});
 
-    // const schema = yup.object().shape({
-    //   firstQuestion: yup.string().required('A resposta é obrigatória.'),
-    //   secondQuestion: yup.string().required('A resposta é obrigatória.'),
-    //   answer: yup.string().required('A resposta é obrigatória.'),
-    // });
+      const schema = yup.object().shape({
+        asksAnswers: yup
+          .array()
+          .of(
+            yup.string().required('É obrigatório responder todas as perguntas.')
+          ),
+      });
 
-    // try {
-    //   await schema.validate(
-    //     {
-    //       firstQuestion,
-    //       secondQuestion,
-    //       answer,
-    //     },
-    //     { abortEarly: false }
-    //   );
-    // } catch (error) {
-    //   const validationErrors = {};
+      try {
+        await schema.validate(data, { abortEarly: false });
+      } catch (error) {
+        const validationErrors = {};
 
-    //   if (error instanceof yup.ValidationError) {
-    //     error.inner.forEach((currentError) => {
-    //       validationErrors[currentError.path] = currentError.message;
-    //     });
-    //     formRef.current.setErrors(validationErrors);
-    //   }
-    //   return;
-    // }
-    // setCadastroData((previousData) => ({
-    //   ...previousData,
-    //   ...{
-    //     firstQuestion,
-    //     secondQuestion,
-    //     answer,
-    //   },
-    // }));
-  }, []);
+        if (error instanceof yup.ValidationError) {
+          error.inner.forEach((currentError) => {
+            validationErrors[currentError.path] = currentError.message;
+          });
+          formRef.current.setErrors(validationErrors);
+        }
+        return;
+      }
+
+      const asksForRegister: AsksAnswers[] = data.asksAnswers.map(
+        (answer, index) => ({
+          asksId: asks[index].id,
+          response: answer,
+        })
+      );
+
+      setLoading(true);
+
+      try {
+        await apiRegister({
+          ...cadastroData,
+          asksAnswers: asksForRegister,
+        });
+
+        return router.push('/cadastro/finalizado');
+      } catch (error) {
+        setLoading(false);
+        /** @TODO Tratar erro apiRegister */
+      }
+    },
+    [apiRegister, asks, cadastroData, router]
+  );
 
   return (
     <CadastroLayout
@@ -97,7 +118,7 @@ export const Step3 = () => {
                   <S.QuestionTitle>{ask.ask}</S.QuestionTitle>
 
                   <RadioButton
-                    name={`asksAnswers[${index}].response`}
+                    name={`asksAnswers[${index}]`}
                     style={{ marginBottom: '1rem' }}
                     items={alternatives}
                   />
@@ -110,7 +131,7 @@ export const Step3 = () => {
 
                   <Input
                     placeholder="Resposta"
-                    name={`asksAnswers[${index}].response`}
+                    name={`asksAnswers[${index}]`}
                     style={{ marginBottom: '3rem' }}
                   ></Input>
                 </React.Fragment>
@@ -118,7 +139,7 @@ export const Step3 = () => {
             }
           })}
 
-          <Button>Continuar cadastro</Button>
+          <Button disabled={loading}>Continuar cadastro</Button>
         </Form>
       </S.FormContainer>
     </CadastroLayout>

@@ -37,8 +37,21 @@ export interface CadastroData {
 }
 
 export const CadastroContextProvider = ({ children }) => {
-  const [step, setStep] = useState(1);
-  const [asks, setAsks] = useState<Ask[]>([]);
+  const [step, setStep] = useState(3);
+  const [asks, setAsks] = useState<Ask[]>([
+    {
+      type: 'ALTERNATIVE',
+      alternatives: { one: 'A', two: 'B', tree: 'C', four: 'D', five: 'E' },
+      ask: 'Qual é a certa?',
+      id: '123',
+    },
+    {
+      type: 'DISCURSIVE',
+      alternatives: { one: '', two: '', tree: '', four: '', five: '' },
+      ask: 'qual discursiva',
+      id: '2432423',
+    },
+  ]);
   const [cadastroData, setCadastroData] = useState({} as CadastroData);
 
   const nextStep = () => {

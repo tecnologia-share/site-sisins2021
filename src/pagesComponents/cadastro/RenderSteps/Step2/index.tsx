@@ -4,6 +4,7 @@ import Checkbox from 'components/Checkbox';
 import Input from 'components/Input';
 import SelectUnform from 'components/SelectUnform';
 import useApi from 'hooks/useApi';
+import { useRouter } from 'next/router';
 import { CadastroLayout } from 'pagesComponents/cadastro/components/CadastroLayout';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import api from 'services/api';
@@ -18,6 +19,7 @@ interface SelectItem {
 }
 
 export const Step2 = () => {
+  const router = useRouter();
   const { nextStep, step, setCadastroData, cadastroData, setAsks } = useContext(
     CadastroContext
   );
@@ -25,6 +27,7 @@ export const Step2 = () => {
   const [livesInBrazil, setLivesInBrazil] = useState(true);
   const [states, setStates] = useState<SelectItem[]>([]);
   const [cities, setCities] = useState<SelectItem[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const formRef = useRef(null);
 
@@ -97,10 +100,11 @@ export const Step2 = () => {
       }
 
       if (livesInBrazil) {
-        /** @TODO tratar caso der erro no find */
-        data.state = states.find((state) => state.value === data.state).label;
-        data.city = cities.find((city) => city.value === data.city).label;
+        data.state = states.find((state) => state.value === data.state)?.label;
+        data.city = cities.find((city) => city.value === data.city)?.label;
       }
+
+      setLoading(true);
 
       try {
         const {
@@ -108,23 +112,20 @@ export const Step2 = () => {
         } = await apiGetAsks();
 
         if (asks.length === 0) {
-          /** @TODO completa o cadastro aqui */
-
-          const { data: registerResponse } = await apiRegister({
+          await apiRegister({
             asksAnswers: [],
             ...cadastroData,
             ...data,
           });
 
-          /** @TODO enviar para tela do final do cadastro */
-          console.log(registerResponse.message);
-          return;
+          return router.push('/cadastro/finalizado');
         }
 
         setAsks(asks);
         setCadastroData((previousData) => ({ ...previousData, ...data }));
         nextStep();
       } catch (error) {
+        setLoading(false);
         /** @TODO Tratar erro apiGetAsks e apiRegister */
       }
     },
@@ -135,6 +136,7 @@ export const Step2 = () => {
       cities,
       livesInBrazil,
       nextStep,
+      router,
       setAsks,
       setCadastroData,
       states,
@@ -216,7 +218,7 @@ export const Step2 = () => {
             </>
           )}
 
-          <Button>Continuar cadastro</Button>
+          <Button disabled={loading}>Continuar cadastro</Button>
         </Form>
       </S.FormContainer>
     </CadastroLayout>

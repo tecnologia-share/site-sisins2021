@@ -4,7 +4,7 @@ import { ApiGetAsks, Register, RegisterReturn } from './types';
 
 const useApi = () => {
   const apiGetAsks = useCallback(async () => {
-    return api.get<ApiGetAsks>('/api/ask');
+    return api.get<ApiGetAsks>('/api/participants/asks');
   }, []);
 
   const apiRegister = useCallback(async (data: Register) => {
