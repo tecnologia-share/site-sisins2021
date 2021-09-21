@@ -6,6 +6,7 @@ import { Participante } from '../models/Participante';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UsuarioShare } from '../models/UsuarioShare';
+import { env } from '../shared/env';
 
 class AuthController {
   async authenticate(
@@ -48,7 +49,7 @@ class AuthController {
       {
         id: participante.id,
       },
-      process.env.JWT_SECRET as string,
+      env.jwtSecret as string,
       { expiresIn: '24h' }
     );
 
@@ -92,7 +93,7 @@ class AuthController {
       {
         id: user.id,
       },
-      process.env.JWT_SHARE_SECRET as string,
+      env.jwtShareSecret as string,
       { expiresIn: '24h' }
     );
 

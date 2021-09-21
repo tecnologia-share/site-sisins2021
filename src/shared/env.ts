@@ -1,0 +1,16 @@
+export const env = {
+  typeormConnection: process.env.TYPEORM_CONNECTION,
+  typeormDatabase: process.env.TYPEORM_DATABASE,
+  typeormMigrations: process.env.TYPEORM_MIGRATIONS,
+  typeormMigrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
+  typeormEntities: process.env.TYPEORM_ENTITIES,
+  jwtSecret: process.env.JWT_SECRET,
+  jwtShareSecret: process.env.JWT_SHARE_SECRET,
+  smtpUser: process.env.SMTP_USER,
+  smtpPassword: process.env.SMTP_PASSWORD,
+  smtpPort: process.env.SMTP_PORT,
+  smtpHost: process.env.SMTP_HOST,
+  email: process.env.EMAIL,
+  host: process.env.HOST || 'localhost',
+  port: process.env.PORT || 3333,
+};
