@@ -2,6 +2,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { AppError } from '../errors/AppError';
+import { env } from '../shared/env';
 
 interface tokenPayload {
   id: string;
@@ -14,18 +15,14 @@ export const verifyShareJWT = () => {
 
     if (!token) throw new AppError('Invalid token.', 401);
 
-    jwt.verify(
-      token,
-      process.env.JWT_SHARE_SECRET as string,
-      (error, decoded) => {
-        if (error) throw new AppError('Invalid token.', 401);
+    jwt.verify(token, env.jwtShareSecret as string, (error, decoded) => {
+      if (error) throw new AppError('Invalid token.', 401);
 
-        if (decoded) {
-          request.userId = (decoded as tokenPayload).id;
-        }
-
-        return _next();
+      if (decoded) {
+        request.userId = (decoded as tokenPayload).id;
       }
-    );
+
+      return _next();
+    });
   };
 };

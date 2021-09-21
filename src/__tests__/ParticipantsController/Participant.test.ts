@@ -7,6 +7,7 @@ import { Pergunta } from '../../models/Pergunta';
 import { AsksTypes } from '../../typings/AsksTypes';
 import jwt from 'jsonwebtoken';
 import { Server } from 'http';
+import { env } from '../../shared/env';
 
 const mockSendEmail = jest.fn();
 
@@ -125,7 +126,7 @@ const getToken_emailConfirmed = async () => {
       email: 'this_email_exists@example.com',
       id: participantUnconfirmedEmail_id,
     },
-    process.env.JWT_SECRET as string,
+    env.jwtSecret as string,
     { expiresIn: '5h' }
   );
 };
@@ -135,7 +136,7 @@ const getToken_emailUnconfirmed = async () => {
       email: 'email_unconfirmed@example.com',
       id: participantUnconfirmedEmail_id,
     },
-    process.env.JWT_SECRET as string,
+    env.jwtSecret as string,
     { expiresIn: '5h' }
   );
 };
@@ -145,7 +146,7 @@ const getToken_idNotExist = async () => {
       email: 'emailNotExist@example.com',
       id: participantNotExist_id,
     },
-    process.env.JWT_SECRET as string,
+    env.jwtSecret as string,
     { expiresIn: '5h' }
   );
 };

@@ -9,6 +9,7 @@ import { resolve } from 'path';
 import jwt from 'jsonwebtoken';
 import { Pergunta } from '../models/Pergunta';
 import { PerguntaParticipante } from '../models/PerguntaParticipante';
+import { env } from '../shared/env';
 
 interface PayloadEmail {
   id: string;
@@ -135,7 +136,7 @@ class ParticipantsController {
         email,
         id: participant.id,
       },
-      process.env.JWT_SECRET as string,
+      env.jwtSecret as string,
       { expiresIn: '5h' }
     );
 
@@ -161,39 +162,35 @@ class ParticipantsController {
   async verifyEmail(request: Request, response: Response, _next: NextFunction) {
     const { token } = request.params;
 
-    jwt.verify(
-      token,
-      process.env.JWT_SECRET as string,
-      async (err, decoded) => {
-        if (err) {
-          return _next(new AppError('Invalid token!', 401));
-        }
-        const { id, email } = decoded as PayloadEmail;
-        const participantesRepository = getRepository(Participante);
-
-        const participante = await participantesRepository.findOne(id);
-
-        if (!participante) {
-          return _next(new AppError('Participant not found.', 404));
-        }
-
-        const emailAlreadyExists = await participantesRepository.findOne({
-          email,
-        });
-
-        /** @TODO redirect pra tela de dizendo que já existe o email ou pra tela de login*/
-        if (emailAlreadyExists) {
-          return _next(new AppError('Email already confirmed!'));
-        }
-
-        participante.email = email;
-
-        participantesRepository.save(participante);
-
-        /** @TODO página dizendo tipo "Teu email foi confirmado com sucesso, faça o login" */
-        response.redirect('https://associacaoshare.com.br/');
+    jwt.verify(token, env.jwtSecret as string, async (err, decoded) => {
+      if (err) {
+        return _next(new AppError('Invalid token!', 401));
       }
-    );
+      const { id, email } = decoded as PayloadEmail;
+      const participantesRepository = getRepository(Participante);
+
+      const participante = await participantesRepository.findOne(id);
+
+      if (!participante) {
+        return _next(new AppError('Participant not found.', 404));
+      }
+
+      const emailAlreadyExists = await participantesRepository.findOne({
+        email,
+      });
+
+      /** @TODO redirect pra tela de dizendo que já existe o email ou pra tela de login*/
+      if (emailAlreadyExists) {
+        return _next(new AppError('Email already confirmed!'));
+      }
+
+      participante.email = email;
+
+      participantesRepository.save(participante);
+
+      /** @TODO página dizendo tipo "Teu email foi confirmado com sucesso, faça o login" */
+      response.redirect(`https://${env.host}`);
+    });
   }
   async update(request: Request, response: Response, _next: NextFunction) {
     const { cidade, estado, nascimento, nome, pais, telefone } = request.body;

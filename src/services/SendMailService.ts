@@ -1,6 +1,7 @@
 import { Transporter, createTransport } from 'nodemailer';
 import handlebars from 'handlebars';
 import fs from 'fs';
+import { env } from '../shared/env';
 
 interface SendEmailParams {
   to: string;
@@ -13,12 +14,12 @@ class SendMailService {
   private client: Transporter;
   constructor() {
     this.client = createTransport({
-      port: Number(process.env.SMTP_PORT),
-      host: process.env.SMTP_HOST,
+      port: Number(env.smtpPort),
+      host: env.smtpHost,
       secure: true,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+        user: env.smtpUser,
+        pass: env.smtpPassword,
       },
       debug: true,
     });
@@ -35,7 +36,7 @@ class SendMailService {
       to,
       subject,
       html,
-      from: process.env.EMAIL,
+      from: env.email,
     });
   }
 }
