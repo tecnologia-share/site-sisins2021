@@ -3,6 +3,7 @@ import app from '../../app';
 import { Connection, createConnection } from 'typeorm';
 import {
   createAdmin,
+  createCourseWithSelectionProcess,
   createNonAdmin,
   genTokenAdmin,
   genTokenNonAdmin,
@@ -12,41 +13,6 @@ let adminToken: string;
 let nonAdminToken: string;
 let connection: Connection;
 let courseId: string;
-
-const createCourse = async () => {
-  const futureDate = new Date();
-  futureDate.setFullYear(futureDate.getFullYear() + 1);
-  const pastDate = new Date();
-  pastDate.setFullYear(pastDate.getFullYear() - 1);
-
-  const selectionProcessResponse = await request(app)
-    .post('/api/selection-process')
-    .set({ authorization: `Bearer ${adminToken}` })
-    .send({
-      name: 'Selection Process Name',
-      startDate: pastDate.toJSON(),
-      endDate: futureDate.toJSON(),
-      editalLink: 'link edital',
-      manualLink: 'link manual',
-    });
-
-  const selectionProcessId = selectionProcessResponse.body.selectionProcess.id;
-
-  const courseResponse = await request(app)
-    .post('/api/courses')
-    .set({ authorization: `Bearer ${adminToken}` })
-    .send({
-      name: 'Name',
-      category: 'Category',
-      description: 'Description',
-      time: 'Time',
-      professor: 'Professor',
-      selectionProcessId,
-      duration: '6 meses',
-    });
-
-  courseId = courseResponse.body.course.id;
-};
 
 describe('Create Exam tests', () => {
   beforeAll(async () => {
@@ -60,7 +26,7 @@ describe('Create Exam tests', () => {
     await createNonAdmin(connection);
     adminToken = await genTokenAdmin();
     nonAdminToken = await genTokenNonAdmin();
-    await createCourse();
+    courseId = await createCourseWithSelectionProcess(adminToken);
   });
 
   it('Should be possible to create an exam.', async () => {
