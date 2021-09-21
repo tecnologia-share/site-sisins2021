@@ -142,7 +142,7 @@ class ParticipantsController {
 
     const variables = {
       name,
-      link: `http://localhost:3333/api/register/verify-email/${token}`,
+      link: `${env.hostBack}:${env.port}/api/register/verify-email/${token}`,
     };
 
     await participantsRepository.save(participant);
@@ -189,7 +189,7 @@ class ParticipantsController {
       participantesRepository.save(participante);
 
       /** @TODO página dizendo tipo "Teu email foi confirmado com sucesso, faça o login" */
-      response.redirect(`https://${env.host}`);
+      response.redirect(`${env.hostFront}`);
     });
   }
   async update(request: Request, response: Response, _next: NextFunction) {

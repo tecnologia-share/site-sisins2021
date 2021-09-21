@@ -5,5 +5,5 @@ import app from './app';
 import { env } from './shared/env';
 
 app.listen(env.port, () => {
-  console.log(`Listening at http://${env.host}:${env.port}`);
+  console.log(`Listening at ${env.hostBack}:${env.port}`);
 });
