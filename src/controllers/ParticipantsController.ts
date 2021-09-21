@@ -63,7 +63,7 @@ class ParticipantsController {
         .of(
           yup.object().shape({
             asksId: yup.string().required(),
-            response: yup.number().required(),
+            response: yup.mixed().required(),
           })
         )
         .optional(),
@@ -125,7 +125,10 @@ class ParticipantsController {
     }
 
     // START sending email
-    const npsPath = resolve(__dirname, '../views/emails/verificationEmail.hbs');
+    const npsPath = resolve(
+      __dirname,
+      '../../assets/emails/verificationEmail.hbs'
+    );
 
     const token = jwt.sign(
       {
