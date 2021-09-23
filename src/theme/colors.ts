@@ -19,6 +19,7 @@ export const colors = {
     '4': '#0459d7',
     '5': '#1470fa',
     '6': '#a6b2c5',
+    '7': '#0099FF'
   },
   green: '#579B59',
   greens: {
