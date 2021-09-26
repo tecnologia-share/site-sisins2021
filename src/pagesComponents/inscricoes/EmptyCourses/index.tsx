@@ -1,6 +1,6 @@
 import { Container, Text, LottieWrapper } from './styles';
 import Lottie from 'react-lottie';
-import WaitingWithACupCoffee from '../../assets/lotties/waiting-with-a-cup-coffee.json';
+import WaitingWithACupCoffee from '../../../assets/lotties/waiting-with-a-cup-coffee.json';
 import { HTMLAttributes } from 'react';
 
 const EmptyCourses: React.FC<HTMLAttributes<HTMLDivElement>> = (props) => {

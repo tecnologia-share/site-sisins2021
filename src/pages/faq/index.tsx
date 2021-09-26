@@ -1,11 +1,7 @@
-import { Container, Title } from '../../styles/faq/styles';
+import Faq from '../../pagesComponents/faq';
 
-const Faq = () => {
-  return (
-    <Container>
-      <Title>FAQ</Title>
-    </Container>
-  );
+const FaqPage = () => {
+  return <Faq />;
 };
 
-export default Faq;
+export default FaqPage;
