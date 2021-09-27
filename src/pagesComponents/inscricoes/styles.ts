@@ -143,8 +143,8 @@ export const WelcomeTitle = styled.h1`
   padding: 1rem;
   text-align: center;
   font-weight: ${({ theme }) => theme.fontWeights.normal};
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.blue};
+  border: 1px solid ${({ theme }) => theme.colors.blacks[0]};
+  color: ${({ theme }) => theme.colors.black};
   margin: 1rem;
   margin-bottom: 0;
 
