@@ -1,6 +1,18 @@
 import SVG from 'react-inlinesvg';
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  height: 100%;
+
+  @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
+    grid-template-rows: initial;
+    grid-template-columns: min-content 1fr;
+    grid-gap: 1.5rem;
+  }
+`;
+
 export const SectionOptions = styled.section`
   display: flex;
   z-index: 5;
