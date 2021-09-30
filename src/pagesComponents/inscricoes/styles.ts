@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import SVG from 'react-inlinesvg';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
@@ -143,8 +143,8 @@ export const WelcomeTitle = styled.h1`
   padding: 1rem;
   text-align: center;
   font-weight: ${({ theme }) => theme.fontWeights.normal};
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.blue};
+  border: 1px solid ${({ theme }) => theme.colors.grays[9]};
+  color: ${({ theme }) => theme.colors.black};
   margin: 1rem;
   margin-bottom: 0;
 
