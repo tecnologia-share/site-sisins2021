@@ -1,5 +1,8 @@
+import { useField } from '@unform/core';
+import { useEffect, useRef } from 'react';
 import {
   Container,
+  Label,
   InputContainer,
   CustomInput,
   Icon,
@@ -8,6 +11,8 @@ import {
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  label?: string;
   iconSrc?: string;
   variant?: 'error' | 'success';
   helperText?: string;
@@ -16,6 +21,8 @@ export interface InputProps
 }
 
 const Input: React.FC<InputProps> = ({
+  name,
+  label,
   iconSrc,
   variant,
   helperText,
@@ -24,18 +31,50 @@ const Input: React.FC<InputProps> = ({
   iconOnClick,
   ...rest
 }) => {
+  const { fieldName, defaultValue, registerField, error } = useField(name);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    registerField<HTMLInputElement>({
+      name: fieldName,
+      ref: inputRef,
+      getValue: (ref) => {
+        return ref.current.value;
+      },
+      setValue: (ref, value) => {
+        ref.current.value = value;
+      },
+      clearValue: (ref) => {
+        ref.current.value = '';
+      },
+    });
+  }, [fieldName, registerField]);
+
   return (
-    <Container>
-      <InputContainer style={style}>
+    <Container style={style}>
+      {label && <Label>{label}</Label>}
+      <InputContainer>
         <CustomInput
+          ref={inputRef}
+          defaultValue={defaultValue}
           variant={variant}
           hasIcon={!!iconSrc}
-          placeholder="Placeholder"
           {...rest}
         />
-        <Icon iconcolor={iconColor} src={iconSrc} onClick={iconOnClick} />
+        <Icon
+          iconcolor={iconColor}
+          src={iconSrc}
+          onMouseDown={(event) => {
+            event.preventDefault();
+            iconOnClick();
+          }}
+        />
       </InputContainer>
-      {helperText && <HelperText variant={variant}>{helperText}</HelperText>}
+      {(helperText || error) && (
+        <HelperText variant={error ? 'error' : variant}>
+          {error ? error : helperText}
+        </HelperText>
+      )}
     </Container>
   );
 };

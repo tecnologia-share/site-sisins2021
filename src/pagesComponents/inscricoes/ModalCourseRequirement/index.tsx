@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
+import Button from '../../../components/Button';
+import Checkbox from '../../../components/Checkbox';
+import Modal from '../../../components/Modal';
 
-import Modal from '../Modal';
-import Checkbox from '../Checkbox';
-import Button from '../Button';
 import {
   ModalContainer,
   ModalTitle,

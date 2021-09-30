@@ -1,44 +1,60 @@
 import {
+  KeyboardEvent,
   MouseEventHandler,
+  useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
-  KeyboardEvent,
-  useCallback,
 } from 'react';
+import { CSSProperties } from 'styled-components';
 import {
   Container,
+  HelperText,
+  Icon,
+  SelectContainer,
   SelectControl,
-  SelectValueContainer,
-  SelectValue,
-  SelectInput,
   SelectIndicator,
+  SelectInput,
   SelectMenu,
   SelectMenuItemContainer,
   SelectMenuItemText,
-  Icon,
+  SelectValue,
+  SelectValueContainer,
 } from './styles';
 
-interface Item {
+export interface SelectItem {
   value: string;
   label: string;
 }
 
 interface SelectProps {
-  items: Item[];
-  value?: string;
-  onChange?: (item: Item) => void;
+  items: SelectItem[];
+  value: string;
+  placeholder?: string;
+  onChange?: (item: SelectItem) => void;
+  variant?: 'error' | 'success';
+  helperText?: string;
+  style?: CSSProperties;
+  id: string;
 }
 
-const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
+const Select: React.FC<SelectProps> = ({
+  items,
+  value,
+  onChange,
+  placeholder,
+  variant,
+  helperText,
+  id,
+  style,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentValue, setCurrentValue] = useState(
-    value ? value : items.length > 0 ? items[0].value : ''
-  );
+  const [currentValue, setCurrentValue] = useState(value);
   const currentLabel = useMemo(() => {
     const item = items.find((item) => item.value === currentValue);
 
-    if (!item) return 'Nenhuma opção selecionada';
+    if (!item) return '';
 
     return item.label;
   }, [currentValue, items]);
@@ -48,6 +64,22 @@ const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const selectMenuRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const onSelectClick = (data) => {
+      const { detail: idSelected } = data;
+
+      if (idSelected !== id) {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener('component-select-click', onSelectClick);
+
+    return () => {
+      window.removeEventListener('component-select-click', onSelectClick);
+    };
+  }, [id]);
+
   const handleSelectControlClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
       event.preventDefault();
@@ -55,6 +87,9 @@ const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
 
       if (menuOpen) return;
 
+      window.dispatchEvent(
+        new CustomEvent('component-select-click', { detail: id })
+      );
       setMenuOpen(true);
       setFilteredItems(items);
       if (items.length > 0) {
@@ -70,7 +105,7 @@ const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
 
       document.body.addEventListener('click', handleOutsideSelectClick);
     },
-    [items, menuOpen]
+    [id, items, menuOpen]
   );
 
   const closeMenu = () => {
@@ -227,35 +262,46 @@ const Select: React.FC<SelectProps> = ({ items, value, onChange }) => {
   );
 
   return (
-    <Container>
-      <SelectControl onClick={handleSelectControlClick}>
-        <SelectValueContainer>
-          <SelectValue visible={!menuOpen}>{currentLabel}</SelectValue>
-          <SelectInput
-            ref={inputRef}
-            onChange={filterItems}
-            onKeyDown={changeFilteringCurrentValue}
-            placeholder={currentLabel}
-          />
-        </SelectValueContainer>
-        <SelectIndicator onClick={handleIndicatorClick}>
-          <Icon
-            src={menuOpen ? 'icons/IndicatorUp.svg' : 'icons/IndicatorDown.svg'}
-          />
-        </SelectIndicator>
-      </SelectControl>
-      <SelectMenu ref={selectMenuRef} open={menuOpen}>
-        {filteredItems.map((item) => (
-          <SelectMenuItemContainer
-            active={item.value === filteringCurrentValue}
-            key={item.value}
-            id={`select-item-${item.value}`}
-            onClick={() => handleItemSelect(item.value)}
-          >
-            <SelectMenuItemText>{item.label}</SelectMenuItemText>
-          </SelectMenuItemContainer>
-        ))}
-      </SelectMenu>
+    <Container style={style}>
+      <SelectContainer>
+        <SelectControl onClick={handleSelectControlClick}>
+          <SelectValueContainer>
+            <SelectValue visible={!menuOpen} disabled={!value}>
+              {value
+                ? currentLabel
+                : placeholder || 'Nenhuma opção selecionada'}
+            </SelectValue>
+            <SelectInput
+              ref={inputRef}
+              onChange={filterItems}
+              onKeyDown={changeFilteringCurrentValue}
+              placeholder={menuOpen ? currentLabel || placeholder : undefined}
+            />
+          </SelectValueContainer>
+          <SelectIndicator onClick={handleIndicatorClick}>
+            <Icon
+              src={
+                menuOpen ? 'icons/IndicatorUp.svg' : 'icons/IndicatorDown.svg'
+              }
+            />
+          </SelectIndicator>
+        </SelectControl>
+
+        <SelectMenu ref={selectMenuRef} open={menuOpen}>
+          {filteredItems.map((item) => (
+            <SelectMenuItemContainer
+              active={item.value === filteringCurrentValue}
+              key={item.value}
+              id={`select-item-${item.value}`}
+              onClick={() => handleItemSelect(item.value)}
+            >
+              <SelectMenuItemText>{item.label}</SelectMenuItemText>
+            </SelectMenuItemContainer>
+          ))}
+        </SelectMenu>
+      </SelectContainer>
+
+      {helperText && <HelperText variant={variant}>{helperText}</HelperText>}
     </Container>
   );
 };
