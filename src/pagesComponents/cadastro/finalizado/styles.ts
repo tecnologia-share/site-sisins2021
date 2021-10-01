@@ -28,7 +28,7 @@ export const DescriptionSendEmail = styled.p`
 
 export const LottieWrapper = styled.div`
   display: flex;
-  max-height: 70%!important;
+  max-height: 70% !important;
 
   > * {
     height: auto !important;

@@ -1,7 +1,10 @@
 import Lottie from 'react-lottie';
 import SendEmail from '../../../assets/lotties/send-email.json';
 import {
-  Container, DescriptionSendEmail, LottieWrapper, TitleSendEmail
+  Container,
+  DescriptionSendEmail,
+  LottieWrapper,
+  TitleSendEmail,
 } from './styles';
 
 const Finalizado = () => {
