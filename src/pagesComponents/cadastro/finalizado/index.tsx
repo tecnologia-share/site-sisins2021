@@ -1,7 +1,7 @@
 import Lottie from 'react-lottie';
 import SendEmail from '../../../assets/lotties/send-email.json';
 import {
-  ContainerBlue,
+  Container,
   DescriptionSendEmail,
   LottieWrapper,
   TitleSendEmail,
@@ -9,7 +9,7 @@ import {
 
 const Finalizado = () => {
   return (
-    <ContainerBlue>
+    <Container>
       <LottieWrapper>
         <Lottie
           isClickToPauseDisabled
@@ -25,7 +25,7 @@ const Finalizado = () => {
         Enviamos um link de confirmação de cadastro para seu e-mail, basta
         clicar nele para validar seu cadastro.
       </DescriptionSendEmail>
-    </ContainerBlue>
+    </Container>
   );
 };
 
