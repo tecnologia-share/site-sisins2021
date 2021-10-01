@@ -1,4 +1,4 @@
-import Finalizado from '../../../pagesComponents/inscricoes/finalizado';
+import Finalizado from '../../../pagesComponents/cadastro/finalizado';
 
 const InscricoesFinzalidaoPage = () => {
   return <Finalizado />;

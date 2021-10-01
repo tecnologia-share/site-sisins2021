@@ -28,24 +28,21 @@ export const DescriptionSendEmail = styled.p`
 
 export const LottieWrapper = styled.div`
   display: flex;
-  width: 100%;
+  max-height: 70%!important;
 
   > * {
-    width: 90% !important;
     height: auto !important;
-
-    @media (min-width: ${({ theme }) => theme.sizes.mobile}) {
-      width: 35rem !important;
-    }
+    width: 90%;
   }
 `;
 
-export const ContainerBlue = styled.div`
+export const Container = styled.div`
   display: flex;
   height: 100%;
   justify-items: center;
   justify-content: center;
   flex-direction: column;
+  overflow: auto;
   background-color: ${({ theme }) => theme.colors.blues[8]};
   color: ${({ theme }) => theme.colors.white};
 `;
