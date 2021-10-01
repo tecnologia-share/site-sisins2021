@@ -1,0 +1,33 @@
+version: "3"
+services: 
+  database:
+    image: postgres
+    container_name: database_share
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - pgdata:/data/postgres
+  api:
+    env_file:
+      - .env
+    container_name: api_share
+    image: node:14
+    working_dir: /usr/src/app
+    restart: always
+    command: bash -c "npm config set package-lock false && npm install && npm run typeorm migration:run && npm run dev"
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3333:3333"
+      - "9222:9222"
+    links:
+      - database
+
+volumes:
+  pgdata:
+    driver: local
