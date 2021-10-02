@@ -149,4 +149,11 @@ routes.post(
   asksController.create
 );
 
+routes.patch(
+  '/api/subscribe',
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
+  subscriptionsController.evaluate
+);
+
 export default routes;

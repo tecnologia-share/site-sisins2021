@@ -273,6 +273,28 @@ class SubscriptionsController {
 
     return response.status(200).json({ subscribe });
   }
+
+  async evaluate(request: Request, response: Response, _next: NextFunction) {
+    const { id, status } = request.body;
+
+    const subscribeRepository = getRepository(Inscricao);
+    const subscribe = await subscribeRepository.findOne(id);
+    if (!subscribe) {
+      return _next(new Error('Subscribe not found.'));
+    }
+
+    if (status == SubscriptionStatus.droppedOut) {
+      const desistencia = new Date();
+      desistencia.setFullYear(desistencia.getFullYear() + 1);
+
+      subscribe.status = SubscriptionStatus.droppedOut;
+      subscribe.desistencia = desistencia;
+    }
+
+    await subscribeRepository.save(subscribe);
+
+    return response.status(200).json({ message: 'Subscribe blocked.' });
+  }
 }
 
 export default SubscriptionsController;
