@@ -39,7 +39,9 @@ class SubscriptionsController {
     try {
       await schema.validate(request.body, { abortEarly: false });
     } catch (error) {
-      return _next(new AppError('Something wrong with the request.'));
+      return _next(
+        new AppError((error as yup.ValidationError).errors.join(' - '))
+      );
     }
 
     const participantsRepository = getRepository(Participante);
@@ -48,7 +50,19 @@ class SubscriptionsController {
       relations: ['inscricoes'],
     });
     if (!participant) {
-      return _next(new Error('Participant not found.'));
+      return _next(new AppError('Participant not found.'));
+    }
+
+    const checkIsBlocked = ({ desistencia }: Inscricao) => {
+      const checkDateBlocked = () => {
+        const actualDate = new Date();
+        return desistencia.getTime() >= actualDate.getTime();
+      };
+      return desistencia ? checkDateBlocked() : false;
+    };
+    const isDroppleOut = participant.inscricoes.some(checkIsBlocked);
+    if (isDroppleOut) {
+      return _next(new AppError('Participant is blocked', 403));
     }
 
     const coursesRepository = getRepository(Curso);
