@@ -40,7 +40,7 @@ describe('Show Subscribe tests', () => {
   });
   test('should be possible get data of subscribe', async () => {
     const response = await request(app)
-      .get(`/api/subscribe/${subscribeId}`)
+      .get(`/api/subscriptions/${subscribeId}`)
       .set({ authorization: `Bearer ${adminToken}` });
 
     expect(response.status).toBe(200);
@@ -49,7 +49,7 @@ describe('Show Subscribe tests', () => {
 
   test('Should not be possible to get subscribe if the id does not exists.', async () => {
     const response = await request(app)
-      .get('/api/subscribe/non-existent-id')
+      .get('/api/subscriptions/non-existent-id')
       .set({ authorization: `Bearer ${adminToken}` });
 
     expect(response.status).toBe(404);
@@ -58,7 +58,7 @@ describe('Show Subscribe tests', () => {
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
-      .get(`/api/subscribe/${subscribeId}`)
+      .get(`/api/subscriptions/${subscribeId}`)
       .set({ authorization: `invalid_token` });
 
     expect(response.status).toBe(401);

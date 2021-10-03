@@ -58,10 +58,17 @@ routes.delete(
   subscriptionsController.unsubscribe
 );
 routes.get(
-  '/api/subscribe/:id',
+  '/api/subscriptions/:id',
   verifyShareJWT(),
   accessOnlyFor([admin, superAdmin]),
   subscriptionsController.showSubscribe
+);
+
+routes.patch(
+  '/api/subscriptions',
+  verifyShareJWT(),
+  accessOnlyFor([admin, superAdmin]),
+  subscriptionsController.evaluate
 );
 
 routes.get(
@@ -147,13 +154,6 @@ routes.post(
   verifyShareJWT(),
   accessOnlyFor([superAdmin]),
   asksController.create
-);
-
-routes.patch(
-  '/api/subscribe',
-  verifyShareJWT(),
-  accessOnlyFor([admin, superAdmin]),
-  subscriptionsController.evaluate
 );
 
 export default routes;

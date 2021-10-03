@@ -42,7 +42,7 @@ describe('Evalute Subscribe tests', () => {
 
   test('should return 200 and status property on success', async () => {
     const response = await request(app)
-      .patch(`/api/subscribe`)
+      .patch(`/api/subscriptions`)
       .set({ authorization: `Bearer ${adminToken}` })
       .send({ id: subscribeId, status: SubscriptionStatus.approved });
     expect(response.status).toBe(200);
@@ -53,7 +53,7 @@ describe('Evalute Subscribe tests', () => {
 
   test('should return 200 and blocked_date property if status change to droppedOut', async () => {
     const response = await request(app)
-      .patch(`/api/subscribe`)
+      .patch(`/api/subscriptions`)
       .set({ authorization: `Bearer ${adminToken}` })
       .send({ id: subscribeId, status: SubscriptionStatus.droppedOut });
 
@@ -64,7 +64,7 @@ describe('Evalute Subscribe tests', () => {
 
   test('should return 400 if received invalid status', async () => {
     const response = await request(app)
-      .patch(`/api/subscribe`)
+      .patch(`/api/subscriptions`)
       .set({ authorization: `Bearer ${adminToken}` })
       .send({ id: subscribeId, status: 'invalid_status' });
 
@@ -73,7 +73,7 @@ describe('Evalute Subscribe tests', () => {
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
     const response = await request(app)
-      .get(`/api/subscribe/${subscribeId}`)
+      .get(`/api/subscriptions/${subscribeId}`)
       .set({ authorization: `invalid_token` });
 
     expect(response.status).toBe(401);
