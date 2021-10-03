@@ -3,7 +3,14 @@ import app from '../../app';
 import { Connection, createConnection } from 'typeorm';
 import { Participante } from '../../models/Participante';
 import { Curso } from '../../models/Curso';
-import { ProcessoSeletivo } from '../../models/ProcessoSeletivo';
+import {
+  createAdmin,
+  createCourse,
+  createSelectionProcess,
+  createSelectionProcessInactive,
+  genTokenAdmin,
+  getTokenSubscribeBlocked,
+} from '../../utils/tests';
 import { Prova } from '../../models/Prova';
 import { Questao } from '../../models/Questao';
 
@@ -14,8 +21,12 @@ let courseWithExamId: string;
 let courseInactiveId: string;
 let thirdCourseId: string;
 let questionId: string;
+let tokenParticipantBlocked: string;
 
-const populateDatabase = async (connection: Connection) => {
+const populateDatabase = async (
+  connection: Connection,
+  selectiveProcessId: string
+) => {
   const participantsRepository = connection.getRepository(Participante);
   const participant = participantsRepository.create({
     email: 'this_email_exists@example.com',
@@ -30,29 +41,6 @@ const populateDatabase = async (connection: Connection) => {
   });
   await participantsRepository.save(participant);
 
-  const futureDate = new Date();
-  futureDate.setFullYear(futureDate.getFullYear() + 1);
-  const pastDate = new Date();
-  pastDate.setFullYear(pastDate.getFullYear() - 1);
-
-  const selectiveProcessRepository = connection.getRepository(ProcessoSeletivo);
-  const selectiveProcess = selectiveProcessRepository.create({
-    data_inicio: new Date(),
-    data_final: futureDate,
-    nome: 'Selective Process Name',
-    link_edital: 'link edital',
-    link_manual: 'link manual',
-  });
-  await selectiveProcessRepository.save(selectiveProcess);
-  const selectiveProcessInactive = selectiveProcessRepository.create({
-    data_inicio: pastDate,
-    data_final: pastDate,
-    nome: 'Selective Process Name',
-    link_edital: 'link edital',
-    link_manual: 'link manual',
-  });
-  await selectiveProcessRepository.save(selectiveProcessInactive);
-
   const coursesRepository = connection.getRepository(Curso);
   const course = coursesRepository.create({
     categoria: 'Example',
@@ -60,7 +48,7 @@ const populateDatabase = async (connection: Connection) => {
     horario: 'From 8h to 9h',
     nome: 'Course Name',
     professor: 'Professor Name',
-    processo_seletivo_id: selectiveProcess.id,
+    processo_seletivo_id: selectiveProcessId,
     tempo_duracao: '6 meses',
   });
   await coursesRepository.save(course);
@@ -71,7 +59,7 @@ const populateDatabase = async (connection: Connection) => {
     horario: 'From 8h to 9h',
     nome: 'Course Name',
     professor: 'Professor Name',
-    processo_seletivo_id: selectiveProcess.id,
+    processo_seletivo_id: selectiveProcessId,
     tempo_duracao: '6 meses',
   });
   await coursesRepository.save(courseWithExam);
@@ -82,21 +70,10 @@ const populateDatabase = async (connection: Connection) => {
     horario: 'From 8h to 9h',
     nome: 'Course Name',
     professor: 'Professor Name',
-    processo_seletivo_id: selectiveProcess.id,
+    processo_seletivo_id: selectiveProcessId,
     tempo_duracao: '6 meses',
   });
   await coursesRepository.save(thirdCourse);
-
-  const courseInactive = coursesRepository.create({
-    categoria: 'Example',
-    descricao: 'Description',
-    horario: 'From 8h to 9h',
-    nome: 'Course Name',
-    professor: 'Professor Name',
-    processo_seletivo_id: selectiveProcessInactive.id,
-    tempo_duracao: '6 meses',
-  });
-  await coursesRepository.save(courseInactive);
 
   const examsRepository = connection.getRepository(Prova);
   const exam = examsRepository.create({
@@ -122,7 +99,6 @@ const populateDatabase = async (connection: Connection) => {
   courseId = course.id;
   courseWithExamId = courseWithExam.id;
   questionId = question.id;
-  courseInactiveId = courseInactive.id;
   thirdCourseId = thirdCourse.id;
 };
 
@@ -142,9 +118,26 @@ describe('Subscriptions tests', () => {
     }
     await connection.dropDatabase();
     await connection.runMigrations();
-
-    await populateDatabase(connection);
+    await createAdmin(connection);
+    const adminToken = await genTokenAdmin();
+    const selectionProcessInactiveId = await createSelectionProcessInactive(
+      connection
+    );
+    await populateDatabase(
+      connection,
+      await createSelectionProcess(adminToken)
+    );
+    courseInactiveId = await createCourse(
+      selectionProcessInactiveId,
+      adminToken
+    );
     await getToken();
+
+    tokenParticipantBlocked = await getTokenSubscribeBlocked(
+      connection,
+      courseInactiveId,
+      adminToken
+    );
   });
 
   it('Should be possible to enroll for a course that does not have an exam.', async () => {
@@ -207,15 +200,15 @@ describe('Subscriptions tests', () => {
 
     expect(responseWithoutCourseId.status).toBe(400);
     expect(responseWithoutCourseId.body.message).toBe(
-      'Something wrong with the request.'
+      'courseId is a required field'
     );
     expect(responseWithouReason.status).toBe(400);
     expect(responseWithoutCourseId.body.message).toBe(
-      'Something wrong with the request.'
+      'courseId is a required field'
     );
     expect(responseWithExamAnswersMalformed.status).toBe(400);
     expect(responseWithExamAnswersMalformed.body.message).toBe(
-      'Something wrong with the request.'
+      'examAnswers[0].response is a required field'
     );
   });
 
@@ -318,5 +311,19 @@ describe('Subscriptions tests', () => {
       });
 
     expect(response.status).toBe(401);
+  });
+
+  it('Should return 403 FORBIDDEN if participant is blocked', async () => {
+    const response = await request(app)
+      .post('/api/subscriptions')
+      .set({ authorization: `Bearer ${tokenParticipantBlocked}` })
+      .send({
+        courseId,
+        reason: 'My Reason',
+        videoLink: 'link',
+      });
+
+    expect(response.body.message).toBe('Participant is blocked');
+    expect(response.status).toBe(403);
   });
 });

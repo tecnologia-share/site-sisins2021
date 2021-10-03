@@ -1,6 +1,9 @@
 import request from 'supertest';
 import app from '../../app';
 
+/**
+ * pega o token admin fazendo uma requisição, portanto, é necessário criar o Admin no banco com a função de createAdmin antes
+ */
 export const genTokenAdmin = async () => {
   const responseAdmin = await request(app)
     .post('/api/authenticate-share')
@@ -8,7 +11,6 @@ export const genTokenAdmin = async () => {
       email: 'admin@example.com',
       password: 'correct_password',
     });
-
   return responseAdmin.body.token;
 };
 

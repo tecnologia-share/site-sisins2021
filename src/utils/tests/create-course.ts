@@ -1,6 +1,11 @@
 import request from 'supertest';
 import app from '../../app';
-
+/**
+ * criar um curso, se passar o id de um processo seletivo inativo, o curso também será inativo
+ * @param  {string} selectionProcessId ID processo seletivo(ativo ou inativo)
+ * @param  {string} adminToken token JWT do usuário ADM
+ * @returns ID do curso
+ */
 export const createCourse = async (
   selectionProcessId: string,
   adminToken: string

@@ -8,3 +8,5 @@ export * from './get-tokens-of-many-participants';
 export * from './create-many-participants';
 export * from './subscribe-participants';
 export * from './get-subscribe-id';
+export * from './create-selection-process-inactive';
+export * from './get-token-subscribe-blocked';
