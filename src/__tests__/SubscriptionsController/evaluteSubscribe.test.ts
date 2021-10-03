@@ -39,14 +39,36 @@ describe('Evalute Subscribe tests', () => {
     await subscribeParticipants(courseId, arrayTokens);
     subscribeId = await getSubscribeId(connection);
   });
-  test('should be possible get data of subscribe', async () => {
+
+  test('should return 200 and status property on success', async () => {
+    const response = await request(app)
+      .patch(`/api/subscribe`)
+      .set({ authorization: `Bearer ${adminToken}` })
+      .send({ id: subscribeId, status: SubscriptionStatus.approved });
+    expect(response.status).toBe(200);
+
+    expect(response.body).not.toHaveProperty('blocked_date');
+    expect(response.body).toHaveProperty('status');
+  });
+
+  test('should return 200 and blocked_date property if status change to droppedOut', async () => {
     const response = await request(app)
       .patch(`/api/subscribe`)
       .set({ authorization: `Bearer ${adminToken}` })
       .send({ id: subscribeId, status: SubscriptionStatus.droppedOut });
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({ message: 'Subscribe blocked.' });
+    expect(response.body).toHaveProperty('blocked_date');
+    expect(response.body).toHaveProperty('status');
+  });
+
+  test('should return 400 if received invalid status', async () => {
+    const response = await request(app)
+      .patch(`/api/subscribe`)
+      .set({ authorization: `Bearer ${adminToken}` })
+      .send({ id: subscribeId, status: 'invalid_status' });
+
+    expect(response.status).toBe(400);
   });
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
