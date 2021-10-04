@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../../app';
-import { Connection, createConnection } from 'typeorm';
+import { createConnection } from 'typeorm';
 import { createAdmin } from '../../_utils';
 
 describe('Authentication User Share tests', () => {

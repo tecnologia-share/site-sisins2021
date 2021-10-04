@@ -286,6 +286,7 @@ class ParticipantsController {
 
     return response.status(200).json({ message: 'Password updated.' });
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async showAsks(request: Request, response: Response, _next: NextFunction) {
     const asksRepository = getRepository(Pergunta);
     const asks = await asksRepository.find();

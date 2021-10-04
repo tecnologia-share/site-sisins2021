@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../errors/AppError';
-import { UserRoles } from '../typings/UserRoles';
 import { ValidDate } from '../utils/ValidDate';
 import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
 import { UsuarioShare } from '../models/UsuarioShare';
@@ -66,14 +65,8 @@ class selectionProcessController {
   }
 
   async update(request: Request, response: Response, _next: NextFunction) {
-    const {
-      id,
-      name,
-      startDate,
-      endDate,
-      editalLink,
-      manualLink,
-    } = request.body;
+    const { id, name, startDate, endDate, editalLink, manualLink } =
+      request.body;
     const { userId } = request;
 
     const usersRepository = getRepository(UsuarioShare);
