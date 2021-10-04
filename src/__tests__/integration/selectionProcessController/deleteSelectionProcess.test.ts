@@ -6,7 +6,7 @@ import {
   createNonAdmin,
   genTokenAdmin,
   genTokenNonAdmin,
-} from '../../../utils/tests';
+} from '../../_utils';
 
 import { Curso } from '../../../models/Curso';
 

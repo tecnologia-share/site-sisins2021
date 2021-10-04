@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../app';
 import { Connection, createConnection } from 'typeorm';
-import { createParticipant } from '../../../utils/tests';
+import { createParticipant } from '../../_utils';
 
 const URL = '/api/participants/asks';
 

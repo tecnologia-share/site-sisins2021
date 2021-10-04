@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../app';
 import { createConnection } from 'typeorm';
-import { createParticipant } from '../../../utils/tests';
+import { createParticipant } from '../../_utils';
 
 describe('Authentication tests', () => {
   beforeAll(async () => {

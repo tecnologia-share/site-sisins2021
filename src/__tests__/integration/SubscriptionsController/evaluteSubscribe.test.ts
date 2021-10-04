@@ -10,7 +10,7 @@ import {
   createManyParticipants,
   subscribeParticipants,
   getSubscribeId,
-} from '../../../utils/tests';
+} from '../../_utils';
 import { SubscriptionStatus } from '../../../typings/SubscriptionStatus';
 
 let connection: Connection;

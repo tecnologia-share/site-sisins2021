@@ -7,7 +7,7 @@ import {
   genTokenAdmin,
   genTokenNonAdmin,
   createCourseWithSelectionProcess,
-} from '../../../utils/tests';
+} from '../../_utils';
 
 let adminToken: string;
 let nonAdminToken: string;

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../app';
 import { Connection, createConnection } from 'typeorm';
-import { createAdmin, createNonAdmin } from '../../../utils/tests';
+import { createAdmin, createNonAdmin } from '../../_utils';
 
 let adminToken: string;
 let connection: Connection;

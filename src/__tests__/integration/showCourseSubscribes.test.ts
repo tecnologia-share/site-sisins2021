@@ -9,7 +9,7 @@ import {
   genTokenAdmin,
   getTokensOfManyParcipants,
   subscribeParticipants,
-} from '../../utils/tests';
+} from '../_utils';
 
 let connection: Connection;
 let adminToken: string;

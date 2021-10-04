@@ -10,7 +10,7 @@ import {
   createSelectionProcessInactive,
   genTokenAdmin,
   getTokenSubscribeBlocked,
-} from '../../../utils/tests';
+} from '../../_utils';
 import { Prova } from '../../../models/Prova';
 import { Questao } from '../../../models/Questao';
 
