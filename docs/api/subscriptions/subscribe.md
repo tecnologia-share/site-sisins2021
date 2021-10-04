@@ -65,6 +65,12 @@ Se o curso é continuação de outro e o participante já concluiu o anterior, o
 
   OR
 
+  - **Code:** 403 FORBIDDEN ERROR
+
+    **Content:** `{ "message": "Participant is blocked." }`
+
+  OR
+
   - **Code:** 400 BAD REQUEST
 
     **Content:** `{ "message": "Participant already subscribed in this course." }`

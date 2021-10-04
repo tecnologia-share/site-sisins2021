@@ -4,7 +4,7 @@ Mostra os dados do participante que se inscreveu em algum dos cursos.
 
 - **URL**
 
-  /api/subscribe/:id
+  /api/subscriptions/:id
 
 </br>
 

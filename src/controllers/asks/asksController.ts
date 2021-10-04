@@ -77,6 +77,7 @@ class AsksController {
       .json({ message: 'Question successfully created', questionCreated });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async show(request: Request, response: Response, _next: NextFunction) {
     const asksRepository = getRepository(Pergunta);
     const asks = await asksRepository.find();

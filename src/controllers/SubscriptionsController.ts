@@ -39,7 +39,9 @@ class SubscriptionsController {
     try {
       await schema.validate(request.body, { abortEarly: false });
     } catch (error) {
-      return _next(new AppError('Something wrong with the request.'));
+      return _next(
+        new AppError((error as yup.ValidationError).errors.join(' - '))
+      );
     }
 
     const participantsRepository = getRepository(Participante);
@@ -48,7 +50,19 @@ class SubscriptionsController {
       relations: ['inscricoes'],
     });
     if (!participant) {
-      return _next(new Error('Participant not found.'));
+      return _next(new AppError('Participant not found.'));
+    }
+
+    const checkIsBlocked = ({ desistencia }: Inscricao) => {
+      const checkDateBlocked = () => {
+        const actualDate = new Date();
+        return desistencia.getTime() >= actualDate.getTime();
+      };
+      return desistencia ? checkDateBlocked() : false;
+    };
+    const isDroppleOut = participant.inscricoes.some(checkIsBlocked);
+    if (isDroppleOut) {
+      return _next(new AppError('Participant is blocked', 403));
     }
 
     const coursesRepository = getRepository(Curso);
@@ -272,6 +286,49 @@ class SubscriptionsController {
     }
 
     return response.status(200).json({ subscribe });
+  }
+
+  async evaluate(request: Request, response: Response, _next: NextFunction) {
+    const { id, status } = request.body;
+
+    const schema = yup.object().shape({
+      id: yup.string().required(),
+      status: yup.string().required().oneOf(Object.values(SubscriptionStatus)),
+    });
+
+    try {
+      await schema.validate(request.body, { abortEarly: false });
+    } catch (error) {
+      return _next(
+        new AppError((error as yup.ValidationError).errors.join(' - '))
+      );
+    }
+
+    const subscribeRepository = getRepository(Inscricao);
+    const subscribe = await subscribeRepository.findOne(id);
+    if (!subscribe) {
+      return _next(new AppError('Subscribe not found.', 404));
+    }
+    const result: { status: string; blocked_date?: string } = {
+      status: '',
+      blocked_date: '',
+    };
+    if (status == SubscriptionStatus.droppedOut) {
+      const desistencia = new Date();
+      desistencia.setFullYear(desistencia.getFullYear() + 1);
+      subscribe.status = status;
+      subscribe.desistencia = desistencia;
+      result.status = status;
+      result.blocked_date = desistencia.toDateString();
+    } else {
+      subscribe.status = status;
+      result.status = status;
+      delete result.blocked_date;
+    }
+
+    await subscribeRepository.save(subscribe);
+
+    return response.status(200).json(result);
   }
 }
 
