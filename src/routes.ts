@@ -2,16 +2,16 @@ import { Router } from 'express';
 
 import { verifyJWT } from './middlewares/verifyJWT';
 import { verifyShareJWT } from './middlewares/verifyShareJWT';
-import AuthController from './controllers/AuthController';
-import ExamsController from './controllers/ExamsController';
-import CoursesController from './controllers/coursesController';
-import ParticipantsController from './controllers/ParticipantsController';
-import SelectionProcessController from './controllers/selectionProcessController';
-import SubscriptionsController from './controllers/SubscriptionsController';
-import SuperAdminController from './controllers/superAdmin/SuperAdminController';
+import AuthController from './modules/controllers/AuthController';
+import ExamsController from './modules/controllers/ExamsController';
+import CoursesController from './modules/controllers/coursesController';
+import ParticipantsController from './modules/controllers/ParticipantsController';
+import SelectionProcessController from './modules/controllers/selectionProcessController';
+import SubscriptionsController from './modules/controllers/SubscriptionsController';
+import SuperAdminController from './modules/controllers/superAdmin/SuperAdminController';
 import { accessOnlyFor } from './middlewares/accessOnlyFor';
 import { UserRoles } from './typings/UserRoles';
-import AsksController from './controllers/asks/asksController';
+import AsksController from './modules/controllers/asks/asksController';
 const routes = Router();
 
 const authController = new AuthController();

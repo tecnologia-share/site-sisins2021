@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
-import { AppError } from '../../errors/AppError';
-import { Pergunta } from '../../models/Pergunta';
+import { AppError } from '../../../errors/AppError';
+import { Pergunta } from '../../../models/Pergunta';
 import { AsksDTO } from './dto/asksDTO';
-import { AsksTypes } from '../../typings/AsksTypes';
+import { AsksTypes } from '../../../typings/AsksTypes';
 
 class AsksController {
   async create(request: Request, response: Response, _next: NextFunction) {

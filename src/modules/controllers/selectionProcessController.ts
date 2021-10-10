@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
-import { AppError } from '../errors/AppError';
-import { ValidDate } from '../utils/ValidDate';
-import { ProcessoSeletivo } from '../models/ProcessoSeletivo';
-import { UsuarioShare } from '../models/UsuarioShare';
+import { AppError } from '../../errors/AppError';
+import { ValidDate } from '../../utils/ValidDate';
+import { ProcessoSeletivo } from '../../models/ProcessoSeletivo';
+import { UsuarioShare } from '../../models/UsuarioShare';
 
 class selectionProcessController {
   async create(request: Request, response: Response, _next: NextFunction) {

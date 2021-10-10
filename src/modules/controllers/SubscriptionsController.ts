@@ -2,14 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import * as yup from 'yup';
 
-import { AppError } from '../errors/AppError';
-import { Participante } from '../models/Participante';
-import { Curso } from '../models/Curso';
-import { Prova } from '../models/Prova';
-import { QuestaoInscricao } from '../models/QuestaoInscricao';
-import { ProvaInscricao } from '../models/ProvaInscricao';
-import { Inscricao } from '../models/Inscricao';
-import { SubscriptionStatus } from '../typings/SubscriptionStatus';
+import { AppError } from '../../errors/AppError';
+import { Participante } from '../../models/Participante';
+import { Curso } from '../../models/Curso';
+import { Prova } from '../../models/Prova';
+import { QuestaoInscricao } from '../../models/QuestaoInscricao';
+import { ProvaInscricao } from '../../models/ProvaInscricao';
+import { Inscricao } from '../../models/Inscricao';
+import { SubscriptionStatus } from '../../typings/SubscriptionStatus';
 
 interface ExamAnswer {
   questionId: string;
