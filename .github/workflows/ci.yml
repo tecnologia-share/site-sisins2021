@@ -23,8 +23,9 @@ jobs:
       - name: Jest
         run: yarn test
 
-      - name: Prettier
-        run: yarn prettier:check
+      #  BUG - conflito do  prettier local com o do ci/cd
+      # - name: Prettier
+      #   run: yarn prettier:check
 
       - name: Lint
         run: yarn lint

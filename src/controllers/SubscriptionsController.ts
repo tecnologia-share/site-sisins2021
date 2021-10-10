@@ -122,15 +122,14 @@ class SubscriptionsController {
       );
 
       if (predecessorCourse) {
-        alreadyFinishedPredecessorCourse = !!(await subscriptionsRepository.count(
-          {
+        alreadyFinishedPredecessorCourse =
+          !!(await subscriptionsRepository.count({
             where: {
               participante_id: userId,
               status: SubscriptionStatus.concluded,
               curso_id: predecessorCourse.id,
             },
-          }
-        ));
+          }));
       }
     }
 
