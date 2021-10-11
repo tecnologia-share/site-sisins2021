@@ -9,7 +9,7 @@ import { resolve } from 'path';
 import jwt from 'jsonwebtoken';
 import { Pergunta } from '../typeorm/models/Pergunta';
 import { PerguntaParticipante } from '../typeorm/models/PerguntaParticipante';
-import { env } from '../../shared/env';
+import { env } from '../../config/env';
 
 interface PayloadEmail {
   id: string;

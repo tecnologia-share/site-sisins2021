@@ -11,7 +11,7 @@ import {
   subscribeParticipants,
   getSubscribeId,
 } from '../../_utils';
-import { SubscriptionStatus } from '../../../src/typings/SubscriptionStatus';
+import { SubscriptionStatus } from '../../../src/shared/typings/SubscriptionStatus';
 
 let connection: Connection;
 let adminToken: string;

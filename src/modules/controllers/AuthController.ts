@@ -6,7 +6,7 @@ import { Participante } from '../typeorm/models/Participante';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UsuarioShare } from '../typeorm/models/UsuarioShare';
-import { env } from '../../shared/env';
+import { env } from '../../config/env';
 
 class AuthController {
   async authenticate(

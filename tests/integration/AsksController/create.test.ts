@@ -2,8 +2,8 @@ import request from 'supertest';
 import app from '../../../src/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import { UsuarioShare } from '../../../src/modules/typeorm/models/UsuarioShare';
-import { AsksTypes } from '../../../src/typings/AsksTypes';
-import { UserRoles } from '../../../src/typings/UserRoles';
+import { AsksTypes } from '../../../src/shared/typings/AsksTypes';
+import { UserRoles } from '../../../src/shared/typings/UserRoles';
 
 let superAdminToken: string;
 let connection: Connection;

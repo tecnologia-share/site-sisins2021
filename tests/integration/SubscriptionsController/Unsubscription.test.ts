@@ -5,7 +5,7 @@ import { Curso } from '../../../src/modules/typeorm/models/Curso';
 import { Inscricao } from '../../../src/modules/typeorm/models/Inscricao';
 import { Participante } from '../../../src/modules/typeorm/models/Participante';
 import { ProcessoSeletivo } from '../../../src/modules/typeorm/models/ProcessoSeletivo';
-import { SubscriptionStatus } from '../../../src/typings/SubscriptionStatus';
+import { SubscriptionStatus } from '../../../src/shared/typings/SubscriptionStatus';
 
 let token: string;
 let connection: Connection;

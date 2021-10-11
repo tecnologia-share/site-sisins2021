@@ -2,7 +2,7 @@ node_modules/
 .vercel
 dist/
 
-src/database/test/database.test.sqlite
+src/config/database/test/database.test.sqlite
 
 coverage/
 

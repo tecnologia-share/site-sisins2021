@@ -3,11 +3,10 @@ import request from 'supertest';
 import app from '../../../src/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import jwt from 'jsonwebtoken';
-import { Server } from 'http';
-import { env } from '../../../src/shared/env';
+import { env } from '../../../src/config/env';
 import { Participante } from '../../../src/modules/typeorm/models/Participante';
 import { Pergunta } from '../../../src/modules/typeorm/models/Pergunta';
-import { AsksTypes } from '../../../src/typings/AsksTypes';
+import { AsksTypes } from '../../../src/shared/typings/AsksTypes';
 
 const mockSendEmail = jest.fn();
 

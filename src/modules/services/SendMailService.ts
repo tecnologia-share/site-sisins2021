@@ -1,7 +1,7 @@
 import { Transporter, createTransport } from 'nodemailer';
 import handlebars from 'handlebars';
 import fs from 'fs';
-import { env } from '../../shared/env';
+import { env } from '../../config/env';
 
 interface SendEmailParams {
   to: string;

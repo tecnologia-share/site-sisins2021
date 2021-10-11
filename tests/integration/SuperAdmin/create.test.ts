@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../src/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import { UsuarioShare } from '../../../src/modules/typeorm/models/UsuarioShare';
-import { UserRoles } from '../../../src/typings/UserRoles';
+import { UserRoles } from '../../../src/shared/typings/UserRoles';
 
 let superAdminToken: string;
 let nonSuperAdminToken: string;
