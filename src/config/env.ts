@@ -1,3 +1,4 @@
+const PORT = 3333;
 export const env = {
   typeormConnection: process.env.TYPEORM_CONNECTION,
   typeormDatabase: process.env.TYPEORM_DATABASE,
@@ -11,7 +12,7 @@ export const env = {
   smtpPort: process.env.SMTP_PORT,
   smtpHost: process.env.SMTP_HOST,
   email: process.env.EMAIL,
-  port: process.env.PORT || 3333,
-  hostBack: process.env.HOST_BACKEND || 'http://localhost',
+  port: process.env.PORT || PORT,
+  hostBack: process.env.HOST_BACKEND || `http://localhost:${PORT}`,
   hostFront: process.env.HOST_FRONTEND || 'http://localhost',
 };

@@ -128,7 +128,7 @@ class ParticipantsController {
     // START sending email
     const npsPath = resolve(
       __dirname,
-      '../../assets/emails/verificationEmail.hbs'
+      '../../shared/assets/emails/verificationEmail.hbs'
     );
 
     const token = jwt.sign(
@@ -142,7 +142,7 @@ class ParticipantsController {
 
     const variables = {
       name,
-      link: `${env.hostBack}:${env.port}/api/register/verify-email/${token}`,
+      link: `${env.hostBack}/api/register/verify-email/${token}`,
     };
 
     await participantsRepository.save(participant);
