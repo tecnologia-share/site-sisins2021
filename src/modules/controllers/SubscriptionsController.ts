@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository, getManager } from 'typeorm';
 import * as yup from 'yup';
 
-import { AppError } from '../../errors/AppError';
+import { AppError } from '../../shared/errors/AppError';
 import { Participante } from '../typeorm/models/Participante';
 import { Curso } from '../typeorm/models/Curso';
 import { Prova } from '../typeorm/models/Prova';

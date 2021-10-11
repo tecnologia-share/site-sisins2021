@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
-import { AppError } from '../../../errors/AppError';
+import { AppError } from '../../../shared/errors/AppError';
 import { Pergunta } from '../../typeorm/models/Pergunta';
 import { AsksDTO } from './dto/asksDTO';
 import { AsksTypes } from '../../../typings/AsksTypes';

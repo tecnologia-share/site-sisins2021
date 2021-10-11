@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { AppError } from '../errors/AppError';
+import { AppError } from '../shared/errors/AppError';
 import { env } from '../shared/env';
 
 interface tokenPayload {

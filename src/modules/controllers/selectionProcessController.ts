@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
-import { AppError } from '../../errors/AppError';
+import { AppError } from '../../shared/errors/AppError';
 import { ValidDate } from '../../utils/ValidDate';
 import { ProcessoSeletivo } from '../typeorm/models/ProcessoSeletivo';
 import { UsuarioShare } from '../typeorm/models/UsuarioShare';

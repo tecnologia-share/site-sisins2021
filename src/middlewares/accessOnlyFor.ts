@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import { AppError } from '../errors/AppError';
+import { AppError } from '../shared/errors/AppError';
 import { UsuarioShare } from '../modules/typeorm/models/UsuarioShare';
 
 interface StringArray {
