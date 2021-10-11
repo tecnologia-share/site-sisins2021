@@ -65,8 +65,14 @@ class selectionProcessController {
   }
 
   async update(request: Request, response: Response, _next: NextFunction) {
-    const { id, name, startDate, endDate, editalLink, manualLink } =
-      request.body;
+    const {
+      id,
+      name,
+      startDate,
+      endDate,
+      editalLink,
+      manualLink,
+    } = request.body;
     const { userId } = request;
 
     const usersRepository = getRepository(UsuarioShare);
