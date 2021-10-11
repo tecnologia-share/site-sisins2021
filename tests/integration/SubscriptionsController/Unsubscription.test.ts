@@ -1,11 +1,11 @@
 import request from 'supertest';
-import app from '../../../src/shared/infra/http/app';
+import app from '../../shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import { Curso } from '../../../src/modules/typeorm/models/Curso';
 import { Inscricao } from '../../../src/modules/typeorm/models/Inscricao';
 import { Participante } from '../../../src/modules/typeorm/models/Participante';
 import { ProcessoSeletivo } from '../../../src/modules/typeorm/models/ProcessoSeletivo';
-import { SubscriptionStatus } from '../../../src/shared/typings/SubscriptionStatus';
+import { SubscriptionStatus } from '../../shared/typings/SubscriptionStatus';
 
 let token: string;
 let connection: Connection;
