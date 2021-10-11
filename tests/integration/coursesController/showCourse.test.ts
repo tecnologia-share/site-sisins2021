@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../shared/infra/http/app';
+import app from '../../../src/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import { createAdmin, createNonAdmin } from '../../_utils';
 

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../shared/infra/http/app';
+import app from '../../../src/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import {
   createAdmin,
@@ -11,7 +11,7 @@ import {
   subscribeParticipants,
   getSubscribeId,
 } from '../../_utils';
-import { SubscriptionStatus } from '../../shared/typings/SubscriptionStatus';
+import { SubscriptionStatus } from '../../../src/shared/typings/SubscriptionStatus';
 
 let connection: Connection;
 let adminToken: string;
