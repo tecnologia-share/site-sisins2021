@@ -9,7 +9,7 @@ import { Prova } from '../typeorm/models/Prova';
 import { QuestaoInscricao } from '../typeorm/models/QuestaoInscricao';
 import { ProvaInscricao } from '../typeorm/models/ProvaInscricao';
 import { Inscricao } from '../typeorm/models/Inscricao';
-import { SubscriptionStatus } from '../../../src/shared/typings/SubscriptionStatus';
+import { SubscriptionStatus } from '../../shared/typings/SubscriptionStatus';
 
 interface ExamAnswer {
   questionId: string;
