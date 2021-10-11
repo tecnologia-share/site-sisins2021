@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/app';
+import app from '../../src/shared/infra/http/app';
 
 export const getTokensOfManyParcipants = async (
   qty: number

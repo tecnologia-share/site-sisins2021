@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from 'supertest';
-import app from '../../../src/app';
+import app from '../../../src/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import jwt from 'jsonwebtoken';
 import { Server } from 'http';
