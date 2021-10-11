@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../../errors/AppError';
 import bcrypt from 'bcrypt';
-import { UsuarioShare as UserShare } from '../../../models/UsuarioShare';
+import { UsuarioShare as UserShare } from '../../typeorm/models/UsuarioShare';
 
 class SuperAdminController {
   async create(request: Request, response: Response, _next: NextFunction) {

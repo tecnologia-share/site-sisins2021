@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../src/app';
 import { Connection, createConnection } from 'typeorm';
-import { UsuarioShare } from '../../../src/models/UsuarioShare';
+import { UsuarioShare } from '../../../src/modules/typeorm/models/UsuarioShare';
 import { UserRoles } from '../../../src/typings/UserRoles';
 
 let adminToken: string;

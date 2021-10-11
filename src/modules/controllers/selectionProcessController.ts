@@ -3,8 +3,8 @@ import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../errors/AppError';
 import { ValidDate } from '../../utils/ValidDate';
-import { ProcessoSeletivo } from '../../models/ProcessoSeletivo';
-import { UsuarioShare } from '../../models/UsuarioShare';
+import { ProcessoSeletivo } from '../typeorm/models/ProcessoSeletivo';
+import { UsuarioShare } from '../typeorm/models/UsuarioShare';
 
 class selectionProcessController {
   async create(request: Request, response: Response, _next: NextFunction) {

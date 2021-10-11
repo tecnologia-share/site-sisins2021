@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { AppError } from '../errors/AppError';
-import { UsuarioShare as UserShare } from '../models/UsuarioShare';
+import { UsuarioShare } from '../modules/typeorm/models/UsuarioShare';
 
 interface StringArray {
   includes(role: string | undefined): boolean;
@@ -12,7 +12,7 @@ interface StringArray {
 export const accessOnlyFor = (roles: StringArray) => {
   return async (request: Request, response: Response, _next: NextFunction) => {
     const { userId } = request;
-    const userShareRepository = getRepository(UserShare);
+    const userShareRepository = getRepository(UsuarioShare);
     const user = await userShareRepository.findOne(userId);
 
     if (roles.includes(user?.role)) return _next();

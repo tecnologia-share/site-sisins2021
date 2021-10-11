@@ -2,9 +2,9 @@ import { Connection, getRepository } from 'typeorm';
 
 import request from 'supertest';
 import app from '../../src/app';
-import { Participante } from '../../src/models/Participante';
+import { Participante } from '../../src/modules/typeorm/models/Participante';
 import { SubscriptionStatus } from '../../src/typings/SubscriptionStatus';
-import { Inscricao } from '../../src/models/Inscricao';
+import { Inscricao } from '../../src/modules/typeorm/models/Inscricao';
 
 export const getTokenSubscribeBlocked = async (
   connection: Connection,

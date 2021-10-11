@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../../src/app';
 import { Connection, createConnection } from 'typeorm';
-import { UsuarioShare } from '../../../src/models/UsuarioShare';
+import { UsuarioShare } from '../../../src/modules/typeorm/models/UsuarioShare';
 import { AsksTypes } from '../../../src/typings/AsksTypes';
 import { UserRoles } from '../../../src/typings/UserRoles';
 

@@ -7,7 +7,7 @@ import {
   genTokenAdmin,
   genTokenNonAdmin,
 } from '../../_utils';
-import { Questao } from '../../../src/models/Questao';
+import { Questao } from '../../../src/modules/typeorm/models/Questao';
 
 let adminToken: string;
 let nonAdminToken: string;

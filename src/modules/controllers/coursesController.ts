@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../errors/AppError';
-import { Curso } from '../../models/Curso';
-import { ProcessoSeletivo } from '../../models/ProcessoSeletivo';
-import { UsuarioShare } from '../../models/UsuarioShare';
+import { Curso } from '../typeorm/models/Curso';
+import { ProcessoSeletivo } from '../typeorm/models/ProcessoSeletivo';
+import { UsuarioShare } from '../typeorm/models/UsuarioShare';
 import { CourseStates } from '../../typings/CourseStates';
 
 class CoursesController {

@@ -7,7 +7,7 @@ import {
   genTokenAdmin,
   genTokenNonAdmin,
 } from '../../_utils';
-import { Curso } from '../../../src/models/Curso';
+import { Curso } from '../../../src/modules/typeorm/models/Curso';
 
 let adminToken: string;
 let nonAdminToken: string;

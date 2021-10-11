@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../errors/AppError';
-import { Participante } from '../../models/Participante';
+import { Participante } from '../typeorm/models/Participante';
 import bcrypt from 'bcrypt';
 import SendMailService from '../../services/SendMailService';
 import { resolve } from 'path';
 import jwt from 'jsonwebtoken';
-import { Pergunta } from '../../models/Pergunta';
-import { PerguntaParticipante } from '../../models/PerguntaParticipante';
+import { Pergunta } from '../typeorm/models/Pergunta';
+import { PerguntaParticipante } from '../typeorm/models/PerguntaParticipante';
 import { env } from '../../shared/env';
 
 interface PayloadEmail {

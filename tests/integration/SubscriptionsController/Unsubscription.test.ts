@@ -1,10 +1,10 @@
 import request from 'supertest';
 import app from '../../../src/app';
 import { Connection, createConnection } from 'typeorm';
-import { Curso } from '../../../src/models/Curso';
-import { Inscricao } from '../../../src/models/Inscricao';
-import { Participante } from '../../../src/models/Participante';
-import { ProcessoSeletivo } from '../../../src/models/ProcessoSeletivo';
+import { Curso } from '../../../src/modules/typeorm/models/Curso';
+import { Inscricao } from '../../../src/modules/typeorm/models/Inscricao';
+import { Participante } from '../../../src/modules/typeorm/models/Participante';
+import { ProcessoSeletivo } from '../../../src/modules/typeorm/models/ProcessoSeletivo';
 import { SubscriptionStatus } from '../../../src/typings/SubscriptionStatus';
 
 let token: string;

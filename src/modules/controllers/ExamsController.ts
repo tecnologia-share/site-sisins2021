@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../errors/AppError';
-import { UsuarioShare } from '../../models/UsuarioShare';
-import { Prova } from '../../models/Prova';
-import { Curso } from '../../models/Curso';
-import { Questao } from '../../models/Questao';
+import { UsuarioShare } from '../typeorm/models/UsuarioShare';
+import { Prova } from '../typeorm/models/Prova';
+import { Curso } from '../typeorm/models/Curso';
+import { Questao } from '../typeorm/models/Questao';
 
 interface Question {
   id?: string;

@@ -3,12 +3,12 @@ import { getRepository, getManager } from 'typeorm';
 import * as yup from 'yup';
 
 import { AppError } from '../../errors/AppError';
-import { Participante } from '../../models/Participante';
-import { Curso } from '../../models/Curso';
-import { Prova } from '../../models/Prova';
-import { QuestaoInscricao } from '../../models/QuestaoInscricao';
-import { ProvaInscricao } from '../../models/ProvaInscricao';
-import { Inscricao } from '../../models/Inscricao';
+import { Participante } from '../typeorm/models/Participante';
+import { Curso } from '../typeorm/models/Curso';
+import { Prova } from '../typeorm/models/Prova';
+import { QuestaoInscricao } from '../typeorm/models/QuestaoInscricao';
+import { ProvaInscricao } from '../typeorm/models/ProvaInscricao';
+import { Inscricao } from '../typeorm/models/Inscricao';
 import { SubscriptionStatus } from '../../typings/SubscriptionStatus';
 
 interface ExamAnswer {

@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { Participante } from '../../src/models/Participante';
+import { Participante } from '../../src/modules/typeorm/models/Participante';
 
 export const createManyParticipants = async (
   connection: Connection,

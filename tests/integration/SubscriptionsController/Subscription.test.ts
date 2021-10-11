@@ -9,10 +9,10 @@ import {
   genTokenAdmin,
   getTokenSubscribeBlocked,
 } from '../../_utils';
-import { Participante } from '../../../src/models/Participante';
-import { Curso } from '../../../src/models/Curso';
-import { Prova } from '../../../src/models/Prova';
-import { Questao } from '../../../src/models/Questao';
+import { Participante } from '../../../src/modules/typeorm/models/Participante';
+import { Curso } from '../../../src/modules/typeorm/models/Curso';
+import { Prova } from '../../../src/modules/typeorm/models/Prova';
+import { Questao } from '../../../src/modules/typeorm/models/Questao';
 
 let token: string;
 let connection: Connection;

@@ -5,8 +5,8 @@ import { Connection, createConnection } from 'typeorm';
 import jwt from 'jsonwebtoken';
 import { Server } from 'http';
 import { env } from '../../../src/shared/env';
-import { Participante } from '../../../src/models/Participante';
-import { Pergunta } from '../../../src/models/Pergunta';
+import { Participante } from '../../../src/modules/typeorm/models/Participante';
+import { Pergunta } from '../../../src/modules/typeorm/models/Pergunta';
 import { AsksTypes } from '../../../src/typings/AsksTypes';
 
 const mockSendEmail = jest.fn();
@@ -15,7 +15,6 @@ jest.mock('../../../src/services/SendMailService.ts', () => ({
   execute: () => mockSendEmail(),
 }));
 
-let server: Server, agent: request.SuperAgentTest;
 let token = '';
 let connection: Connection;
 let ask1Id: string;
@@ -112,7 +111,7 @@ const populateDatabase = async (connection: Connection) => {
 };
 
 const getToken = async () => {
-  const response = await agent.post('/api/authenticate').send({
+  const response = await request(app).post('/api/authenticate').send({
     email: 'this_email_exists@example.com',
     password: 'correct_password',
   });
@@ -152,21 +151,14 @@ const getToken_idNotExist = async () => {
 };
 
 describe('Create a new Participant and to send email', () => {
-  beforeAll(async (done) => {
-    server = app.listen(0, async () => {
-      agent = request.agent(server);
-      if (!connection) {
-        connection = await createConnection();
-      }
-      await connection.dropDatabase();
-      await connection.runMigrations();
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
 
-      await populateDatabase(connection);
-      done();
-    });
-  });
-  afterAll(async (done) => {
-    return server && server.close(done);
+    await populateDatabase(connection);
   });
 
   beforeEach(() => {
@@ -174,194 +166,197 @@ describe('Create a new Participant and to send email', () => {
   });
 
   it('The creation of the new personal account should be successful, if to send asks that exist.', async () => {
-    const response = await agent.post('/api/register/').send({
-      name: 'new nome',
-      email: 'newemail@example.com',
-      password: 'new senha',
-      cpf: '12345678912',
-      phone: '1234',
-      birth_date: new Date(2021, 3, 14),
-      country: 'new pais',
-      state: 'new estado',
-      city: 'new cidade',
-      asksAnswers: [
-        {
-          asksId: ask1Id,
-          response: 1,
-        },
-        {
-          asksId: ask2Id,
-          response: 1,
-        },
-        {
-          asksId: ask3Id,
-          response: 1,
-        },
-        {
-          asksId: ask4Id,
-          response: 1,
-        },
-      ],
-    });
+    const response = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'newemail@example.com',
+        password: 'new senha',
+        cpf: '12345678912',
+        phone: '1234',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: ask1Id,
+            response: 1,
+          },
+          {
+            asksId: ask2Id,
+            response: 1,
+          },
+          {
+            asksId: ask3Id,
+            response: 1,
+          },
+          {
+            asksId: ask4Id,
+            response: 1,
+          },
+        ],
+      });
 
     expect(response.status).toBe(201);
     expect(mockSendEmail.mock.calls.length).toBe(1);
   });
 
   it('Should not be possible to create an account if email already exist', async () => {
-    const responseEmailAlreadyExit = await agent.post('/api/register/').send({
-      name: 'new nome',
-      email: 'this_email_exists@example.com',
-      password: 'new senha',
-      phone: '1234',
-      cpf: '12345678912',
-      birth_date: new Date(2021, 3, 14),
-      country: 'new pais',
-      state: 'new estado',
-      city: 'new cidade',
-      asksAnswers: [
-        {
-          asksId: ask1Id,
-          response: 1,
-        },
-        {
-          asksId: ask2Id,
-          response: 1,
-        },
-        {
-          asksId: ask3Id,
-          response: 1,
-        },
-        {
-          asksId: ask4Id,
-          response: 1,
-        },
-      ],
-    });
+    const responseEmailAlreadyExit = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'this_email_exists@example.com',
+        password: 'new senha',
+        phone: '1234',
+        cpf: '12345678912',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: ask1Id,
+            response: 1,
+          },
+          {
+            asksId: ask2Id,
+            response: 1,
+          },
+          {
+            asksId: ask3Id,
+            response: 1,
+          },
+          {
+            asksId: ask4Id,
+            response: 1,
+          },
+        ],
+      });
 
     expect(responseEmailAlreadyExit.status).toBe(400);
   });
 
   it('It should not be possible to create an account if you do not submit all asks', async () => {
-    const responseNotSubmitAllAsks = await agent.post('/api/register/').send({
-      name: 'new nome',
-      email: 'newemail2@example.com',
-      password: 'new senha',
-      phone: '1234',
-      cpf: '12345678912',
-      birth_date: new Date(2021, 3, 14),
-      country: 'new pais',
-      state: 'new estado',
-      city: 'new cidade',
-      asksAnswers: [
-        {
-          asksId: ask1Id,
-          response: 1,
-        },
-        {
-          asksId: ask2Id,
-          response: 1,
-        },
-        {
-          asksId: ask3Id,
-          response: 1,
-        },
-      ],
-    });
+    const responseNotSubmitAllAsks = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'newemail2@example.com',
+        password: 'new senha',
+        phone: '1234',
+        cpf: '12345678912',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: ask1Id,
+            response: 1,
+          },
+          {
+            asksId: ask2Id,
+            response: 1,
+          },
+          {
+            asksId: ask3Id,
+            response: 1,
+          },
+        ],
+      });
     expect(responseNotSubmitAllAsks.status).toBe(400);
   });
 
   it('Should not be possible to create an account with asks that dont exist', async () => {
-    const responseWithAsksNotExist = await agent.post('/api/register/').send({
-      name: 'new nome',
-      email: 'newemail2@example.com',
-      password: 'new senha',
-      phone: '1234',
-      cpf: '12345678912',
-      birth_date: new Date(2021, 3, 14),
-      country: 'new pais',
-      state: 'new estado',
-      city: 'new cidade',
-      asksAnswers: [
-        {
-          asksId: askNotExist,
-          response: 1,
-        },
-        {
-          asksId: askNotExist,
-          response: 1,
-        },
-        {
-          asksId: askNotExist,
-          response: 1,
-        },
-        {
-          asksId: askNotExist,
-          response: 1,
-        },
-      ],
-    });
+    const responseWithAsksNotExist = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'newemail2@example.com',
+        password: 'new senha',
+        phone: '1234',
+        cpf: '12345678912',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+          {
+            asksId: askNotExist,
+            response: 1,
+          },
+        ],
+      });
 
     expect(responseWithAsksNotExist.status).toBe(400);
   });
 
   it('It should not be possible to create an account if you do not send answers to all asks', async () => {
-    const responseWithFewAnswers = await agent.post('/api/register/').send({
-      name: 'new nome',
-      email: 'newemail2@example.com',
-      password: 'new senha',
-      phone: '1234',
-      birth_date: new Date(2021, 3, 14),
-      country: 'new pais',
-      cpf: '12345678912',
-      state: 'new estado',
-      city: 'new cidade',
-      asksAnswers: [
-        {
-          asksId: ask1Id,
-          response: 1,
-        },
-        {
-          asksId: ask2Id,
-          response: 1,
-        },
-        {
-          asksId: ask3Id,
-          response: 1,
-        },
-        {
-          asksId: ask4Id,
-        },
-      ],
-    });
+    const responseWithFewAnswers = await request(app)
+      .post('/api/register/')
+      .send({
+        name: 'new nome',
+        email: 'newemail2@example.com',
+        password: 'new senha',
+        phone: '1234',
+        birth_date: new Date(2021, 3, 14),
+        country: 'new pais',
+        cpf: '12345678912',
+        state: 'new estado',
+        city: 'new cidade',
+        asksAnswers: [
+          {
+            asksId: ask1Id,
+            response: 1,
+          },
+          {
+            asksId: ask2Id,
+            response: 1,
+          },
+          {
+            asksId: ask3Id,
+            response: 1,
+          },
+          {
+            asksId: ask4Id,
+          },
+        ],
+      });
 
     expect(responseWithFewAnswers.status).toBe(400);
   });
 });
 
 describe('Verify email and finishes creating the participant', () => {
-  beforeAll(async (done) => {
-    server = app.listen(0, async () => {
-      agent = request.agent(server);
-      if (!connection) {
-        connection = await createConnection();
-      }
-      await connection.dropDatabase();
-      await connection.runMigrations();
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
 
-      await populateDatabase(connection);
-      await getToken_emailConfirmed();
-      await getToken_emailUnconfirmed();
-      await getToken_idNotExist();
-      done();
-    });
-  });
-  afterAll(async (done) => {
-    return server && server.close(done);
+    await populateDatabase(connection);
+    await getToken_emailConfirmed();
+    await getToken_emailUnconfirmed();
+    await getToken_idNotExist();
   });
 
   it('Should verify the email successfully if sent the token correctly', async () => {
-    const response = await agent.get(
+    const response = await request(app).get(
       `/api/register/verify-email/${token_emailUnconfirmed}`
     );
 
@@ -369,7 +364,7 @@ describe('Verify email and finishes creating the participant', () => {
   });
 
   it('Should return 400 BAD REQUEST if sent a email that has already been confirmed', async () => {
-    const responseEmailAlreadyConfirmed = await agent.get(
+    const responseEmailAlreadyConfirmed = await request(app).get(
       `/api/register/verify-email/${token_emailConfirmed}`
     );
 
@@ -378,7 +373,7 @@ describe('Verify email and finishes creating the participant', () => {
   });
 
   it('Should return 401 UNAUTHORIZED if sent the token incorrect', async () => {
-    const responseTokenIncorrect = await agent.get(
+    const responseTokenIncorrect = await request(app).get(
       `/api/register/verify-email/token_incorrect`
     );
 
@@ -386,7 +381,7 @@ describe('Verify email and finishes creating the participant', () => {
   });
 
   it('Should return 404 NOT FOUND if a participant does not exist', async () => {
-    const responseParticipantNotExist = await agent.get(
+    const responseParticipantNotExist = await request(app).get(
       `/api/register/verify-email/${token_idNotExist}`
     );
 
@@ -395,28 +390,20 @@ describe('Verify email and finishes creating the participant', () => {
 });
 
 describe('Participant update email', () => {
-  beforeAll(async (done) => {
-    server = app.listen(0, async () => {
-      agent = request.agent(server); // since the application is already listening, it should use the allocated port
-      if (!connection) {
-        connection = await createConnection();
-      }
-      await connection.dropDatabase();
-      await connection.runMigrations();
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
 
-      await populateDatabase(connection);
-      await getToken();
-
-      done();
-    });
-  });
-  afterAll(async (done) => {
-    return server && server.close(done);
+    await populateDatabase(connection);
+    await getToken();
   });
 
   // Participant update email › Should update the email successfully if the correct password and valid token are sent
   it('Should update the email successfully if the correct password and valid token are sent', async () => {
-    const response = await agent
+    const response = await request(app)
       .patch('/api/participants/update-email')
       .set({ authorization: `Bearer ${token}` })
       .send({
@@ -428,13 +415,13 @@ describe('Participant update email', () => {
   });
 
   it('Should return 400 BAD REQUEST if the password or email is not sent', async () => {
-    const responseWithoutPassword = await agent
+    const responseWithoutPassword = await request(app)
       .patch('/api/participants/update-email')
       .set({ authorization: `Bearer ${token}` })
       .send({
         email: 'another_email@example.com',
       });
-    const responseWithoutEmail = await agent
+    const responseWithoutEmail = await request(app)
       .patch('/api/participants/update-email')
       .set({ authorization: `Bearer ${token}` })
       .send({
@@ -446,14 +433,14 @@ describe('Participant update email', () => {
   });
 
   it('Should return 401 UNAUTHORIZED if the password or token sent is invalid', async () => {
-    const responseWithInvalidPassword = await agent
+    const responseWithInvalidPassword = await request(app)
       .patch('/api/participants/update-email')
       .set({ authorization: `Bearer ${token}` })
       .send({
         email: 'another_email@example.com',
         password: 'incorrect_password',
       });
-    const responseWithInvalidToken = await agent
+    const responseWithInvalidToken = await request(app)
       .patch('/api/participants/update-email')
       .set({ authorization: 'invalid_token' })
       .send({
@@ -467,32 +454,25 @@ describe('Participant update email', () => {
 });
 
 describe('Participant update password', () => {
-  beforeAll(async (done) => {
-    server = app.listen(0, async () => {
-      agent = request.agent(server);
-      if (!connection) {
-        connection = await createConnection();
-      }
-      await connection.dropDatabase();
-      await connection.runMigrations();
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
 
-      await populateDatabase(connection);
-      await getToken();
-      done();
-    });
-  });
-  afterAll(async (done) => {
-    return server && server.close(done);
+    await populateDatabase(connection);
+    await getToken();
   });
 
   it('Should return 400 BAD REQUEST if the currentPassword or newPassword is not sent', async () => {
-    const responseWithoutCurrentPassword = await agent
+    const responseWithoutCurrentPassword = await request(app)
       .patch('/api/participants/update-password')
       .set({ authorization: `Bearer ${token}` })
       .send({
         newPassword: 'new_password',
       });
-    const responseWithoutNewPassword = await agent
+    const responseWithoutNewPassword = await request(app)
       .patch('/api/participants/update-password')
       .set({ authorization: `Bearer ${token}` })
       .send({
@@ -504,14 +484,14 @@ describe('Participant update password', () => {
   });
 
   it('Should return 401 UNAUTHORIZED if the password or token sent is invalid', async () => {
-    const responseWithInvalidPassword = await agent
+    const responseWithInvalidPassword = await request(app)
       .patch('/api/participants/update-password')
       .set({ authorization: `Bearer ${token}` })
       .send({
         currentPassword: 'incorrect_password',
         newPassword: 'new_password',
       });
-    const responseWithInvalidToken = await agent
+    const responseWithInvalidToken = await request(app)
       .patch('/api/participants/update-password')
       .set({ authorization: 'invalid_token' })
       .send({
@@ -524,7 +504,7 @@ describe('Participant update password', () => {
   });
 
   it('Should update the password successfully if the correct password and valid token are sent', async () => {
-    const response = await agent
+    const response = await request(app)
       .patch('/api/participants/update-password')
       .set({ authorization: `Bearer ${token}` })
       .send({
@@ -537,26 +517,19 @@ describe('Participant update password', () => {
 });
 
 describe('Participant update personal data', () => {
-  beforeAll(async (done) => {
-    server = app.listen(0, async () => {
-      agent = request.agent(server);
-      if (!connection) {
-        connection = await createConnection();
-      }
-      await connection.dropDatabase();
-      await connection.runMigrations();
+  beforeAll(async () => {
+    if (!connection) {
+      connection = await createConnection();
+    }
+    await connection.dropDatabase();
+    await connection.runMigrations();
 
-      await populateDatabase(connection);
-      await getToken();
-      done();
-    });
-  });
-  afterAll(async (done) => {
-    return server && server.close(done);
+    await populateDatabase(connection);
+    await getToken();
   });
 
   it('Should successfully update personal data if an valid token are sent', async () => {
-    const responseWithAllUpdates = await agent
+    const responseWithAllUpdates = await request(app)
       .patch('/api/participants')
       .set({ authorization: `Bearer ${token}` })
       .send({
@@ -568,7 +541,7 @@ describe('Participant update personal data', () => {
         cidade: 'new cidade',
       });
 
-    const responseWithFewUpdates = await agent
+    const responseWithFewUpdates = await request(app)
       .patch('/api/participants')
       .set({ authorization: `Bearer ${token}` })
       .send({
@@ -581,7 +554,7 @@ describe('Participant update personal data', () => {
   });
 
   it('Should return 401 UNAUTHORIZED if the token sent is invalid', async () => {
-    const response = await agent
+    const response = await request(app)
       .patch('/api/participants')
       .set({ authorization: 'invalid_token' })
       .send({

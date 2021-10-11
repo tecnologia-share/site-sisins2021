@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { UsuarioShare } from '../../src/models/UsuarioShare';
+import { UsuarioShare } from '../../src/modules/typeorm/models/UsuarioShare';
 import { UserRoles } from '../../src/typings/UserRoles';
 
 export const createAdmin = async (connection: Connection) => {
