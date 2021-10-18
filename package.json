@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "node dist/shared/infra/http/server.js",
     "build": "rm -rf dist && babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "up": "docker-compose up -d",
@@ -64,6 +64,7 @@
     "ts-jest": "^27.0.5",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.11.0",
     "typescript": "^4.4.3"
   }
 }
