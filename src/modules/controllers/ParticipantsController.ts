@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { AppError } from '../../shared/errors/AppError';
 import { Participante } from '../../shared/infra/typeorm/models/Participante';
 import bcrypt from 'bcrypt';
-import SendMailService from '../services/SendMailService';
+import SendMailService from '../../shared/providers/SendMailProvider';
 import { resolve } from 'path';
 import jwt from 'jsonwebtoken';
 import { Pergunta } from '../../shared/infra/typeorm/models/Pergunta';

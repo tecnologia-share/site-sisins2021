@@ -2,7 +2,7 @@ import { container } from 'tsyringe';
 import {
   CoursesRepository,
   ParticipantsRepository,
-} from '../../modules/repositories';
+} from '../../modules/subscriptions/repositories';
 import {
   DbCoursesRepository,
   DbParticipantRepository,

@@ -1,8 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
-import { CoursesRepository } from '../../../../modules/repositories/coursesRepository';
-import { ParticipantsRepository } from '../../../../modules/repositories/participantRepository';
+import { CoursesRepository } from '../../../../modules/subscriptions/repositories/coursesRepository';
 import { Curso } from '../models/Curso';
-import { Participante } from '../models/Participante';
 
 export class DbCoursesRepository implements CoursesRepository {
   private readonly ormRepository: Repository<Curso>;

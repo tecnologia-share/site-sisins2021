@@ -10,7 +10,7 @@ import { AsksTypes } from '@/shared/typings/AsksTypes';
 
 const mockSendEmail = jest.fn();
 
-jest.mock('@/modules/services/SendMailService.ts', () => ({
+jest.mock('@/shared/providers/SendMailProvider.ts', () => ({
   execute: () => mockSendEmail(),
 }));
 
