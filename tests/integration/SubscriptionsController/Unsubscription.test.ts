@@ -100,8 +100,10 @@ const enrollInTheCourses = async () => {
     .post('/api/subscriptions')
     .set({ authorization: `Bearer ${token}` })
     .send({
-      courseId,
-      reason: 'My Reason',
+      option1: {
+        courseId,
+        reason: 'My Reason',
+      },
     });
 };
 

@@ -12,6 +12,9 @@ import SuperAdminController from '../../../modules/controllers/superAdmin/SuperA
 import { accessOnlyFor } from './middlewares/accessOnlyFor';
 import { UserRoles } from '../../typings/UserRoles';
 import AsksController from '../../../modules/controllers/asks/asksController';
+import { validationMiddleware } from './middlewares/validation';
+import { subscribeParticipantValidationSchema } from './validations/schemas/subscribeParticipantSchema';
+import { SubscribeParticipantService } from '../../../modules/services/subscribeParticipantService';
 const routes = Router();
 
 const authController = new AuthController();
@@ -49,6 +52,7 @@ routes.patch(
 routes.post(
   '/api/subscriptions',
   verifyJWT(),
+  validationMiddleware(subscribeParticipantValidationSchema),
   subscriptionsController.subscribe
 );
 routes.delete(

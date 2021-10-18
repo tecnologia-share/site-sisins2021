@@ -10,9 +10,11 @@ export const subscribeParticipants = async (
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId,
-        reason: 'My Reason',
-        videoLink: 'link',
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          videoLink: 'link',
+        },
       });
   }
 };
