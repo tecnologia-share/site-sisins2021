@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import {
   createAdmin,
@@ -9,10 +9,10 @@ import {
   genTokenAdmin,
   getTokenSubscribeBlocked,
 } from '../../_utils';
-import { Participante } from '../../../src/modules/typeorm/models/Participante';
-import { Curso } from '../../../src/modules/typeorm/models/Curso';
-import { Prova } from '../../../src/modules/typeorm/models/Prova';
-import { Questao } from '../../../src/modules/typeorm/models/Questao';
+import { Participante } from '@/shared/infra/typeorm/models/Participante';
+import { Curso } from '@/shared/infra/typeorm/models/Curso';
+import { Prova } from '@/shared/infra/typeorm/models/Prova';
+import { Questao } from '@/shared/infra/typeorm/models/Questao';
 
 let token: string;
 let connection: Connection;

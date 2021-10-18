@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { ProcessoSeletivo } from '../../src/modules/typeorm/models/ProcessoSeletivo';
+import { ProcessoSeletivo } from '@/shared/infra/typeorm/models/ProcessoSeletivo';
 /**
  *  Criar no banco de dados um processo seletivo inativo
  * @param  {Connection} connection

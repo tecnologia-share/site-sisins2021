@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { Inscricao } from '../../src/modules/typeorm/models/Inscricao';
+import { Inscricao } from '@/shared/infra/typeorm/models/Inscricao';
 
 export const getSubscribeId = async (
   connection: Connection

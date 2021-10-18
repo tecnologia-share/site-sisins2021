@@ -14,7 +14,7 @@ import { UserRoles } from '../../typings/UserRoles';
 import AsksController from '../../../modules/controllers/asks/asksController';
 import { validationMiddleware } from './middlewares/validation';
 import { subscribeParticipantValidationSchema } from './validations/schemas/subscribeParticipantSchema';
-import { SubscribeParticipantService } from '../../../modules/services/subscribeParticipantService';
+import { SubscribeParticipantService } from '../../../modules/subscriptions/services/subscribeParticipantService';
 const routes = Router();
 
 const authController = new AuthController();

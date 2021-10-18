@@ -1,5 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
-import { ParticipantsRepository } from '../../repositories/participantRepository';
+import { ParticipantsRepository } from '../../../../modules/repositories/participantRepository';
 import { Participante } from '../models/Participante';
 
 export class DbParticipantRepository implements ParticipantsRepository {

@@ -1,4 +1,4 @@
-import { Curso } from '../typeorm/models/Curso';
+import { Curso } from '../../shared/infra/typeorm/models/Curso';
 
 export interface CoursesRepository {
   findOne: (

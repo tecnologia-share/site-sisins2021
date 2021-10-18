@@ -1,14 +1,14 @@
 import { inject, injectable } from 'tsyringe';
 import { getRepository, getManager } from 'typeorm';
-import { AppError } from '../../shared/errors/AppError';
-import { SubscriptionStatus } from '../../shared/typings/SubscriptionStatus';
-import { SubscribeParticipant } from '../domain/usecases/subscribeUseCase';
-import { CoursesRepository, ParticipantsRepository } from '../repositories';
-import { Curso } from '../typeorm/models/Curso';
-import { Inscricao } from '../typeorm/models/Inscricao';
-import { Prova } from '../typeorm/models/Prova';
-import { ProvaInscricao } from '../typeorm/models/ProvaInscricao';
-import { QuestaoInscricao } from '../typeorm/models/QuestaoInscricao';
+import { AppError } from '../../../shared/errors/AppError';
+import { SubscriptionStatus } from '../../../shared/typings/SubscriptionStatus';
+import { SubscribeParticipant } from '../contracts/subscribeParticipant';
+import { CoursesRepository, ParticipantsRepository } from '../../repositories';
+import { Curso } from '../../../shared/infra/typeorm/models/Curso';
+import { Inscricao } from '../../../shared/infra/typeorm/models/Inscricao';
+import { Prova } from '../../../shared/infra/typeorm/models/Prova';
+import { ProvaInscricao } from '../../../shared/infra/typeorm/models/ProvaInscricao';
+import { QuestaoInscricao } from '../../../shared/infra/typeorm/models/QuestaoInscricao';
 
 @injectable()
 export class SubscribeParticipantService implements SubscribeParticipant {

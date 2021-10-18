@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
-import { CoursesRepository } from '../../repositories/coursesRepository';
-import { ParticipantsRepository } from '../../repositories/participantRepository';
+import { CoursesRepository } from '../../../../modules/repositories/coursesRepository';
+import { ParticipantsRepository } from '../../../../modules/repositories/participantRepository';
 import { Curso } from '../models/Curso';
 import { Participante } from '../models/Participante';
 

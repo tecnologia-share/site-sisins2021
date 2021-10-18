@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 
 export const subscribeParticipants = async (
   courseId: string,

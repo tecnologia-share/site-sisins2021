@@ -6,7 +6,7 @@ import {
 import {
   DbCoursesRepository,
   DbParticipantRepository,
-} from '../../modules/typeorm/repositories';
+} from '../infra/typeorm/repositories';
 
 export { container };
 

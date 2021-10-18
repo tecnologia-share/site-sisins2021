@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 /**
  * criar um curso, se passar o id de um processo seletivo inativo, o curso também será inativo
  * @param  {string} selectionProcessId ID processo seletivo(ativo ou inativo)
