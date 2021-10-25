@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { AppError } from '../../../errors/AppError';
-import { UsuarioShare } from '../../../../modules/typeorm/models/UsuarioShare';
+import { UsuarioShare } from '../../typeorm/models/UsuarioShare';
 
 interface StringArray {
   includes(role: string | undefined): boolean;

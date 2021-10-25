@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
-import { Curso } from '../typeorm/models/Curso';
-import { ProcessoSeletivo } from '../typeorm/models/ProcessoSeletivo';
-import { UsuarioShare } from '../typeorm/models/UsuarioShare';
+import { Curso } from '../../shared/infra/typeorm/models/Curso';
+import { ProcessoSeletivo } from '../../shared/infra/typeorm/models/ProcessoSeletivo';
+import { UsuarioShare } from '../../shared/infra/typeorm/models/UsuarioShare';
 import { CourseStates } from '../../shared/typings/CourseStates';
 import { AppError } from '../../shared/errors/AppError';
 

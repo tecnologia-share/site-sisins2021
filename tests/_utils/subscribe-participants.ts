@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 
 export const subscribeParticipants = async (
   courseId: string,
@@ -10,9 +10,11 @@ export const subscribeParticipants = async (
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId,
-        reason: 'My Reason',
-        videoLink: 'link',
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          videoLink: 'link',
+        },
       });
   }
 };

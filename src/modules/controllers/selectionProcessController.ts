@@ -3,8 +3,8 @@ import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../shared/errors/AppError';
 import { ValidDate } from '../../shared/utils/ValidDate';
-import { ProcessoSeletivo } from '../typeorm/models/ProcessoSeletivo';
-import { UsuarioShare } from '../typeorm/models/UsuarioShare';
+import { ProcessoSeletivo } from '../../shared/infra/typeorm/models/ProcessoSeletivo';
+import { UsuarioShare } from '../../shared/infra/typeorm/models/UsuarioShare';
 
 class selectionProcessController {
   async create(request: Request, response: Response, _next: NextFunction) {
@@ -65,14 +65,8 @@ class selectionProcessController {
   }
 
   async update(request: Request, response: Response, _next: NextFunction) {
-    const {
-      id,
-      name,
-      startDate,
-      endDate,
-      editalLink,
-      manualLink,
-    } = request.body;
+    const { id, name, startDate, endDate, editalLink, manualLink } =
+      request.body;
     const { userId } = request;
 
     const usersRepository = getRepository(UsuarioShare);

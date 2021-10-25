@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
 import {
   createAdmin,
@@ -9,10 +9,10 @@ import {
   genTokenAdmin,
   getTokenSubscribeBlocked,
 } from '../../_utils';
-import { Participante } from '../../../src/modules/typeorm/models/Participante';
-import { Curso } from '../../../src/modules/typeorm/models/Curso';
-import { Prova } from '../../../src/modules/typeorm/models/Prova';
-import { Questao } from '../../../src/modules/typeorm/models/Questao';
+import { Participante } from '@/shared/infra/typeorm/models/Participante';
+import { Curso } from '@/shared/infra/typeorm/models/Curso';
+import { Prova } from '@/shared/infra/typeorm/models/Prova';
+import { Questao } from '@/shared/infra/typeorm/models/Questao';
 
 let token: string;
 let connection: Connection;
@@ -145,14 +145,16 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId,
-        reason: 'My Reason',
-        videoLink: 'link',
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          videoLink: 'link',
+        },
       });
 
     expect(response.body.message).toBe('Successful subscription.');
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('subscription');
+    expect(response.body).toHaveProperty('subscription1');
   });
 
   it('Should not be possible to enroll for a course that is not open for subscriptions.', async () => {
@@ -160,8 +162,10 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId: courseInactiveId,
-        reason: 'My Reason',
+        option1: {
+          courseId: courseInactiveId,
+          reason: 'My Reason',
+        },
       });
 
     expect(response.status).toBe(400);
@@ -175,40 +179,42 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        reason: 'My Reason',
+        option1: {
+          reason: 'My Reason',
+        },
       });
 
     const responseWithouReason = await request(app)
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId,
+        option1: {
+          courseId,
+        },
       });
 
     const responseWithExamAnswersMalformed = await request(app)
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId,
-        reason: 'My Reason',
-        examAnswers: [
-          {
-            questionId: 'questionId',
-          },
-        ],
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          examAnswers: [
+            {
+              questionId: 'questionId',
+            },
+          ],
+        },
       });
 
     expect(responseWithoutCourseId.status).toBe(400);
-    expect(responseWithoutCourseId.body.message).toBe(
-      'courseId is a required field'
-    );
+    expect(responseWithoutCourseId.body).toHaveProperty('validationError');
     expect(responseWithouReason.status).toBe(400);
-    expect(responseWithoutCourseId.body.message).toBe(
-      'courseId is a required field'
-    );
+    expect(responseWithoutCourseId.body).toHaveProperty('validationError');
     expect(responseWithExamAnswersMalformed.status).toBe(400);
-    expect(responseWithExamAnswersMalformed.body.message).toBe(
-      'examAnswers[0].response is a required field'
+    expect(responseWithExamAnswersMalformed.body).toHaveProperty(
+      'validationError'
     );
   });
 
@@ -217,8 +223,10 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId: 'nonexistent_id',
-        reason: 'My Reason',
+        option1: {
+          courseId: 'nonexistent_id',
+          reason: 'My Reason',
+        },
       });
 
     expect(response.body.message).toBe('Course not found.');
@@ -230,9 +238,11 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId: courseWithExamId,
-        reason: 'My Reason',
-        examAnswers: [],
+        option1: {
+          courseId: courseWithExamId,
+          reason: 'My Reason',
+          examAnswers: [],
+        },
       });
 
     expect(response.body.message).toBe('Some answer is missing.');
@@ -244,19 +254,21 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId: courseWithExamId,
-        reason: 'My Reason',
-        examAnswers: [
-          {
-            questionId,
-            response: 2,
-          },
-        ],
+        option1: {
+          courseId: courseWithExamId,
+          reason: 'My Reason',
+          examAnswers: [
+            {
+              questionId,
+              response: 2,
+            },
+          ],
+        },
       });
 
     expect(response.body.message).toBe('Successful subscription.');
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('subscription');
+    expect(response.body).toHaveProperty('subscription1');
   });
 
   it('Should not be possible to enroll in more than two courses.', async () => {
@@ -264,8 +276,10 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId: thirdCourseId,
-        reason: 'My Reason',
+        option1: {
+          courseId: thirdCourseId,
+          reason: 'My Reason',
+        },
       });
 
     expect(response.body.message).toBe(
@@ -279,14 +293,16 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${token}` })
       .send({
-        courseId,
-        reason: 'My Reason',
-        examAnswers: [
-          {
-            questionId,
-            response: 1,
-          },
-        ],
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          examAnswers: [
+            {
+              questionId,
+              response: 1,
+            },
+          ],
+        },
       });
 
     expect(response.body.message).toBe(
@@ -300,14 +316,16 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: 'invalid_token' })
       .send({
-        courseId,
-        reason: 'My Reason',
-        examAnswers: [
-          {
-            questionId,
-            response: 2,
-          },
-        ],
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          examAnswers: [
+            {
+              questionId,
+              response: 2,
+            },
+          ],
+        },
       });
 
     expect(response.status).toBe(401);
@@ -318,9 +336,11 @@ describe('Subscriptions tests', () => {
       .post('/api/subscriptions')
       .set({ authorization: `Bearer ${tokenParticipantBlocked}` })
       .send({
-        courseId,
-        reason: 'My Reason',
-        videoLink: 'link',
+        option1: {
+          courseId,
+          reason: 'My Reason',
+          videoLink: 'link',
+        },
       });
 
     expect(response.body.message).toBe('Participant is blocked');

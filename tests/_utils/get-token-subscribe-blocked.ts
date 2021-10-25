@@ -1,10 +1,10 @@
 import { Connection, getRepository } from 'typeorm';
 
 import request from 'supertest';
-import app from '../../src/shared/infra/http/app';
-import { Participante } from '../../src/modules/typeorm/models/Participante';
-import { SubscriptionStatus } from '../../src/shared/typings/SubscriptionStatus';
-import { Inscricao } from '../../src/modules/typeorm/models/Inscricao';
+import app from '@/shared/infra/http/app';
+import { Participante } from '@/shared/infra/typeorm/models/Participante';
+import { SubscriptionStatus } from '@/shared/typings/SubscriptionStatus';
+import { Inscricao } from '@/shared/infra/typeorm/models/Inscricao';
 
 export const getTokenSubscribeBlocked = async (
   connection: Connection,

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 import { Connection, createConnection, getRepository } from 'typeorm';
 import {
   createAdmin,
@@ -7,7 +7,7 @@ import {
   genTokenAdmin,
   genTokenNonAdmin,
 } from '../../_utils';
-import { Questao } from '../../../src/modules/typeorm/models/Questao';
+import { Questao } from '@/shared/infra/typeorm/models/Questao';
 
 let adminToken: string;
 let nonAdminToken: string;

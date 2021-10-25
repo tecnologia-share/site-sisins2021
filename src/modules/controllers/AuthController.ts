@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
 import { AppError } from '../../shared/errors/AppError';
-import { Participante } from '../typeorm/models/Participante';
+import { Participante } from '../../shared/infra/typeorm/models/Participante';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UsuarioShare } from '../typeorm/models/UsuarioShare';
+import { UsuarioShare } from '../../shared/infra/typeorm/models/UsuarioShare';
 import { env } from '../../config/env';
 
 class AuthController {

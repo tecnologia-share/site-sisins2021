@@ -1,11 +1,11 @@
 import request from 'supertest';
-import app from '../../../src/shared/infra/http/app';
+import app from '@/shared/infra/http/app';
 import { Connection, createConnection } from 'typeorm';
-import { Curso } from '../../../src/modules/typeorm/models/Curso';
-import { Inscricao } from '../../../src/modules/typeorm/models/Inscricao';
-import { Participante } from '../../../src/modules/typeorm/models/Participante';
-import { ProcessoSeletivo } from '../../../src/modules/typeorm/models/ProcessoSeletivo';
-import { SubscriptionStatus } from '../../../src/shared/typings/SubscriptionStatus';
+import { Curso } from '@/shared/infra/typeorm/models/Curso';
+import { Inscricao } from '@/shared/infra/typeorm/models/Inscricao';
+import { Participante } from '@/shared/infra/typeorm/models/Participante';
+import { ProcessoSeletivo } from '@/shared/infra/typeorm/models/ProcessoSeletivo';
+import { SubscriptionStatus } from '@/shared/typings/SubscriptionStatus';
 
 let token: string;
 let connection: Connection;
@@ -100,8 +100,10 @@ const enrollInTheCourses = async () => {
     .post('/api/subscriptions')
     .set({ authorization: `Bearer ${token}` })
     .send({
-      courseId,
-      reason: 'My Reason',
+      option1: {
+        courseId,
+        reason: 'My Reason',
+      },
     });
 };
 
