@@ -20,23 +20,35 @@ Avaliar um participante alterando o status da inscrição, e se o status for de 
 
 </br>
 
+- **Request body**
+
+  ```json
+  {
+    "id": "string",
+    "status": "string"
+  }
+  ```
+
+</br>
+
 - **Success Response:**
 
   - **Code:** 200 OK
 
     **Content:**
 
-     ```json
+    ```json
     {
-      "status": "APPROVED",
+      "status": "APPROVED"
     }
     ```
+
     OR
 
     ```json
     {
       "status": "DROPPED_OUT",
-      "blocked_date": "Mon Oct 03 2022",
+      "blocked_date": "Mon Oct 03 2022"
     }
     ```
 
@@ -50,7 +62,7 @@ Avaliar um participante alterando o status da inscrição, e se o status for de 
 
     OR
 
-   - **Code:** 401 UNAUTHORIZED
+  - **Code:** 401 UNAUTHORIZED
 
     **Content:** `{ "message": "You are not authorized to access this route" }`
 

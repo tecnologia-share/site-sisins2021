@@ -22,15 +22,26 @@ Se o curso é continuação de outro e o participante já concluiu o anterior, o
 
 </br>
 
-- **Data Params**
+- **Request body**
 
-  `courseId: string`
+  ```json
+  {
+    "option1": {
+      "courseId": "string",
+      "reason": "string",
+      "videoLink": "string",
+      "examAnswers": [{ "questionId": "string", "response": "number" }]
+    },
+    "option2": {
+      "courseId": "string",
+      "reason": "string",
+      "videoLink": "string",
+      "examAnswers": [{ "questionId": "string", "response": "number" }]
+    }
+  }
+  ```
 
-  `reason: string`
-
-  `videoLink?: string`
-
-  `examAnswers?: Array<{ questionId: string; response: string }>`
+  Required Fields: ["option1", "courseId", "reason" ]
 
 </br>
 
