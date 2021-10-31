@@ -2,18 +2,18 @@ import { Router } from 'express';
 
 import { verifyJWT } from './middlewares/verifyJWT';
 import { verifyShareJWT } from './middlewares/verifyShareJWT';
-import AuthController from '@/modules/controllers/AuthController';
-import ExamsController from '@/modules/controllers/ExamsController';
-import CoursesController from '@/modules/controllers/coursesController';
-import ParticipantsController from '@/modules/controllers/ParticipantsController';
-import SelectionProcessController from '@/modules/controllers/selectionProcessController';
 import SubscriptionsController from '@/modules/subscriptions/controllers/SubscriptionsController';
-import SuperAdminController from '@/modules/controllers/superAdmin/SuperAdminController';
+import SuperAdminController from '@/modules/superAdmin/controllers/SuperAdminController';
 import { accessOnlyFor } from './middlewares/accessOnlyFor';
 import { UserRoles } from '../../typings/UserRoles';
-import AsksController from '@/modules/controllers/asks/asksController';
 import { validationMiddleware } from './middlewares/validation';
 import { subscribeParticipantValidationSchema } from './validations/schemas/subscribeParticipantSchema';
+import CoursesController from '@/modules/courses/controllers/coursesController';
+import ParticipantsController from '@/modules/participants/controllers/ParticipantsController';
+import AsksController from '@/modules/asks/controllers/asksController';
+import ExamsController from '@/modules/exams/controllers/ExamsController';
+import AuthController from '@/modules/login/controllers/AuthController';
+import SelectionProcessController from '@/modules/selectionProcess/controllers/selectionProcessController';
 
 const routes = Router();
 

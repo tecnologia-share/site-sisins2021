@@ -1,10 +1,11 @@
+import { AsksDTO } from '@/modules/asks/dto/asksDTO';
+import { AppError } from '@/shared/errors/AppError';
+import { Pergunta } from '@/shared/infra/typeorm/models/Pergunta';
+import { AsksTypes } from '@/shared/typings/AsksTypes';
+
 import { NextFunction, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as yup from 'yup';
-import { AppError } from '../../../shared/errors/AppError';
-import { Pergunta } from '../../../shared/infra/typeorm/models/Pergunta';
-import { AsksDTO } from './dto/asksDTO';
-import { AsksTypes } from '../../../shared/typings/AsksTypes';
 
 class AsksController {
   async create(request: Request, response: Response, _next: NextFunction) {
