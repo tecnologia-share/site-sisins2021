@@ -1,37 +1,24 @@
+import { Dictionary, groupBy, keyBy } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
-import { groupBy, Dictionary, keyBy } from 'lodash';
-
+import Button from '../../components/Button';
+import CardCourse from './CardCourse';
+import CardSelectedCourse from './CardSelectedCourse';
+import EmptyCourses from './EmptyCourses';
+import ModalCourseRequirement from './ModalCourseRequirement';
 import {
+  CardSelectCourseContainer,
+  CategoryTitle,
   Container,
-  SectionOptions,
+  CoursesContainer,
   SectionCourses,
-  TextOption,
+  SectionOptions,
+  SelectedCardsContainer,
   SwapContainer,
   SwapIcon,
-  CoursesContainer,
-  CategoryTitle,
+  TextOption,
   WelcomeTitle,
-  CardSelectCourseContainer,
-  SelectedCardsContainer,
 } from './styles';
-import ModalCourseRequirement from './ModalCourseRequirement';
-import EmptyCourses from './EmptyCourses';
-import CardSelectedCourse from './CardSelectedCourse';
-import CardCourse from './CardCourse';
-import Button from '../../components/Button';
-
-interface Course {
-  id: string;
-  name: string;
-  category: string;
-  description: string;
-  time: string;
-  professor: string;
-  hasExam: boolean;
-  numberOfQuestions: number;
-  selectionProcessId: string;
-  created_at: string;
-}
+import { Course } from './types/Course';
 
 const databaseCourses: Course[] = [
   {
