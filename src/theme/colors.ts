@@ -12,6 +12,7 @@ export const colors = {
     '8': 'rgb(255, 251, 251, 0.4)',
     '9': '#B6B6B6',
     '10': '#8B8B8B',
+    '11': '#E5E5E5',
   },
   blue: '#3482fb',
   blues: {
