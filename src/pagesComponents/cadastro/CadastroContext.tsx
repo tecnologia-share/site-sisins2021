@@ -37,7 +37,7 @@ export interface CadastroData {
 }
 
 export const CadastroContextProvider = ({ children }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const [asks, setAsks] = useState<Ask[]>([]);
   const [cadastroData, setCadastroData] = useState({} as CadastroData);
 

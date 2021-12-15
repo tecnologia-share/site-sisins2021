@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import api from 'services/api';
-import { ApiGetAsks, Register, RegisterReturn } from './types';
+import { ApiGetAsks, ApiGetCourses, Register, RegisterReturn } from './types';
 
 const useApi = () => {
   const apiGetAsks = useCallback(async () => {
@@ -11,7 +11,11 @@ const useApi = () => {
     return api.post<RegisterReturn>('/api/register', data);
   }, []);
 
-  return { apiGetAsks, apiRegister };
+  const apiGetCourses = useCallback(async () => {
+    return api.get<ApiGetCourses>('/api/courses');
+  }, []);
+
+  return { apiGetAsks, apiRegister, apiGetCourses };
 };
 
 export default useApi;
