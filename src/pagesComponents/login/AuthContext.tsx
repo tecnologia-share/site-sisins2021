@@ -37,6 +37,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
+
+      setCookie(undefined, 'share.refreshToken', data.refresh_token, {
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: '/',
+      });
       api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
       setUser({ email, token: data.token });
 
