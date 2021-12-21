@@ -1,5 +1,6 @@
 import useApi from 'hooks/useApi';
 import { Dictionary, groupBy, keyBy } from 'lodash';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import CardCourse from './CardCourse';
@@ -36,6 +37,7 @@ const Inscricoes = () => {
   const { apiGetCourses } = useApi();
   const [firstId, setFirstId] = useState('');
   const [secondaryId, setSecondaryId] = useState('');
+  const router = useRouter();
 
   const setCourse = useCallback(
     (courseId: string) => {
@@ -132,6 +134,23 @@ const Inscricoes = () => {
     });
   }, [apiGetCourses]);
 
+  const handleSubmit = () => {
+    router.push(
+      {
+        pathname: '/incricoes/concluir',
+        query: {
+          course1: JSON.stringify({
+            firstId,
+          }),
+          course2: JSON.stringify({
+            secondaryId,
+          }),
+        },
+      },
+      '/incricoes/concluir'
+    );
+  };
+
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -169,7 +188,7 @@ const Inscricoes = () => {
                   />
                 </CardSelectCourseContainer>
               </SelectedCardsContainer>
-              <Button enabled={!!firstId} size="small">
+              <Button onClick={handleSubmit} enabled={!!firstId} size="small">
                 Continuar inscrição
               </Button>
             </SectionOptions>
