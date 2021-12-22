@@ -1,6 +1,13 @@
 import { useCallback } from 'react';
 import api from 'services/api';
-import { ApiGetAsks, Register, RegisterReturn } from './types';
+import {
+  ApiGetAsks,
+  Exam,
+  Register,
+  RegisterReturn,
+  SubscribeInCoursesParams,
+  SubscribeInCoursesResponse,
+} from './types';
 
 const useApi = () => {
   const apiGetAsks = useCallback(async () => {
@@ -11,7 +18,29 @@ const useApi = () => {
     return api.post<RegisterReturn>('/api/register', data);
   }, []);
 
-  return { apiGetAsks, apiRegister };
+  const apiGetCourseExam = useCallback(async (id: string) => {
+    return api.get<{ exam: Exam }>(`/api/courses/${id}/exam`);
+  }, []);
+
+  const apiSubscribeInCourses = useCallback(
+    async (courses: SubscribeInCoursesParams) => {
+      /** @TODO pegar o Access Token */
+      const token = '123';
+
+      return api.post<SubscribeInCoursesResponse>(
+        '/api/subscriptions',
+        courses,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
+    []
+  );
+
+  return { apiGetAsks, apiRegister, apiGetCourseExam, apiSubscribeInCourses };
 };
 
 export default useApi;
