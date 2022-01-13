@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import Lottie from 'react-lottie';
 import boyNotebook from '../../assets/lotties/boy-notebook.json';
 import boyTopBook from '../../assets/lotties/boy-on-top-book.json';
@@ -21,8 +20,6 @@ import {
 } from './styles';
 
 const Home = () => {
-  const router = useRouter();
-
   return (
     <>
       <Container>
@@ -111,27 +108,27 @@ const Home = () => {
             />
           </LottieWrapper>
           <RowTitle>
-            "Conectar o desejo de ensinar com a vontade de aprender"
+            &quot;Conectar o desejo de ensinar com a vontade de aprender&quot;
           </RowTitle>
           <RowTextContainer>
             <RowTextItem>
-              "Fazer o curso de oratória na share, para mim, foi incrível! Além
-              de ter a oportunidade de conhecer pessoas de outros cursos e
+              &quot;Fazer o curso de oratória na share, para mim, foi incrível!
+              Além de ter a oportunidade de conhecer pessoas de outros cursos e
               pessoas de fora da UFSCar, as aulas me proporcionaram um
               aprendizado muito rico sobre técnicas de apresentação, como se
               portar durante um discurso e como ser claro e coerente ao passar
               uma mensagem verbal. Indico a Share para todos aqueles que tem
-              vontade de aprender de uma forma inovadora!"<br></br>
+              vontade de aprender de uma forma inovadora!&quot;<br></br>
               <b>- Vitória Benevenuto, foi aluna do curso de Oratória</b>
             </RowTextItem>
             <RowTextItem>
-              "Eu fiz o curso de espanhol pós intermediário e foi muito bom,
-              gostei muito da relação aluno-professor que eu tive com a minha
-              professora (tanto que agora ela é minha aluna de alemão). Já sabia
-              muito do idioma, mas eu não tinha nenhuma prova ou certificado e
-              isso me ajudou muito; quase fui contratada como professora de
-              espanhol esse ano, mas por não atender meu horario de
-              disponibilidade mesmo que eu não consegui"<br></br>
+              &quot;Eu fiz o curso de espanhol pós intermediário e foi muito
+              bom, gostei muito da relação aluno-professor que eu tive com a
+              minha professora (tanto que agora ela é minha aluna de alemão). Já
+              sabia muito do idioma, mas eu não tinha nenhuma prova ou
+              certificado e isso me ajudou muito; quase fui contratada como
+              professora de espanhol esse ano, mas por não atender meu horario
+              de disponibilidade mesmo que eu não consegui&quot;<br></br>
               <b>
                 - Helena do Carmo, foi aluna do curso de Espanhol
                 Pós-intermediário
