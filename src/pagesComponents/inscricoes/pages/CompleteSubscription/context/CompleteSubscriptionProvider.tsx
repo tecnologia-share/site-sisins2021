@@ -31,14 +31,18 @@ export const CompleteSubscriptionProvider = ({
     return {
       option1: {
         ...course1,
+        courseId: course1.id,
         reason: '',
         examCompleted: false,
+        examAnswers: [],
       },
       option2: course2
         ? {
             ...course2,
+            courseId: course2.id,
             reason: '',
             examCompleted: false,
+            examAnswers: [],
           }
         : undefined,
     };
@@ -96,8 +100,7 @@ export const CompleteSubscriptionProvider = ({
   const submit = useCallback(async () => {
     setLoadingSubmit(true);
 
-    /** @TODO implementar */
-    // apiSubscribeInCourses(courses);
+    apiSubscribeInCourses(courses);
 
     setLoadingSubmit(false);
   }, [apiSubscribeInCourses, courses]);

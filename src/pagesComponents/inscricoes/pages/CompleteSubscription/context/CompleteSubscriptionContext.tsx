@@ -38,7 +38,8 @@ export interface Courses {
 }
 
 interface CourseToSubmit extends Course, Reason {
-  examAnswers?: ExamAnswer[];
+  courseId: string;
+  examAnswers: ExamAnswer[];
   examCompleted: boolean;
 }
 
@@ -49,5 +50,5 @@ export interface Reason {
 
 export interface ExamAnswer {
   questionId: string;
-  response: string;
+  response: number;
 }

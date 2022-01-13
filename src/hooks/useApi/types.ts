@@ -63,7 +63,7 @@ export interface SubscribeInCoursesParams {
 export interface CourseToSubscribe {
   courseId: string;
   reason: string;
-  videoLink: string;
+  videoLink?: string;
   examAnswers: Array<{ questionId: string; response: number }>;
 }
 
