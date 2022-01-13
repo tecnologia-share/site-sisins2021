@@ -1,5 +1,8 @@
 export const colors = {
   white: '#ffffff',
+  whites: {
+    '0': 'rgba(255, 251, 251, 0.2)',
+  },
   grays: {
     '0': '#F8F8F8',
     '1': '#EDEDED',
@@ -32,6 +35,7 @@ export const colors = {
     '1': '#4db972',
     '2': '#f2fff4',
     '3': 'rgba(77, 185, 114, 0.5)',
+    '4': '#A4E887',
   },
   black: '#000000',
   blacks: {
