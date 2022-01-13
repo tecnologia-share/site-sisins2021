@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint --ext .ts,.tsx src",
     "prettier:write": "prettier --write src",
     "prettier:check": "prettier --check src"
