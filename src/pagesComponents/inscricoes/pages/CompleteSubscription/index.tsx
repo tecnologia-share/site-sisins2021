@@ -6,8 +6,6 @@ import { StartExams } from './pages/StartExams';
 export const CompleteSubscription = () => {
   const { currentPage } = useContext(CompleteSubscriptionContext);
 
-  return <Exam />;
-
   switch (currentPage) {
     case 'StartExams': {
       return <StartExams />;

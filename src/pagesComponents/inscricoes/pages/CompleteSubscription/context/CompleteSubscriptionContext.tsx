@@ -1,8 +1,11 @@
+import { Exam } from 'hooks/useApi/types';
 import { Course } from 'pagesComponents/inscricoes/types/Course';
 import { createContext } from 'react';
 
 interface CompleteSubscriptionContextProps {
   courses: Courses;
+
+  currentExam?: Exam;
 
   startFirstExam: () => void;
   startSecondaryExam: () => void;
@@ -11,8 +14,7 @@ interface CompleteSubscriptionContextProps {
   loadingFirstExam: boolean;
   loadingSecondaryExam: boolean;
 
-  setFirstCourseAnswers: (answers: ExamAnswer[]) => void;
-  setSecondaryCourseAnswers: (answers: ExamAnswer[]) => void;
+  setExamAnswers: (answers: ExamAnswer[]) => void;
 
   setFirstCourseReason: (reason: Reason) => void;
   setSecondaryCourseReason: (reason: Reason) => void;
@@ -31,12 +33,13 @@ export const CompleteSubscriptionContext = createContext(
 );
 
 export interface Courses {
-  first: CourseToSubmit;
-  secondary?: CourseToSubmit;
+  option1: CourseToSubmit;
+  option2?: CourseToSubmit;
 }
 
 interface CourseToSubmit extends Course, Reason {
-  examAnswers?: ExamAnswer[];
+  courseId: string;
+  examAnswers: ExamAnswer[];
   examCompleted: boolean;
 }
 
@@ -47,5 +50,5 @@ export interface Reason {
 
 export interface ExamAnswer {
   questionId: string;
-  response: string;
+  response: number;
 }
