@@ -139,12 +139,8 @@ const Inscricoes = () => {
       {
         pathname: '/inscricoes/concluir',
         query: {
-          course1: JSON.stringify({
-            firstId,
-          }),
-          course2: JSON.stringify({
-            secondaryId,
-          }),
+          course1: JSON.stringify(firstId),
+          course2: JSON.stringify(secondaryId),
         },
       },
       '/inscricoes/concluir'
