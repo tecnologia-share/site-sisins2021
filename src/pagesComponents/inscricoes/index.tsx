@@ -137,7 +137,7 @@ const Inscricoes = () => {
   const handleSubmit = () => {
     router.push(
       {
-        pathname: '/incricoes/concluir',
+        pathname: '/inscricoes/concluir',
         query: {
           course1: JSON.stringify({
             firstId,
@@ -147,7 +147,7 @@ const Inscricoes = () => {
           }),
         },
       },
-      '/incricoes/concluir'
+      '/inscricoes/concluir'
     );
   };
 
