@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie } from 'nookies';
+import { signOut } from 'pagesComponents/login/AuthContext';
 
 let cookies = parseCookies();
 let isRefreshing = false;
@@ -16,7 +17,8 @@ api.interceptors.response.use(
   (res) => {
     return res;
   },
-  ({ response, config }: AxiosError) => {
+  (error: AxiosError) => {
+    const { response, config } = error;
     if (response.status === 401) {
       if (response.data?.message === 'Token Expired') {
         cookies = parseCookies();
@@ -71,9 +73,11 @@ api.interceptors.response.use(
             },
           });
         });
+      } else {
+        signOut();
       }
-    } else {
     }
+    return Promise.reject(error);
   }
 );
 

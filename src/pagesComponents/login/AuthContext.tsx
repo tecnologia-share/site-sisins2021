@@ -1,7 +1,8 @@
-import { useRouter } from 'next/router';
-import { setCookie } from 'nookies';
+import Router, { useRouter } from 'next/router';
+import { destroyCookie, setCookie } from 'nookies';
 import React, { createContext, ReactNode, useState } from 'react';
 import api from 'services/api';
+
 export interface UserCredentials {
   email: string;
   password: string;
@@ -21,6 +22,12 @@ type AuthContextData = {
 export const AuthContext = createContext<AuthContextData>(
   {} as AuthContextData
 );
+
+export function signOut() {
+  destroyCookie(undefined, 'share.token');
+  destroyCookie(undefined, 'share.refreshToken');
+  Router.push('/login');
+}
 
 type AuthProviderProps = {
   children: ReactNode;
