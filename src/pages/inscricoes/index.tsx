@@ -5,7 +5,7 @@ const InscricoesPage = () => {
   return <Inscricoes />;
 };
 
-export const getServerSideProps = withSSRAuth(async (ctx) => {
+export const getServerSideProps = withSSRAuth(async () => {
   return {
     props: {},
   };
