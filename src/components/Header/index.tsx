@@ -1,20 +1,30 @@
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { AuthContext, signOut } from '../../pagesComponents/login/AuthContext';
 import {
+  ButtonsContainer,
   Container,
   Content,
-  ButtonsContainer,
-  NavButton,
   Logo,
+  NavButton,
+  UserIcon,
+  UserIconContainer,
   UserInfoContainer,
   UserText,
-  UserIconContainer,
-  UserIcon,
 } from './styles';
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const { isAuthenticated } = useContext(AuthContext);
+
+  const login = () => {
+    if (!isAuthenticated) {
+      signOut();
+    } else {
+      router.push('/login');
+    }
+  };
 
   return (
     <Container>
@@ -38,7 +48,9 @@ const Header: React.FC = () => {
         </ButtonsContainer>
 
         <UserInfoContainer>
-          <UserText>Faça login</UserText>
+          <UserText onClick={login}>
+            {isAuthenticated ? 'Logout' : 'Faça login'}
+          </UserText>
           <UserIconContainer>
             <UserIcon src="/icons/User.svg" />
           </UserIconContainer>
