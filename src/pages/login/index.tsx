@@ -4,7 +4,7 @@ const LoginPage = () => {
   return <Login />;
 };
 
-export const getServerSideProps = withSSRGuest(async (ctx) => {
+export const getServerSideProps = withSSRGuest(async () => {
   return {
     props: {},
   };

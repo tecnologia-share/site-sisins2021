@@ -1,4 +1,6 @@
+import useApi from 'hooks/useApi';
 import { Dictionary, groupBy, keyBy } from 'lodash';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import CardCourse from './CardCourse';
@@ -20,105 +22,6 @@ import {
 } from './styles';
 import { Course } from './types/Course';
 
-const databaseCourses: Course[] = [
-  {
-    id: '1',
-    name: 'Curso 1',
-    category: 'Idiomas',
-    description: 'Curso 1 description',
-    time: 'Das 8h às 10h',
-    professor: 'Rodrigo',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '2',
-    name: 'Curso 2',
-    category: 'Idiomas',
-    description: 'Curso 2 description',
-    time: 'Das 8h às 10h',
-    professor: 'Renan',
-    hasExam: true,
-    numberOfQuestions: 10,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '8',
-    name: 'Curso 3',
-    category: 'Idiomas',
-    description: 'Curso 3 description',
-    time: 'Das 8h às 10h',
-    professor: 'Renan',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '4',
-    name: 'Curso 4',
-    category: 'Idiomas',
-    description: 'Curso 4 description',
-    time: 'Das 8h às 10h',
-    professor: 'Renan',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '5',
-    name: 'Curso 5',
-    category: 'Idiomas',
-    description: 'Curso 5 description',
-    time: 'Das 8h às 10h',
-    professor: 'Renan',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '6',
-    name: 'Curso 6',
-    category: 'Idiomas',
-    description: 'Curso 6 description',
-    time: 'Das 8h às 10h',
-    professor: 'Renan',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '7',
-    name: 'Curso 7',
-    category: 'Idiomas',
-    description: 'Curso 7 description',
-    time: 'Das 8h às 10h',
-    professor: 'Renan',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-  {
-    id: '3',
-    name: 'Curso 8',
-    category: 'Outros',
-    description: 'Curso 8 description',
-    time: 'Das 8h às 10h',
-    professor: 'Matheus',
-    hasExam: false,
-    numberOfQuestions: 0,
-    selectionProcessId: '1',
-    created_at: '2021-03-17T21:20:20.143Z',
-  },
-];
-
 interface ModalState {
   open: boolean;
   courseTitle: string;
@@ -131,8 +34,10 @@ const Inscricoes = () => {
   const [categories, setCategories] = useState<Dictionary<Course[]>>({});
   const [coursesById, setCoursesById] = useState<Dictionary<Course>>({});
   const [loading, setLoading] = useState(true);
+  const { apiGetCourses } = useApi();
   const [firstId, setFirstId] = useState('');
   const [secondaryId, setSecondaryId] = useState('');
+  const router = useRouter();
 
   const setCourse = useCallback(
     (courseId: string) => {
@@ -219,15 +124,30 @@ const Inscricoes = () => {
   );
 
   useEffect(() => {
-    /** @TODO fetch courses from api */
-    const courses = databaseCourses;
+    apiGetCourses().then((response) => {
+      const { courses } = response.data;
+      const coursesByCategory = groupBy(courses, (course) => course.category);
+      const coursesById = keyBy(courses, (course) => course.id);
+      setCategories(coursesByCategory);
+      setCoursesById(coursesById);
+      setLoading(false);
+    });
+  }, [apiGetCourses]);
 
-    const coursesByCategory = groupBy(courses, (course) => course.category);
-    const coursesById = keyBy(courses, (course) => course.id);
-    setCategories(coursesByCategory);
-    setCoursesById(coursesById);
-    setLoading(false);
-  }, []);
+  const handleSubmit = useCallback(() => {
+    router.push(
+      {
+        pathname: '/inscricoes/concluir',
+        query: {
+          course1: JSON.stringify(coursesById[firstId]),
+          course2: secondaryId
+            ? JSON.stringify(coursesById[secondaryId])
+            : undefined,
+        },
+      },
+      '/inscricoes/concluir'
+    );
+  }, [coursesById, firstId, router, secondaryId]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -266,7 +186,7 @@ const Inscricoes = () => {
                   />
                 </CardSelectCourseContainer>
               </SelectedCardsContainer>
-              <Button enabled={!!firstId} size="small">
+              <Button onClick={handleSubmit} enabled={!!firstId} size="small">
                 Continuar inscrição
               </Button>
             </SectionOptions>

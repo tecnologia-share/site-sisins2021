@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import api from 'services/api';
 import {
   ApiGetAsks,
+  ApiGetCourses,
   Exam,
   Register,
   RegisterReturn,
@@ -40,7 +41,17 @@ const useApi = () => {
     []
   );
 
-  return { apiGetAsks, apiRegister, apiGetCourseExam, apiSubscribeInCourses };
+  const apiGetCourses = useCallback(async () => {
+    return api.get<ApiGetCourses>('/api/courses');
+  }, []);
+
+  return {
+    apiGetAsks,
+    apiRegister,
+    apiGetCourseExam,
+    apiGetCourses,
+    apiSubscribeInCourses,
+  };
 };
 
 export default useApi;
