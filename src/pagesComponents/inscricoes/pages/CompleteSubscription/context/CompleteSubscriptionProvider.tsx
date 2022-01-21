@@ -51,8 +51,10 @@ export const CompleteSubscriptionProvider = ({
   const [loadingSubmit, setLoadingSubmit] = useState(true);
   const [loadingFirstExam, setLoadingFirstExam] = useState(true);
   const [loadingSecondaryExam, setLoadingSecondaryExam] = useState(true);
-  const [currentPage, setCurrentPage] = useState<SubscriptionPages>(
-    'StartExams'
+  const [currentPage, setCurrentPage] = useState<SubscriptionPages>(() =>
+    courses.option1.hasExam || courses.option2?.hasExam
+      ? 'StartExams'
+      : 'Reason'
   );
   const [currentExam, setCurrentExam] = useState<Exam>({} as Exam);
   const [currentExamNumber, setCurrentExamNumber] = useState(0);
