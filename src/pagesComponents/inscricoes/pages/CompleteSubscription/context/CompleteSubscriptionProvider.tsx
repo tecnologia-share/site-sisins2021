@@ -51,9 +51,7 @@ export const CompleteSubscriptionProvider = ({
   const [loadingSubmit, setLoadingSubmit] = useState(true);
   const [loadingFirstExam, setLoadingFirstExam] = useState(true);
   const [loadingSecondaryExam, setLoadingSecondaryExam] = useState(true);
-  const [currentPage, setCurrentPage] = useState<SubscriptionPages>(
-    'StartExams'
-  );
+  const [currentPage, setCurrentPage] = useState<SubscriptionPages>('Reason');
   const [currentExam, setCurrentExam] = useState<Exam>({} as Exam);
   const [currentExamNumber, setCurrentExamNumber] = useState(0);
 

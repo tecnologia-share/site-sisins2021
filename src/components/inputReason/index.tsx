@@ -20,7 +20,7 @@ export interface InputProps
   iconOnClick?: () => void;
 }
 
-const Input: React.FC<InputProps> = ({
+const InputReason: React.FC<InputProps> = ({
   name,
   label,
   iconSrc,
@@ -51,9 +51,8 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container style={style}>
+    <Container>
       {label && <Label>{label}</Label>}
-
       <InputContainer>
         <CustomInput
           ref={inputRef}
@@ -61,6 +60,7 @@ const Input: React.FC<InputProps> = ({
           variant={variant}
           hasIcon={!!iconSrc}
           {...rest}
+          style={style}
         />
         <Icon
           iconcolor={iconColor}
@@ -71,7 +71,6 @@ const Input: React.FC<InputProps> = ({
           }}
         />
       </InputContainer>
-
       {(helperText || error) && (
         <HelperText variant={error ? 'error' : variant}>
           {error ? error : helperText}
@@ -81,4 +80,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default InputReason;

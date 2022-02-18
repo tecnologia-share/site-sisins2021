@@ -1,43 +1,30 @@
 import { useField } from '@unform/core';
 import { useEffect, useRef } from 'react';
-import {
-  Container,
-  CustomInput,
-  HelperText,
-  Icon,
-  InputContainer,
-  Label,
-} from './styles';
+import { Container, CustomTextArea, HelperText, TextContainer } from './styles';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
-  label?: string;
-  iconSrc?: string;
   variant?: 'error' | 'success';
   helperText?: string;
-  iconColor?: string;
-  iconOnClick?: () => void;
+  placeholder?: string;
 }
 
-const Input: React.FC<InputProps> = ({
+const TextField: React.FC<TextAreaProps> = ({
   name,
-  label,
-  iconSrc,
   variant,
   helperText,
-  iconColor,
   style,
-  iconOnClick,
+  placeholder,
   ...rest
 }) => {
   const { fieldName, defaultValue, registerField, error } = useField(name);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    registerField<HTMLInputElement>({
+    registerField<HTMLTextAreaElement>({
       name: fieldName,
-      ref: inputRef,
+      ref: textAreaRef,
       getValue: (ref) => {
         return ref.current.value;
       },
@@ -52,25 +39,15 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <Container style={style}>
-      {label && <Label>{label}</Label>}
-
-      <InputContainer>
-        <CustomInput
-          ref={inputRef}
+      <TextContainer>
+        <CustomTextArea
+          placeholder={placeholder}
+          ref={textAreaRef}
           defaultValue={defaultValue}
           variant={variant}
-          hasIcon={!!iconSrc}
           {...rest}
-        />
-        <Icon
-          iconcolor={iconColor}
-          src={iconSrc}
-          onMouseDown={(event) => {
-            event.preventDefault();
-            iconOnClick();
-          }}
-        />
-      </InputContainer>
+        ></CustomTextArea>
+      </TextContainer>
 
       {(helperText || error) && (
         <HelperText variant={error ? 'error' : variant}>
@@ -81,4 +58,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default TextField;
